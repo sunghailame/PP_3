@@ -10,11 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class userController {
+public class UserController {
+	@Autowired
+	
+	private UserRepository userRepository;
+	
 	
     @GetMapping("/login/signup")
     public String signup_from_login(Model model, user user) {
-    	model.addAttribute("user", new user());
+		user n = new user();
+    	model.addAttribute("user", n);
+		userRepository.save(n);
         return "login/signup";
     }
     
