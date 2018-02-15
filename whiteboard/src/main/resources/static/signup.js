@@ -15,7 +15,7 @@ sb.addEventListener("click", function(){
 if(x.value.length > 0 && x.value.search(/^[A-z]+$/) != -1 ){
 
 	good.push(true)
-	console.log("true")
+
 
 }
 else
@@ -36,8 +36,8 @@ else
 
 if(good[0] == true && good[1] == true){
 
-
 	window.location.href = "greeting.html"
+
 
 
 }

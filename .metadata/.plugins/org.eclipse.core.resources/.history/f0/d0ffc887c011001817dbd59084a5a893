@@ -1,0 +1,39 @@
+
+signup();
+
+function signup(){
+
+var x = document.getElementbyId("user")
+var y = document.getElementbyId("password")
+var z = document.getElementbyId("c-password")
+var good[2]
+
+sub.addEventListener("click", function(){
+
+
+if(x.length > 0 && x.value.search(/[^a-zA-Z]+/) != -1 ){
+
+	good[0] = true;
+
+}
+
+if(y.length > 0 && y.value == z.value){
+
+
+	good[1] = true;
+
+}
+
+
+if(good[0] == true && good[1] == true){
+
+
+	window.location.href = "greeting.html"
+
+
+}
+
+});
+
+
+}
