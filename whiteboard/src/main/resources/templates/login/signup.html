@@ -1,20 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    
+	
     <title>Sign up</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <h1>Sign Up Page</h1>
+	<h1>Sign Up Page</h1>
+<<<<<<< HEAD:whiteboard/src/main/resources/templates/login/signup.html
+    <form action="#" th:action="@{/login/signup}" th:object="${user}" method="post">
+    	<p>Username: <input type="text" th:field="*{username}" /></p>
+        <p>Password: <input type="text" th:field="*{password}" /></p>
+        <p>Repeat Password: <input type="text" th:field="*{password}" /></p>
+=======
    
-    <form action="#" th:action="@{/login}" th:object="${username}" method="post">
-        <p>Username: <input id="user" type="text" th:field="*{username}" /></p>
-        <p>Password: <input id="password" type="password" th:field="*{password}" /></p>
-        <p>Repeat Password: <input id="c-password" type="password" th:field="*{c-password}" /></p>
+
+    	<p>Username: <input id="user" type="text"  /></p>
+        <p>Password: <input id="password" type="password"  /></p>
+        <p>Repeat Password: <input id="c-password" type="password"  /></p>
+>>>>>>> 6493c9d5680e65f858ca257a21b64e156527618d:whiteboard/src/main/resources/templates/signup.html
         
         <p><input id ="sub" type="submit" value="Submit" /></p>
-    </form>
-        <script src="signup.js" type="text/javascript"></script>
+  		<script src="signup.js" type="text/javascript"></script>
 </body>
 </html>
