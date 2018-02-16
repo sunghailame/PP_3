@@ -1,11 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	
-    <title>Prof home</title>
+    <title>Student</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<p>In progress</p>
+	<h1>WIP - Student</h1>
+	<p th:text="'Hello, ' + ${user.username} + '!'" />
+	
+    <a href="whiteboard">Logout</a>
 </body>
 </html>

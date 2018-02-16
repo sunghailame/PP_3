@@ -11,7 +11,7 @@
     	<p>Username: <input id="user" type="text" th:field="*{username}" /></p>
     	<p>Email: <input id="email" type="text" th:field="*{email}" /></p>
     	<p>Id: <input id="identity" type="text" th:field="*{id}" /></p>
-    	<p>Name: <input id="name" type="text" th:field="*{name}" /></p>
+    	<p>Role: <input id="name" type="text" th:field="*{name}" /></p>
     	<p>Password: <input id="password" type="text" th:field="*{password}" /></p>
         <p>Repeat Password: <input id="c-password" type="text" th:field="*{cpassword}" /></p>
 
@@ -38,7 +38,6 @@
 				if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){
 				
 				    b = 1
-				    
 				    
 				  }
 				

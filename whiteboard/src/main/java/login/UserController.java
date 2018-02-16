@@ -20,18 +20,19 @@ public class UserController {
 
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute User user) {
-		if (user.username.contains("admin")) {
+		//TODO: Change name to role
+		if (user.name.contains("admin")) {
 			return "admin/admin_home";
-		} else if (user.username.contains("prof")) {
+		} else if (user.name.contains("prof")) {
 			return "prof/prof_home";
-		} else if (user.username.contains("student")) {
+		} else if (user.name.contains("student")) {
 			return "student/student_home";
 		}
 		return "login/greeting";
 	}
 	
 	@GetMapping("/login/signup")
-	public String signup_from_login(Model model, User user) {
+	public String signup_from_login(@ModelAttribute User user, Model model) {
 		User n = new User();
 		model.addAttribute("user", n);
 		// userRepository.save(n);
