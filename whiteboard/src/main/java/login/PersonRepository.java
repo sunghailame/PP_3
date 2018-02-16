@@ -2,6 +2,6 @@ package login;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface PersonRepository extends CrudRepository<Person, Long> {
 	
 }
