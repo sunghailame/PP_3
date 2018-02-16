@@ -1,5 +1,6 @@
 
-
+$(document).ready(function () 
+{
 
 function signup(){
 
@@ -40,6 +41,6 @@ else
 }
 
 });
-
+}); 
 
 }
