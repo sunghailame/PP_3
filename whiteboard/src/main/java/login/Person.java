@@ -1,6 +1,7 @@
 package login;
 
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,15 +12,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "Person")
 
-public class User {
+public class Person {
 
 	@NotEmpty
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	public Integer id;
+	@Column(name = "Name")
 	public String name;
 	public String email;
 	public String username;
+	@Column(name = "Password")
 	public String password;
 	public String cpassword;
 
@@ -31,11 +35,11 @@ public class User {
 		this.cpassword = cpassword;
 	}
 
-	public User() {
+	public Person() {
 		
 	}
 	
-	public User(String username, String password, String name, Integer id, String email, String cpassword) {
+	public Person(String username, String password, String name, Integer id, String email, String cpassword) {
 		super();
 		this.username = username;
 		this.password = password;
