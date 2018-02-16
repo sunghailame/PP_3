@@ -7,15 +7,94 @@
 </head>
 <body>
 	<h1>Sign Up Page</h1>
-    <form action="#" th:action="@{/login/signup}" th:object="${user}" method="post">
-    	<p>Username: <input type="text" th:field="*{username}" /></p>
-    	<p>Email: <input type="text" th:field="*{email}" /></p>
-    	<p>Id: <input type="text" th:field="*{id}" /></p>
-    	<p>Name: <input type="text" th:field="*{name}" /></p>
-        <p>Password: <input type="text" th:field="*{password}" /></p>
-        <p>Repeat Password: <input type="text" th:field="*{password}" /></p>
-        
+    <form action="#" th:action="@{/whiteboard}" th:object="${user}" method="post">
+    	<p>Username: <input id="user" type="text" th:field="*{username}" /></p>
+    	<p>Email: <input id="email" type="text" th:field="*{email}" /></p>
+    	<p>Id: <input id="identity" type="text" th:field="*{id}" /></p>
+    	<p>Name: <input id="name" type="text" th:field="*{name}" /></p>
+    	<p>Password: <input id="password" type="text" th:field="*{password}" /></p>
+        <p>Repeat Password: <input id="c-password" type="text" th:field="*{cpassword}" /></p>
+
         <p><input id ="sub" type="submit" value="Submit" /></p>
   		</form>
+  		<script>
+  		
+  		
+  		var a = 0
+  		var b = 0
+  		var c = 0
+  		var d = 0
+  		var e = 0
+  		
+  		
+			document.getElementById("sub").addEventListener("click", function(){
+			
+			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
+			
+			        a = 1
+			        
+			    }
+
+				if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){
+				
+				    b = 1
+				    
+				    
+				  }
+				
+				if(document.getElementById("password").value == document.getElementById("c-password").value){
+				
+				         c = 1
+				         
+				         
+				      }
+				         
+					if(document.getElementById("email").value.length > 0){
+					
+					      d = 1
+					      
+					      
+					   }
+					
+					    if(document.getElementById("identity").value.search(/^\d+$/) != -1){
+					    
+					        e = 1
+					    
+					    
+					    }
+					
+
+			if( a == 0){
+			
+			alert("name must be alphabets")
+			
+			}
+			
+			if( b == 0){
+			
+			alert("username must be alphabets")
+			
+			}
+			
+			if(c == 0){
+			
+			  alert("password fields are not the same")
+			
+			}
+			
+			if( d == 0){
+			
+			alert("wrong email format")
+			
+			}
+			
+			if( e == 0){
+			
+			  alert("id must be numbers")
+			}
+
+});
+
+  		</script>
 </body>
 </html>

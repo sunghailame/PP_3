@@ -1,5 +1,5 @@
 
-signup();
+
 
 function signup(){
 
@@ -18,10 +18,6 @@ if(x.value.length > 0 && x.value.search(/^[A-z]+$/) != -1 ){
 	console.log("true")
 
 }
-else
-{
-	alert("Invalid Username, please try again!")
-}
 
 if(y.value.length > 0 && y.value == z.value){
 
@@ -29,17 +25,18 @@ if(y.value.length > 0 && y.value == z.value){
 	good.push(true)
 
 }
-else
-{
-	alert("The passwords do not match, please try again!")
-}
+
 
 if(good[0] == true && good[1] == true){
 
+    console.log(good[0])
+	window.location.href = "login/signup"
 
-	window.location.href = "greeting.html"
 
-
+}
+else
+{
+	alert("The passwords do not match, please try again!")
 }
 
 });
