@@ -6,37 +6,41 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 public class UserController {
 	@Autowired
-	
+
 	private UserRepository userRepository;
+
+	@GetMapping("/whiteboard")
+	public String login_main(@ModelAttribute User user) {
+		return "whiteboard";
+	}
+
+	@PostMapping("/whiteboard")
+	public String home_from_login(@ModelAttribute User user) {
+		if (user.username.contains("admin")) {
+			return "admin/admin_home";
+		} else if (user.username.contains("prof")) {
+			return "prof/prof_home";
+		} else if (user.username.contains("student")) {
+			return "student/student_home";
+		}
+		return "login/greeting";
+	}
 	
-    @GetMapping("/login/signup")
-    public String signup_from_login(Model model, User user) {
+	@GetMapping("/login/signup")
+	public String signup_from_login(Model model, User user) {
 		User n = new User();
-    	model.addAttribute("user", n);
-		//userRepository.save(n);
-        return "login/signup";
-    }
-    
-     @PostMapping("/login/signup")
-    public String login_from_signup(@ModelAttribute User user) {
-        return "whiteboard";
-    }
-     
-    @GetMapping("/whiteboard")
-    public String login_main(@ModelAttribute User user) {
-    	return "whiteboard";
-    }
-    
-   @PostMapping("/whiteboard")
-   public String home_from_login(@ModelAttribute User user) {
-       return "login/greeting";
-   }
+		model.addAttribute("user", n);
+		// userRepository.save(n);
+		return "login/signup";
+	}
+
+	@PostMapping("/login/signup")
+	public String login_from_signup(@ModelAttribute User user) {
+		return "whiteboard";
+	}
 
 }

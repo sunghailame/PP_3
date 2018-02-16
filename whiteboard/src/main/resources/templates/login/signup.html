@@ -7,6 +7,7 @@
 </head>
 <body>
 	<h1>Sign Up Page</h1>
+<<<<<<< HEAD
     <form action="#" th:action="@{/login/signup}" th:object="${user}" method="post">
     	<p>Username: <input id="user" type="text" th:field="*{username}" /></p>
     	<p>Email: <input id="email" type="text" th:field="*{email}" /></p>
@@ -14,6 +15,16 @@
     	<p>Name: <input id="name" type="text" th:field="*{name}" /></p>
     <p>Password: <input id="password" type="text" th:field="*{password}" /></p>
         <p>Repeat Password: <input id="c-password" type="text" th:field="*{cpassword}" /></p>
+=======
+    <form action="#" th:action="@{/whiteboard}" th:object="${user}" method="post">
+    	<p>Username: <input type="text" th:field="*{username}" /></p>
+    	<p>Email: <input type="text" th:field="*{email}" /></p>
+    	<p>Id: <input type="text" th:field="*{id}" /></p>
+    	<p>Name: <input type="text" th:field="*{name}" /></p>
+        <p>Password: <input type="text" th:field="*{password}" /></p>
+        <p>Repeat Password: <input type="text" th:field="*{password}" /></p>
+        
+>>>>>>> 8f5039f57bf20431e381e15f1b7603cbcb17ae0f
         <p><input id ="sub" type="submit" value="Submit" /></p>
   		</form>
   		<script>
