@@ -1,6 +1,7 @@
 package login;
 
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,10 +17,13 @@ public class Person {
 	@NotEmpty
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	public Integer id;
+	@Column(name = "Name")
 	public String name;
 	public String email;
 	public String username;
+	@Column(name = "Password")
 	public String password;
 	public String cpassword;
 
