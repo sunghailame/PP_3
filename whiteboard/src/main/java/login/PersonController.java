@@ -20,7 +20,6 @@ public class PersonController {
 
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute Person user) {
-		System.out.println("\nPost mapping occurred!");
 		//TODO: Change name to role
 		/*if (user.name.contains("admin")) {
 			return "admin/admin_home";
