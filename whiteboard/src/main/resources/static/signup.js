@@ -1,4 +1,6 @@
 
+$(document).ready(function () {
+
 function signup(){
 
 var x = document.getElementById("user");
@@ -39,5 +41,5 @@ else
 
 });
 
-
+});
 }
