@@ -20,14 +20,15 @@ public class UserController {
 
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute User user) {
+		System.out.println("\nPost mapping occurred!");
 		//TODO: Change name to role
-		if (user.name.contains("admin")) {
+		/*if (user.name.contains("admin")) {
 			return "admin/admin_home";
 		} else if (user.name.contains("prof")) {
 			return "prof/prof_home";
 		} else if (user.name.contains("student")) {
 			return "student/student_home";
-		}
+		}*/
 		return "login/greeting";
 	}
 	
