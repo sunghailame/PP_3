@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PersonController {
 	@Autowired
 
-	Logger logger = Logger.getLogger(PersonController.class);
+	//Logger logger = Logger.getLogger(PersonController.class);
 	private PersonRepository userRepository;
 
 	@GetMapping("/whiteboard")
@@ -37,14 +37,14 @@ public class PersonController {
 	public String signup_from_login(@ModelAttribute Person user, Model model) {
 		Person n = new Person();
 		model.addAttribute("user", n);
-		// userRepository.save(n);
+		//userRepository.save(n);
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
-		logger.info("hello");
-		logger.info(user);
+		//logger.info("hello");
+		//logger.info(user);
 		return "whiteboard";
 	}
 
