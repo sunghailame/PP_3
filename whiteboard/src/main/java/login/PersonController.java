@@ -1,5 +1,6 @@
 package login;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PersonController {
 	@Autowired
 
+	Logger logger = Logger.getLogger(PersonController.class);
 	private PersonRepository userRepository;
 
 	@GetMapping("/whiteboard")
@@ -41,6 +43,8 @@ public class PersonController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
+		logger.info("hello");
+		logger.info(user);
 		return "whiteboard";
 	}
 
