@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "Person")
 
-public class User {
+public class Person {
 
 	@NotEmpty
 	@Id
@@ -31,11 +31,11 @@ public class User {
 		this.cpassword = cpassword;
 	}
 
-	public User() {
+	public Person() {
 		
 	}
 	
-	public User(String username, String password, String name, Integer id, String email, String cpassword) {
+	public Person(String username, String password, String name, Integer id, String email, String cpassword) {
 		super();
 		this.username = username;
 		this.password = password;

@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class UserController {
+public class PersonController {
 	@Autowired
 
-	private UserRepository userRepository;
+	private PersonRepository userRepository;
 
 	@GetMapping("/whiteboard")
-	public String login_main(@ModelAttribute User user) {
+	public String login_main(@ModelAttribute Person user) {
 		return "whiteboard";
 	}
 
 	@PostMapping("/whiteboard")
-	public String home_from_login(@ModelAttribute User user) {
+	public String home_from_login(@ModelAttribute Person user) {
 		System.out.println("\nPost mapping occurred!");
 		//TODO: Change name to role
 		/*if (user.name.contains("admin")) {
@@ -33,15 +33,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/login/signup")
-	public String signup_from_login(@ModelAttribute User user, Model model) {
-		User n = new User();
+	public String signup_from_login(@ModelAttribute Person user, Model model) {
+		Person n = new Person();
 		model.addAttribute("user", n);
 		// userRepository.save(n);
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
-	public String login_from_signup(@ModelAttribute User user) {
+	public String login_from_signup(@ModelAttribute Person user) {
 		return "whiteboard";
 	}
 
