@@ -21,6 +21,15 @@ public class User {
 	private String email;
 	public String username;
 	public String password;
+	public String cpassword;
+
+	public String getCpassword() {
+		return cpassword;
+	}
+
+	public void setCpassword(String cpassword) {
+		this.cpassword = cpassword;
+	}
 
 	public User() {
 		
