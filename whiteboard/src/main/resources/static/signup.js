@@ -1,6 +1,4 @@
 
-
-
 function signup(){
 
 var x = document.getElementById("user");
