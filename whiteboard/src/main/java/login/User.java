@@ -16,9 +16,9 @@ public class User {
 	@NotEmpty
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	private String name;
-	private String email;
+	public Integer id;
+	public String name;
+	public String email;
 	public String username;
 	public String password;
 
