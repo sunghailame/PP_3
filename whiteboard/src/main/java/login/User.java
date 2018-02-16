@@ -35,13 +35,14 @@ public class User {
 		
 	}
 	
-	public User(String username, String password, String name, Integer id, String email) {
+	public User(String username, String password, String name, Integer id, String email, String cpassword) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.id = id;
 		this.email = email;
 		this.name = name;
+		this.cpassword = cpassword;
 	}
 
 	public Integer getId() {
