@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -15,45 +17,46 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Person {
 
 	@NotEmpty
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
-	public Integer id;
+	@Id
+	public String id;
+	
 	@Column(name = "Name")
 	public String name;
 	public String email;
-	public String username;
+	//public String username;
 	@Column(name = "Password")
 	public String password;
-	public String cpassword;
+	//public String cpassword;
 
-	public String getCpassword() {
-		return cpassword;
-	}
+//	public String getCpassword() {
+//		return cpassword;
+//	}
+//
+//	public void setCpassword(String cpassword) {
+//		this.cpassword = cpassword;
+//	}
 
-	public void setCpassword(String cpassword) {
-		this.cpassword = cpassword;
-	}
-
+	
 	public Person() {
 		
 	}
 	
-	public Person(String username, String password, String name, Integer id, String email, String cpassword) {
+	public Person(String password, String name, String id, String email) {
 		super();
-		this.username = username;
+	//	this.username = username;
 		this.password = password;
 		this.id = id;
 		this.email = email;
 		this.name = name;
-		this.cpassword = cpassword;
+		//this.cpassword = cpassword;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -73,13 +76,13 @@ public class Person {
 		this.email = email;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+//	public String getUsername() {
+//		return username;
+//	}
+//
+//	public void setUsername(String username) {
+//		this.username = username;
+//	}
 
 	public String getPassword() {
 		return password;
