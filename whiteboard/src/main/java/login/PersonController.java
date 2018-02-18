@@ -19,7 +19,8 @@ public class PersonController {
         this.PersonRepository = pr;
     }
 	@GetMapping("/whiteboard")
-	public String login_main(@ModelAttribute Person user) {
+	public String login_main(@ModelAttribute Person user, Model model) {
+		model.addAttribute("user", new Person());
 		return "whiteboard";
 	}
 
@@ -46,16 +47,14 @@ public class PersonController {
 	public String signup_from_login(@ModelAttribute Person user, Model model) {
 
 		System.out.println("hello2");
-
+		
 		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
-		model.addAttribute("user", user);
+		model.addAttribute("user", new Person());
+		//model.addAttribute(user);
 		//user.setName("helloThere");
 
-		//userRepository.save(user);
-		//PersonRepository.save(user);
+	PersonRepository.save(user);
 		
-		
-		// userRepository.save(n);
 		return "login/signup";
 	}
 
