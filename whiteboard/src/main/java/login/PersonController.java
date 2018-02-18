@@ -51,7 +51,7 @@ public class PersonController {
 		//user.setName("helloThere");
 
 		//userRepository.save(user);
-		PersonRepository.save(user);
+		//PersonRepository.save(user);
 		
 		
 		// userRepository.save(n);
@@ -60,7 +60,7 @@ public class PersonController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
-		//userRepository.save(user);
+		PersonRepository.save(user);
 		System.out.println("hello");
 		System.out.println(user.toString());
 		return "whiteboard";

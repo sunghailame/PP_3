@@ -1,24 +1,40 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	
-    <title>Sign up</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Sign up</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Sign Up Page</h1>
-    <form id="myForm" action="#" th:action="@{/whiteboard}" th:object="${person}" method="post">
+	<form id="myForm" action="#" th:action="@{/whiteboard}"
+		th:object="${person}" method="post">
 
-    	<p>Username: <input id="user" type="text" th:field="*{username}" /></p>
-    	<p>Email: <input id="email" type="text" th:field="*{email}" /></p>
-    	<p>Name: <input id="name" type="text" th:field="*{name}" /></p>
-    	<p>Password: <input id="password" type="password" th:field="*{password}" /></p>
-    <p>Repeat Password: <input id="c-password" type="password" /></p>
+		<p>
+			Username: <input id="user" type="text" th:field="*{username}" />
+		</p>
+		<p>
+			Email: <input id="email" type="text" th:field="*{email}" />
+		</p>
+		<p>
+			Name: <input id="name" type="text" th:field="*{name}" />
+		</p>
+		<p>
+			Role: <input id="role" type="text" th:field="*{role}" />
+		</p>
+		<p>
+			Password: <input id="password" type="password" th:field="*{password}" />
+		</p>
+		<p>
+			Repeat Password: <input id="c-password" type="password" />
+		</p>
 
-        <p><input id ="sub" type="submit" value="Submit" /></p>
-  		</form>
+		<p>
+			<input id="sub" type="submit" value="Submit" />
+		</p>
+	</form>
 
-  		<script>
+	<script>
   		
   		
   		var a = 0
@@ -119,12 +135,12 @@
 						}
 					
 					
-					{
+					}
 				
 				}
 			
-			}
-			
+					}
+			});
 			
 
 

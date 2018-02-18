@@ -8,7 +8,7 @@
 
 	<h1>Welcome to White Board</h1>
     <form action="#" th:action="@{/whiteboard}" th:object="${person}" method="post">
-    	<p>ID: <input type="text" th:field="*{id}" /></p>
+    	<p>ID: <input type="text" th:field="*{username}" /></p>
         <p>Password: <input type="text" th:field="*{password}" /></p>
         
         <p><input type="submit" value="Submit" /><a href="login/signup">Register</a></p>
