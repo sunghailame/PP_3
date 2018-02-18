@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PersonController {
 	@Autowired
 
-	private PersonRepository userRepository;
+	private PersonRepository PersonRepository;
 	@Autowired
     public PersonController(PersonRepository pr) {
-        this.userRepository = pr;
+        this.PersonRepository = pr;
     }
 	@GetMapping("/whiteboard")
 	public String login_main(@ModelAttribute Person user) {
@@ -49,7 +49,10 @@ public class PersonController {
 		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
 		model.addAttribute("user", user);
 		//user.setName("helloThere");
+
 		//userRepository.save(user);
+		PersonRepository.save(user);
+		
 		
 		// userRepository.save(n);
 		return "login/signup";
@@ -57,7 +60,7 @@ public class PersonController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
-		userRepository.save(user);
+		//userRepository.save(user);
 		System.out.println("hello");
 		System.out.println(user.toString());
 		return "whiteboard";
