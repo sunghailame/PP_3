@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Sign up</title>
+    <title>Log in</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Sign Up Page</h1>
-    <form action="#" th:action="@{/whiteboard}" th:object="${user}" method="post">
+    <form action="#" th:action="@{/whiteboard}" th:object="${Person}" method="post">
     	<p>Username: <input type="text" th:field="*{username}" /></p>
         <p>Password: <input type="text" th:field="*{password}" /></p>
         

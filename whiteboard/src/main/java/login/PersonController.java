@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PersonController {
 	@Autowired
 
-	Logger logger = Logger.getLogger(PersonController.class);
+	//Logger logger = Logger.getLogger(PersonController.class);
 	private PersonRepository userRepository;
 
 	@GetMapping("/whiteboard")
@@ -30,8 +30,11 @@ public class PersonController {
 		} else if (user.name.contains("student")) {
 			return "student/student_home";
 		}
+		
+		
 		return "login/greeting";
 	}
+	
 	
 	@GetMapping("/login/signup")
 	public String signup_from_login(@ModelAttribute Person user, Model model) {
@@ -43,8 +46,8 @@ public class PersonController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
-		logger.info("hello");
-		logger.info(user);
+//		logger.info("hello");
+//		logger.info(user);
 		return "whiteboard";
 	}
 
