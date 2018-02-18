@@ -33,6 +33,10 @@ public class PersonController {
 		} else if (user.name.contains("student")) {
 			return "student/student_home";
 		}*/
+		if(user.username == "???") {
+			return "login/signup";
+		}
+		
 		return "login/greeting";
 	}
 	
@@ -42,13 +46,13 @@ public class PersonController {
 
 		System.out.println("hello2");
 
-		Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
-	
-		n.setName("helloThere");
-		userRepository.save(n);
+		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
+		model.addAttribute("user", user);
+		//user.setName("helloThere");
+		//userRepository.save(n);
 		
 		
-		//model.addAttribute("user", n);
+		
 		// userRepository.save(n);
 		return "login/signup";
 	}
