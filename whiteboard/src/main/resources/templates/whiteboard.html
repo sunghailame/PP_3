@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Sign Up Page</h1>
-    <form action="#" th:action="@{/whiteboard}" th:object="${Person}" method="post">
-    	<p>Username: <input type="text" th:field="*{username}" /></p>
+	<h1>Welcome to White Board</h1>
+    <form action="#" th:action="@{/whiteboard}" th:object="${user}" method="post">
+    	<p>ID: <input type="text" th:field="*{id}" /></p>
         <p>Password: <input type="text" th:field="*{password}" /></p>
         
         <p><input type="submit" value="Submit" /><a href="login/signup">Register</a></p>
