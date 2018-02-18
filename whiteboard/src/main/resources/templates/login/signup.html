@@ -25,7 +25,6 @@
   		var b = 0
   		var c = 0
   		var d = 0
-  		var e = 0
   		
   		
 			document.getElementById("sub").addEventListener("click", function(){
@@ -56,13 +55,6 @@
 					      
 					   }
 					
-					    if(document.getElementById("identity").value.search(/^\d+$/) != -1){
-					    
-					        e = 1
-					    
-					    
-					    }
-					
 
 			if( a == 0){
 			
@@ -74,6 +66,8 @@
 			
 			if( b == 0){
 			
+			document.getElementById("user") = "???"
+			alert(document.getElementById("user"));
 			alert("username must be alphabets")
 			document.getElementById("myForm").reset();
 			
@@ -93,13 +87,6 @@
 			
 			}
 			
-			if( e == 0){
-			
-			  alert("id must be numbers")
-			  document.getElementById("myForm").reset();
-			  
-			}
-			
 			
 			if( a == 1){
 			
@@ -108,24 +95,20 @@
 					if(c == 1){
 					
 						if(d == 1){
-						
-							if(e == 1){
-							
+													
 								window.location.href = "whiteboard"
-							
-							}
 						
 						
 						}
 					
 					
-					{
+					}
 				
 				}
 			
 			}
 			
-			
+			});
 
 
 
