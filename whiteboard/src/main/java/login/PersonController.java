@@ -26,6 +26,7 @@ public class PersonController {
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute Person user) {
 		//TODO: Change name to role
+		Person p = PersonRepository.findById(user.id);
 		/*if (user.name.contains("admin")) {
 			return "admin/admin_home";
 		} else if (user.name.contains("prof")) {
