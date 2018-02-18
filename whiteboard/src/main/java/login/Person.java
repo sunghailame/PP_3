@@ -20,7 +20,7 @@ public class Person {
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public String id;
+	public Integer id;
 	
 	@Column(name = "Name")
 	public String name;
