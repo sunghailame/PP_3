@@ -22,7 +22,7 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@NotNull
-	public Integer id;
+	public int id;
 	
 	@Column(name = "Name")
 	public String name;
@@ -40,7 +40,7 @@ public class Person {
 		
 	}
 	
-	public Person(String username, String password, String name, String email, String role, Integer id) {
+	public Person(String username, String password, String name, String email, String role, int id) {
 
 		super();
 		this.role = role;
@@ -55,7 +55,7 @@ public class Person {
 //		return id;
 //	}
 //
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

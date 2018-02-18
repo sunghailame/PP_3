@@ -462,3 +462,32 @@ Caused by: org.eclipse.jgit.errors.CorruptObjectException: name contains ':'
 	at org.eclipse.jgit.dircache.DirCacheEntry.checkPath(DirCacheEntry.java:757)
 	at org.eclipse.jgit.dircache.DirCacheEntry.<init>(DirCacheEntry.java:195)
 	... 17 more
+
+!ENTRY org.eclipse.egit.core 4 0 2018-02-18 15:50:58.292
+!MESSAGE Failed to load index for repository Repository[D:\Spring 2018\CS 309\PP_3\.git]
+!STACK 0
+org.eclipse.jgit.errors.CorruptObjectException: Invalid path: .metadata/.plugins/org.eclipse.core.runtime/.settings/org.springframework.ide.eclipse.boot.dash:Cloud Foundry.prefs
+	at org.eclipse.jgit.dircache.DirCacheEntry.<init>(DirCacheEntry.java:198)
+	at org.eclipse.jgit.dircache.DirCache.readFrom(DirCache.java:512)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:434)
+	at org.eclipse.jgit.dircache.DirCache.read(DirCache.java:221)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCacheEntry.refreshIndexDelta(IndexDiffCacheEntry.java:328)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCacheEntry.access$0(IndexDiffCacheEntry.java:322)
+	at org.eclipse.egit.core.internal.indexdiff.IndexDiffCacheEntry$1.onIndexChanged(IndexDiffCacheEntry.java:104)
+	at org.eclipse.jgit.events.IndexChangedEvent.dispatch(IndexChangedEvent.java:55)
+	at org.eclipse.jgit.events.IndexChangedEvent.dispatch(IndexChangedEvent.java:47)
+	at org.eclipse.jgit.events.ListenerList.dispatch(ListenerList.java:133)
+	at org.eclipse.jgit.lib.Repository.fireEvent(Repository.java:186)
+	at org.eclipse.jgit.internal.storage.file.FileRepository.notifyIndexChanged(FileRepository.java:563)
+	at org.eclipse.jgit.internal.storage.file.FileRepository.detectIndexChanges(FileRepository.java:557)
+	at org.eclipse.jgit.internal.storage.file.FileRepository.scanForRepoChanges(FileRepository.java:545)
+	at org.eclipse.egit.ui.Activator$RepositoryChangeScanner.run(Activator.java:670)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.eclipse.jgit.errors.CorruptObjectException: name contains ':'
+	at org.eclipse.jgit.lib.ObjectChecker.scanPathSegment(ObjectChecker.java:706)
+	at org.eclipse.jgit.lib.ObjectChecker.checkPathSegment(ObjectChecker.java:789)
+	at org.eclipse.jgit.lib.ObjectChecker.checkPath(ObjectChecker.java:775)
+	at org.eclipse.jgit.util.SystemReader.checkPath(SystemReader.java:373)
+	at org.eclipse.jgit.dircache.DirCacheEntry.checkPath(DirCacheEntry.java:757)
+	at org.eclipse.jgit.dircache.DirCacheEntry.<init>(DirCacheEntry.java:195)
+	... 15 more
