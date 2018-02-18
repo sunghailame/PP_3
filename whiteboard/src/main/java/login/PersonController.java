@@ -33,6 +33,7 @@ public class PersonController {
 		return "login/greeting";
 	}
 	
+	
 	@GetMapping("/login/signup")
 	public String signup_from_login(@ModelAttribute Person user, Model model) {
 		Person n = new Person();
@@ -43,8 +44,6 @@ public class PersonController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
-		//logger.info("hello");
-		//logger.info(user);
 		return "whiteboard";
 	}
 

@@ -27,26 +27,19 @@ public class Person {
 	public String password;
 	public String cpassword;
 
-	public String getCpassword() {
-		return cpassword;
-	}
-
-	public void setCpassword(String cpassword) {
-		this.cpassword = cpassword;
-	}
+	
 
 	public Person() {
 		
 	}
 	
-	public Person(String username, String password, String name, Integer id, String email, String cpassword) {
+	public Person(String username, String password, String name, Integer id, String email) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.id = id;
 		this.email = email;
 		this.name = name;
-		this.cpassword = cpassword;
 	}
 
 	public Integer getId() {
@@ -88,5 +81,5 @@ public class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 }
