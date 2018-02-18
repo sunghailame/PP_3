@@ -7,34 +7,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "Person")
+@Table(name = "person")
 
 public class Person {
 
 	@NotEmpty
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
-	public Integer id;
+	@Id
+	public String id;
+	
 	@Column(name = "Name")
 	public String name;
+	@Column(name = "Email")
 	public String email;
+	@Column(name = "username")
 	public String username;
 	@Column(name = "Password")
 	public String password;
-	public String cpassword;
+	@Column(name = "Role")
+	public String role;
+	
 
 	
 
+	
 	public Person() {
 		
 	}
 	
-	public Person(String username, String password, String name, Integer id, String email) {
+	public Person(String username, String password, String name, String id, String email, String role) {
+
 		super();
+		this.role = role;
 		this.username = username;
 		this.password = password;
 		this.id = id;
@@ -42,11 +51,11 @@ public class Person {
 		this.name = name;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -80,6 +89,14 @@ public class Person {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 }

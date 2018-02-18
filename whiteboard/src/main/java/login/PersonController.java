@@ -1,6 +1,7 @@
 package login;
 
-import org.apache.log4j.Logger;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PersonController {
 	@Autowired
 
-	//Logger logger = Logger.getLogger(PersonController.class);
 	private PersonRepository userRepository;
-
+	@Autowired
+    public PersonController(PersonRepository pr) {
+        this.userRepository = pr;
+    }
 	@GetMapping("/whiteboard")
 	public String login_main(@ModelAttribute Person user) {
 		return "whiteboard";
@@ -36,14 +39,25 @@ public class PersonController {
 	
 	@GetMapping("/login/signup")
 	public String signup_from_login(@ModelAttribute Person user, Model model) {
-		Person n = new Person();
-		model.addAttribute("user", n);
-		//userRepository.save(n);
+
+		System.out.println("hello2");
+
+		Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
+	
+		n.setName("helloThere");
+		userRepository.save(n);
+		
+		
+		//model.addAttribute("user", n);
+		// userRepository.save(n);
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
+
+		System.out.println("hello");
+		System.out.println(user.toString());
 		return "whiteboard";
 	}
 

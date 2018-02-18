@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+    <title>Sign up</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Sign Up Page</h1>
+<<<<<<< HEAD
+
+    <form action="#" th:action="@{/whiteboard}" th:object="${person}" method="post">
+
+   <!-- <form id="myForm" action="#" th:action="@{/whiteboard}" th:object="${person}" method="post">-->
+=======
+    <form id="myForm" action="#" th:action="@{/whiteboard}" th:object="${user}" method="post">
+>>>>>>> 13485d48a9464a334a838c4c1281d13f0aaba45f
+    	<p>Username: <input id="user" type="text" th:field="*{username}" /></p>
+    	<p>Email: <input id="email" type="text" th:field="*{email}" /></p>
+    	<p>Id: <input id="identity" type="text" th:field="*{id}" /></p>
+    	<p>Name: <input id="name" type="text" th:field="*{name}" /></p>
+    	<p>Password: <input id="password" type="password" th:field="*{password}" /></p>
+    <p>Repeat Password: <input id="c-password" type="password" /></p>
+
+        <p><input id ="sub" type="submit" value="Submit" /></p>
+  		</form>
+<<<<<<< HEAD
+  	<script type="text/javascript" th:src="@{/js/signup.js}"></script>
+
+=======
+  		<script>
+  		
+  		
+  		var a = 0
+  		var b = 0
+  		var c = 0
+  		var d = 0
+  		var e = 0
+  		
+  		
+			document.getElementById("sub").addEventListener("click", function(){
+			
+			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
+			
+			        a = 1
+			        
+			    }
+
+				if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){
+				
+				    b = 1
+				    
+				  }
+				
+				if(document.getElementById("password").value == document.getElementById("c-password").value){
+				
+				         c = 1
+				         
+				         
+				      }
+				         
+					if(document.getElementById("email").value.length > 0){
+					
+					      d = 1
+					      
+					      
+					   }
+					
+					    if(document.getElementById("identity").value.search(/^\d+$/) != -1){
+					    
+					        e = 1
+					    
+					    
+					    }
+					
+
+			if( a == 0){
+			
+			alert("name must be alphabets")
+			document.getElementById("myForm").reset();
+			
+			}
+			
+			
+			if( b == 0){
+			
+			alert("username must be alphabets")
+			document.getElementById("myForm").reset();
+			
+			}
+			
+			if(c == 0){
+			
+			  alert("password fields are not the same")
+			  document.getElementById("myForm").reset();
+			  
+			}
+			
+			if( d == 0){
+			
+			alert("wrong email format")
+			document.getElementById("myForm").reset();
+			
+			}
+			
+			if( e == 0){
+			
+			  alert("id must be numbers")
+			  document.getElementById("myForm").reset();
+			  
+			}
+			
+			
+			if( a == 1){
+			
+				if(b == 1){
+				
+					if(c == 1){
+					
+						if(d == 1){
+						
+							if(e == 1){
+							
+								window.location.href = "whiteboard"
+							
+							}
+						
+						
+						}
+					
+					
+					{
+				
+				}
+			
+			}
+			
+			
+
+
+
+  		</script>
+>>>>>>> 13485d48a9464a334a838c4c1281d13f0aaba45f
+</body>
+</html>
