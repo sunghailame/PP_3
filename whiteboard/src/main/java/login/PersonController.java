@@ -49,9 +49,7 @@ public class PersonController {
 		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
 		model.addAttribute("user", user);
 		//user.setName("helloThere");
-		//userRepository.save(n);
-		
-		
+		//userRepository.save(user);
 		
 		// userRepository.save(n);
 		return "login/signup";
@@ -59,7 +57,7 @@ public class PersonController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
-
+		userRepository.save(user);
 		System.out.println("hello");
 		System.out.println(user.toString());
 		return "whiteboard";
