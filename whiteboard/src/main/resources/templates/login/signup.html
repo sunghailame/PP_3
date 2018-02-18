@@ -11,7 +11,6 @@
 
     	<p>Username: <input id="user" type="text" th:field="*{username}" /></p>
     	<p>Email: <input id="email" type="text" th:field="*{email}" /></p>
-    	<p>Id: <input id="identity" type="text" th:field="*{id}" /></p>
     	<p>Name: <input id="name" type="text" th:field="*{name}" /></p>
     	<p>Password: <input id="password" type="password" th:field="*{password}" /></p>
     <p>Repeat Password: <input id="c-password" type="password" /></p>
@@ -26,7 +25,6 @@
   		var b = 0
   		var c = 0
   		var d = 0
-  		var e = 0
   		
   		
 			document.getElementById("sub").addEventListener("click", function(){
@@ -56,13 +54,6 @@
 					      
 					      
 					   }
-					
-					    if(document.getElementById("identity").value.search(/^\d+$/) != -1){
-					    
-					        e = 1
-					    
-					    
-					    }
 					
 
 			if( a == 0){
@@ -96,13 +87,6 @@
 			
 			}
 			
-			if( e == 0){
-			
-			  alert("id must be numbers")
-			  document.getElementById("myForm").reset();
-			  
-			}
-			
 			
 			if( a == 1){
 			
@@ -111,12 +95,8 @@
 					if(c == 1){
 					
 						if(d == 1){
-						
-							if(e == 1){
-							
+													
 								window.location.href = "whiteboard"
-							
-							}
 						
 						
 						}
