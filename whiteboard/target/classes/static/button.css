@@ -1,0 +1,19 @@
+#inputbox[type=text] {
+	padding: 5px 5px;
+}
+
+#prompt{
+	color: blue;
+}
+
+input[name="submitButton"] {
+	display: inline-block;
+	position: relative;
+	background-color: #C0FFEE;
+	font-size: 20px;
+}
+
+input[name="submitButton"] :after {
+	background-color: #0000FF;
+	font-size: 5px;
+}
