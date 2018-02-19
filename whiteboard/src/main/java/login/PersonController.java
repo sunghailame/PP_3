@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PersonController {
@@ -48,12 +49,7 @@ public class PersonController {
 
 		System.out.println("hello2");
 		
-		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
 		model.addAttribute("user", new Person());
-		//model.addAttribute(user);
-		//user.setName("helloThere");
-
-	PersonRepository.save(user);
 		
 		return "login/signup";
 	}

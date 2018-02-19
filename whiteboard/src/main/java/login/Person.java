@@ -11,18 +11,18 @@ import javax.validation.constraints.NotNull;
 //import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Entity
 @Table(name = "person")
 
 public class Person {
 
-	@NotEmpty
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@NotNull
-	public int id;
+	public Long id;
 	
 	@Column(name = "Name")
 	public String name;
@@ -40,7 +40,7 @@ public class Person {
 		
 	}
 	
-	public Person(String username, String password, String name, String email, String role, int id) {
+	public Person(String username, String password, String name, String email, String role, Long id) {
 
 		super();
 		this.role = role;
@@ -51,7 +51,7 @@ public class Person {
 		this.name = name;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
