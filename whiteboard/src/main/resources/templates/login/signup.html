@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-<title>Sign up</title>
+<title>Registration Form</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -10,7 +10,7 @@
 	<form id="myForm" action="#" th:action="@{/login/signup}"
 		th:object="${person}" method="post">
 
-		<p>
+		<p> 
 			Username: <input id="user" type="text" th:field="*{username}" />
 		</p>
 		<p>
@@ -49,14 +49,11 @@
 
 	<script>
   		
-  		
   		var a = 0
   		var b = 0
   		var c = 0
   		var d = 0
   		var status = true;  		
-  	   
-  	   
   	   		
     			document.getElementById("admin").addEventListener("click", function(){
 
@@ -143,8 +140,6 @@
 					
 					
 			});
-
-
 
   		</script>
 </body>
