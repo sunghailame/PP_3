@@ -7,10 +7,10 @@
 </head>
 <body>
 	<h1>Sign Up Page</h1>
-	<form id="myForm" action="#" th:action="@{/login/signup}"
+	<form id="myForm" action="#" th:action="@{/whiteboard}"
 		th:object="${person}" method="post">
 
-		<p>
+		<p> 
 			Username: <input id="user" type="text" th:field="*{username}" />
 		</p>
 		<p>
@@ -20,19 +20,32 @@
 			Name: <input id="name" type="text" th:field="*{name}" />
 		</p>
 		<p>
-			Role: <input id="role" type="text" th:field="*{role}" />
-		</p>
-		<p>
 			Password: <input id="password" type="password" th:field="*{password}" />
 		</p>
 		<p>
 			Repeat Password: <input id="c-password" type="password" />
 		</p>
+		<div>
+			<input type="radio" id="admin"
+   			  name="role" value="Admin" />
+   			 <label for="admin">Admin</label>
 
+    			<input type="radio" id="professor"
+    			 name="role" value="Professor" />
+    			<label for="professor">Professor</label>
+
+    			<input type="radio" id="student"
+    			 name="role" value="Student" />
+   			 <label for="student">Student</label>
+   			 <p>
+			Selected Role <input id="selectedRole" type="text" th:field="*{role}" />
+		     </p>
+		</div>
 		<p>
 			<input id="sub" type="submit" value="Submit" />
 		</p>
-	</form>
+		
+   </form>
 
 	<script>
   		
@@ -41,8 +54,28 @@
   		var b = 0
   		var c = 0
   		var d = 0
-  		
-  		
+  		var status = true;  		
+  	   
+  	   
+  	   		
+    			document.getElementById("admin").addEventListener("click", function(){
+
+    					document.getElementById("selectedRole").value = "admin"
+
+			});
+			
+			document.getElementById("professor").addEventListener("click", function(){
+
+    					document.getElementById("selectedRole").value = "prof"
+
+			});
+			
+			document.getElementById("student").addEventListener("click", function(){
+
+    					document.getElementById("selectedRole").value = "student"
+
+			});
+			
 			document.getElementById("sub").addEventListener("click", function(){
 			
 			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
@@ -52,28 +85,29 @@
 			    }
 
 				if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){
-				
+					console.log(	document.getElementById("user").value)
 				    b = 1
-				    
 				  }
 				
 				if(document.getElementById("password").value == document.getElementById("c-password").value){
-				
+					
 				         c = 1
 				         
 				         
 				      }
-				         
+
 					if(document.getElementById("email").value.length > 0){
-					
+					      
 					      d = 1
 					      
 					      
 					   }
 					
-
 			if( a == 0){
 			
+			status = false;
+			document.getElementById("user").value = "???"
+			console.log(document.getElementById("user").value)
 			alert("name must be alphabets")
 			document.getElementById("myForm").reset();
 			
@@ -82,8 +116,7 @@
 			
 			if( b == 0){
 			
-			document.getElementById("user") = "???"
-			alert(document.getElementById("user"));
+			status = false;
 			alert("username must be alphabets")
 			document.getElementById("myForm").reset();
 			
@@ -91,6 +124,7 @@
 			
 			if(c == 0){
 			
+			  status = false;
 			  alert("password fields are not the same")
 			  document.getElementById("myForm").reset();
 			  
@@ -98,35 +132,14 @@
 			
 			if( d == 0){
 			
+			status = false;
 			alert("wrong email format")
 			document.getElementById("myForm").reset();
 			
-			}
-			
-			
-			if( a == 1){
-			
-				if(b == 1){
-				
-					if(c == 1){
-					
-						if(d == 1){
-													
-								window.location.href = "whiteboard"
-						
-						
-						}
+			}	
 					
 					
-					}
-				
-				}
-			
-			}
-			
 			});
-
-
 
   		</script>
 </body>
