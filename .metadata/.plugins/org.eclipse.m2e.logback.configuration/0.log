@@ -259,3 +259,8 @@
 2018-02-18 18:16:23,105 [Worker-53] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
 2018-02-18 18:16:23,108 [Worker-53] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2018-02-18 18:16:23,108 [Worker-53] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Spring 2018\CS 309\PP_3\whiteboard\src\test\resources
+2018-02-18 18:18:17,318 [Worker-54] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-02-18 18:18:17,319 [Worker-54] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2018-02-18 18:18:17,323 [Worker-54] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 17 resources
+2018-02-18 18:18:17,327 [Worker-54] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-02-18 18:18:17,327 [Worker-54] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Spring 2018\CS 309\PP_3\whiteboard\src\test\resources
