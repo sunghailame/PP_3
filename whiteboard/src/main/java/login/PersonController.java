@@ -19,21 +19,22 @@ public class PersonController {
         this.PersonRepository = pr;
     }
 	@GetMapping("/whiteboard")
-	public String login_main(@ModelAttribute Person user) {
+	public String login_main(@ModelAttribute Person user, Model model) {
+		model.addAttribute("user", new Person());
 		return "whiteboard";
 	}
 
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute Person user) {
 		//TODO: Change name to role
-	//	Person p = PersonRepository.findById(user.id);
-		/*if (user.name.contains("admin")) {
-			return "admin/admin_home";
-		} else if (user.name.contains("prof")) {
-			return "prof/prof_home";
-		} else if (user.name.contains("student")) {
-			return "student/student_home";
-		}*/
+//		Person p = PersonRepository.findById(user.id);
+//		if (p.role.contains("admin")) {
+//			return "admin/admin_home";
+//		} else if (p.role.contains("prof")) {
+//			return "prof/prof_home";
+//		} else if (p.role.contains("student")) {
+//			return "student/student_home";
+//		}
 		if(user.username == "???") {
 			return "login/signup";
 		}
@@ -46,23 +47,15 @@ public class PersonController {
 	public String signup_from_login(@ModelAttribute Person user, Model model) {
 
 		System.out.println("hello2");
-
-		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
-		model.addAttribute("user", user);
-		//user.setName("helloThere");
-
-		//userRepository.save(user);
-		//PersonRepository.save(user);
 		
+		model.addAttribute("user", new Person());
 		
-		// userRepository.save(n);
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
 		PersonRepository.save(user);
-		System.out.println("hello");
 		System.out.println(user.toString());
 		return "whiteboard";
 	}
