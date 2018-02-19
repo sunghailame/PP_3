@@ -56,7 +56,6 @@ public class PersonController {
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person user) {
 		PersonRepository.save(user);
-		System.out.println("hello");
 		System.out.println(user.toString());
 		return "whiteboard";
 	}
