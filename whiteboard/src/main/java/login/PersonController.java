@@ -30,7 +30,7 @@ public class PersonController {
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute Person user) {
 		//TODO: Change name to role
-<<<<<<< HEAD
+
 		//Person p = PersonRepository.findById(user.id);
 			/*if (user.name.contains("admin")) {
 				return "admin/admin_home";
@@ -48,7 +48,7 @@ public class PersonController {
 //			} else if (p.role.contains("student")) {
 //				return "student/student_home";
 //			}
-=======
+
 //		Person p = PersonRepository.findById(user.id);
 //		if (p.role.contains("admin")) {
 //			return "admin/admin_home";
@@ -57,7 +57,7 @@ public class PersonController {
 //		} else if (p.role.contains("student")) {
 //			return "student/student_home";
 //		}
->>>>>>> 343898b96d181518a9ee10e5a1c9f61cad2c4ff8
+
 		if(user.username == "???") {
 			return "login/signup";
 		}
