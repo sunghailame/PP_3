@@ -20,9 +20,6 @@
 			Name: <input id="name" type="text" th:field="*{name}" />
 		</p>
 		<p>
-			Role: <input id="role" type="text" th:field="*{role}" />
-		</p>
-		<p>
 			Password: <input id="password" type="password" th:field="*{password}" />
 		</p>
 		<p>
@@ -32,7 +29,23 @@
 		<p>
 			<input id="sub" type="submit" value="Submit" />
 		</p>
-	</form>
+		<div>
+			<input type="radio" id="admin"
+   			  name="role" value="Admin" />
+   			 <label for="admin">Admin</label>
+
+    			<input type="radio" id="professor"
+    			 name="role" value="Professor" />
+    			<label for="professor">Professor</label>
+
+    			<input type="radio" id="student"
+    			 name="role" value="Student" />
+   			 <label for="student">Student</label>
+		</div>
+		<p>
+			Selected Role <input id="selectedRole" type="text" th:field="*{role}" />
+		</p>
+   </form>
 
 	<script>
   		
@@ -41,8 +54,19 @@
   		var b = 0
   		var c = 0
   		var d = 0
-  		var status = true;
-  		
+  		var status = true;  		
+  	    var radios = document.getElementsByName("role");
+
+			for (var i = 0, length = radios.length; i < length; i++)
+			{
+ 				if (radios[i].checked)
+ 				{
+  					document.getElementsByID("selectedRole").value = radios[i];
+  					alert(radios[i].value);
+
+					  break;
+ 				}
+			}
 			document.getElementById("sub").addEventListener("click", function(){
 			
 			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){

@@ -23,29 +23,26 @@ public class PersonController {
 		model.addAttribute("user", new Person());
 		return "whiteboard";
 	}
-
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute Person user) {
 		//TODO: Change name to role
-<<<<<<< HEAD
-	//	Person p = PersonRepository.findById(user.id);
-		/*if (user.name.contains("admin")) {
-			return "admin/admin_home";
-		} else if (user.name.contains("prof")) {
-			return "prof/prof_home";
-		} else if (user.name.contains("student")) {
-			return "student/student_home";
-		}*/
-=======
-//		Person p = PersonRepository.findById(user.id);
-//		if (p.role.contains("admin")) {
-//			return "admin/admin_home";
-//		} else if (p.role.contains("prof")) {
-//			return "prof/prof_home";
-//		} else if (p.role.contains("student")) {
-//			return "student/student_home";
-//		}
->>>>>>> 70582b7862c35ad0865250d9ee4d82b55af1f8dd
+		//Person p = PersonRepository.findById(user.id);
+			/*if (user.name.contains("admin")) {
+				return "admin/admin_home";
+			} else if (user.name.contains("prof")) {
+				return "prof/prof_home";
+			} else if (user.name.contains("student")) {
+				return "student/student_home";
+			}*/
+
+//			Person p = PersonRepository.findById(user.id);
+//			if (p.role.contains("admin")) {
+//				return "admin/admin_home";
+//			} else if (p.role.contains("prof")) {
+//				return "prof/prof_home";
+//			} else if (p.role.contains("student")) {
+//				return "student/student_home";
+//			}
 		if(user.username == "???") {
 			return "login/signup";
 		}
