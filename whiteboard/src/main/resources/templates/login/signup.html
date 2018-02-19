@@ -20,19 +20,29 @@
 			Name: <input id="name" type="text" th:field="*{name}" />
 		</p>
 		<p>
-			Role: <input id="role" type="text" th:field="*{role}" />
-		</p>
-		<p>
 			Password: <input id="password" type="password" th:field="*{password}" />
 		</p>
 		<p>
 			Repeat Password: <input id="c-password" type="password" />
 		</p>
+		<div>
+			<input type="radio" id="admin"
+   			  name="role" value="Admin" />
+   			 <label for="admin">Admin</label>
 
+    			<input type="radio" id="professor"
+    			 name="role" value="Professor" />
+    			<label for="professor">Professor</label>
+
+    			<input type="radio" id="student"
+    			 name="role" value="Student" />
+   			 <label for="student">Student</label>
+		</div>
 		<p>
 			<input id="sub" type="submit" value="Submit" />
 		</p>
-	</form>
+		
+   </form>
 
 	<script>
   		
@@ -41,8 +51,8 @@
   		var b = 0
   		var c = 0
   		var d = 0
-  		var status = true;
-  		
+  		var status = true;  		
+  	   
 			document.getElementById("sub").addEventListener("click", function(){
 			
 			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
