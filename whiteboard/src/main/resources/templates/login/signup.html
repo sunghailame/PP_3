@@ -37,6 +37,9 @@
     			<input type="radio" id="student"
     			 name="role" value="Student" />
    			 <label for="student">Student</label>
+   			 <p>
+			Selected Role <input id="selectedRole" type="text" th:field="*{role}" />
+		     </p>
 		</div>
 		<p>
 			<input id="sub" type="submit" value="Submit" />
@@ -53,6 +56,26 @@
   		var d = 0
   		var status = true;  		
   	   
+  	   
+  	   		
+    			document.getElementById("admin").addEventListener("click", function(){
+
+    					document.getElementById("selectedRole").value = "admin"
+
+			});
+			
+			document.getElementById("professor").addEventListener("click", function(){
+
+    					document.getElementById("selectedRole").value = "prof"
+
+			});
+			
+			document.getElementById("student").addEventListener("click", function(){
+
+    					document.getElementById("selectedRole").value = "student"
+
+			});
+			
 			document.getElementById("sub").addEventListener("click", function(){
 			
 			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
@@ -62,20 +85,19 @@
 			    }
 
 				if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){
-						
+					console.log(	document.getElementById("user").value)
 				    b = 1
-
 				  }
 				
 				if(document.getElementById("password").value == document.getElementById("c-password").value){
-				
+					
 				         c = 1
 				         
 				         
 				      }
 
 					if(document.getElementById("email").value.length > 0){
-					
+					      
 					      d = 1
 					      
 					      
