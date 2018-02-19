@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,16 +50,22 @@ public class PersonController {
 	@GetMapping("/login/signup")
 	public String signup_from_login(Map<String, Object> model) {
 
-		System.out.println("hello2");
-		
+		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
+//		model.addAttribute("user", user);
+//		PersonRepository.save(user);
+
 		Person person = new Person();
 		model.put("person", person);
-		
+
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
-	public String login_from_signup(@Valid Person person, BindingResult result){
+	public String login_from_signup(@Valid Person person, BindingResult result) {
+//		model.addAttribute("user", user);
+//		PersonRepository.save(user);
+//		System.out.println("hello");
+//		System.out.println(user.toString());
 
 		this.PersonRepository.save(person);
 		return "whiteboard";
