@@ -25,10 +25,6 @@
 		<p>
 			Repeat Password: <input id="c-password" type="password" />
 		</p>
-
-		<p>
-			<input id="sub" type="submit" value="Submit" />
-		</p>
 		<div>
 			<input type="radio" id="admin"
    			  name="role" value="Admin" />
@@ -43,8 +39,9 @@
    			 <label for="student">Student</label>
 		</div>
 		<p>
-			Selected Role <input id="selectedRole" type="text" th:field="*{role}" />
+			<input id="sub" type="submit" value="Submit" />
 		</p>
+		
    </form>
 
 	<script>
@@ -55,18 +52,7 @@
   		var c = 0
   		var d = 0
   		var status = true;  		
-  	    var radios = document.getElementsByName("role");
-
-			for (var i = 0, length = radios.length; i < length; i++)
-			{
- 				if (radios[i].checked)
- 				{
-  					document.getElementsByID("selectedRole").value = radios[i];
-  					alert(radios[i].value);
-
-					  break;
- 				}
-			}
+  	   
 			document.getElementById("sub").addEventListener("click", function(){
 			
 			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
