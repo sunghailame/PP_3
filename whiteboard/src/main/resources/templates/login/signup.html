@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>Sign Up Page</h1>
-	<form id="myForm" action="#" th:action="@{/whiteboard}"
+	<form id="myForm" action="#" th:action="@{/login/signup}"
 		th:object="${person}" method="post">
 
 		<p>
@@ -85,6 +85,7 @@
 			if( b == 0){
 			
 			status = false;
+			document.getElementById("user").value = "???"
 			alert("username must be alphabets")
 			document.getElementById("myForm").reset();
 			
@@ -93,6 +94,7 @@
 			if(c == 0){
 			
 			  status = false;
+			  document.getElementById("user").value = "???"
 			  alert("password fields are not the same")
 			  document.getElementById("myForm").reset();
 			  
@@ -101,6 +103,7 @@
 			if( d == 0){
 			
 			status = false;
+			document.getElementById("user").value = "???"
 			alert("wrong email format")
 			document.getElementById("myForm").reset();
 			

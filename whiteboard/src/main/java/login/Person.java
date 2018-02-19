@@ -95,4 +95,8 @@ public class Person {
 		this.role = role;
 	}
 	
+	public String toString() {
+		return "\nUsername: "+this.username+"\nPassword: "+this.password+"\nID: "+this.id;
+	}
+	
 }

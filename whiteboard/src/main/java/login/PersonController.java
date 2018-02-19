@@ -1,5 +1,7 @@
 package login;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +56,9 @@ public class PersonController {
 	}
 
 	@PostMapping("/login/signup")
-	public String login_from_signup(@ModelAttribute Person user) {
+	public String login_from_signup(@ModelAttribute Person user){
+		user.id = (long) 456;
+		System.out.println(user.toString());
 		PersonRepository.save(user);
 		System.out.println(user.toString());
 		return "whiteboard";
