@@ -1,10 +1,15 @@
 package login;
 
+import java.util.Map;
+
+import javax.validation.Valid;
+
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,27 +48,23 @@ public class PersonController {
 	
 	
 	@GetMapping("/login/signup")
-	public String signup_from_login(@ModelAttribute Person user, Model model) {
-
-		System.out.println("hello2");
-
+	public String signup_from_login(Map<String, Object> model) {
 		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
-		model.addAttribute("user", user);
-		//user.setName("helloThere");
+//		model.addAttribute("user", user);
+//		PersonRepository.save(user);
 
-		//userRepository.save(user);
-		//PersonRepository.save(user);
-		
-		
-		// userRepository.save(n);
+		Person person = new Person();
+		model.put("person", person);
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
-	public String login_from_signup(@ModelAttribute Person user) {
-		PersonRepository.save(user);
-		System.out.println("hello");
-		System.out.println(user.toString());
+	public String login_from_signup(@Valid Person person, BindingResult result) {
+//		model.addAttribute("user", user);
+//		PersonRepository.save(user);
+//		System.out.println("hello");
+//		System.out.println(user.toString());
+		this.PersonRepository.save(person);
 		return "whiteboard";
 	}
 

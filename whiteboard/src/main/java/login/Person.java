@@ -8,30 +8,35 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-//import javax.validation.constraints.NotNull;
-
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "person")
 
 public class Person {
-
-	@NotEmpty
+	
+	@NotNull
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@NotNull
+	
 	public int id;
 	
+//	@NotEmpty
 	@Column(name = "Name")
 	public String name;
+//	@NotEmpty
 	@Column(name = "Email")
+	@Email(message = "*Please provide a valid Email")
 	public String email;
+//	@NotEmpty
 	@Column(name = "username")
 	public String username;
+//	@NotEmpty
 	@Column(name = "Password")
 	public String password;
+//	@NotEmpty
 	@Column(name = "Role")
 	public String role;
 	
