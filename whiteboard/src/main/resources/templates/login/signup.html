@@ -41,7 +41,7 @@
   		var b = 0
   		var c = 0
   		var d = 0
-  		
+  		var status = true;
   		
 			document.getElementById("sub").addEventListener("click", function(){
 			
@@ -52,9 +52,9 @@
 			    }
 
 				if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){
-				
+						
 				    b = 1
-				    
+
 				  }
 				
 				if(document.getElementById("password").value == document.getElementById("c-password").value){
@@ -63,7 +63,7 @@
 				         
 				         
 				      }
-				         
+
 					if(document.getElementById("email").value.length > 0){
 					
 					      d = 1
@@ -71,9 +71,11 @@
 					      
 					   }
 					
-
 			if( a == 0){
 			
+			status = false;
+			document.getElementById("user").value = "???"
+			console.log(document.getElementById("user").value)
 			alert("name must be alphabets")
 			document.getElementById("myForm").reset();
 			
@@ -82,8 +84,7 @@
 			
 			if( b == 0){
 			
-			document.getElementById("user") = "???"
-			alert(document.getElementById("user"));
+			status = false;
 			alert("username must be alphabets")
 			document.getElementById("myForm").reset();
 			
@@ -91,6 +92,7 @@
 			
 			if(c == 0){
 			
+			  status = false;
 			  alert("password fields are not the same")
 			  document.getElementById("myForm").reset();
 			  
@@ -98,32 +100,13 @@
 			
 			if( d == 0){
 			
+			status = false;
 			alert("wrong email format")
 			document.getElementById("myForm").reset();
 			
-			}
-			
-			
-			if( a == 1){
-			
-				if(b == 1){
-				
-					if(c == 1){
-					
-						if(d == 1){
-													
-								window.location.href = "whiteboard"
-						
-						
-						}
+			}	
 					
 					
-					}
-				
-				}
-			
-			}
-			
 			});
 
 
