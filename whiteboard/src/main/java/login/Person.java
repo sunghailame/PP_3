@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Table(name = "person")
 
 public class Person {
-
+	@NotNull
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@NotNull
-	public Long id;
+	public int id;
 	
 	@Column(name = "Name")
 	public String name;
@@ -40,7 +39,7 @@ public class Person {
 		
 	}
 	
-	public Person(String username, String password, String name, String email, String role, Long id) {
+	public Person(String username, String password, String name, String email, String role, int id) {
 
 		super();
 		this.role = role;
@@ -51,7 +50,7 @@ public class Person {
 		this.name = name;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -95,8 +94,5 @@ public class Person {
 		this.role = role;
 	}
 	
-	public String toString() {
-		return "\nUsername: "+this.username+"\nPassword: "+this.password+"\nID: "+this.id;
-	}
 	
 }

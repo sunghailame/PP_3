@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Sign up</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Sign Up Page</h1>
+	<form id="myForm" action="#" th:action="@{/login/signup}"
+		th:object="${person}" method="post">
+
+		<p>
+			Username: <input id="user" type="text" th:field="*{username}" />
+		</p>
+		<p>
+			Email: <input id="email" type="text" th:field="*{email}" />
+		</p>
+		<p>
+			Name: <input id="name" type="text" th:field="*{name}" />
+		</p>
+		<p>
+			Role: <input id="role" type="text" th:field="*{role}" />
+		</p>
+		<p>
+			Password: <input id="password" type="password" th:field="*{password}" />
+		</p>
+		<p>
+			Repeat Password: <input id="c-password" type="password" />
+		</p>
+
+		<p>
+			<input id="sub" type="submit" value="Submit" />
+		</p>
+	</form>
+
+	<script>
+  		
+  		
+  		var a = 0
+  		var b = 0
+  		var c = 0
+  		var d = 0
+  		var status = true;
+  		
+			document.getElementById("sub").addEventListener("click", function(){
+			
+			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
+			
+			        a = 1
+			        
+			    }
+
+				if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){
+						
+				    b = 1
+
+				  }
+				
+				if(document.getElementById("password").value == document.getElementById("c-password").value){
+				
+				         c = 1
+				         
+				         
+				      }
+
+					if(document.getElementById("email").value.length > 0){
+					
+					      d = 1
+					      
+					      
+					   }
+					
+			if( a == 0){
+			
+			status = false;
+			document.getElementById("user").value = "???"
+			console.log(document.getElementById("user").value)
+			alert("name must be alphabets")
+			document.getElementById("myForm").reset();
+			
+			}
+			
+			
+			if( b == 0){
+			
+			status = false;
+			document.getElementById("user").value = "???"
+			alert("username must be alphabets")
+			document.getElementById("myForm").reset();
+			
+			}
+			
+			if(c == 0){
+			
+			  status = false;
+			  document.getElementById("user").value = "???"
+			  alert("password fields are not the same")
+			  document.getElementById("myForm").reset();
+			  
+			}
+			
+			if( d == 0){
+			
+			status = false;
+			document.getElementById("user").value = "???"
+			alert("wrong email format")
+			document.getElementById("myForm").reset();
+			
+			}	
+					
+					
+			});
+
+
+
+  		</script>
+</body>
+</html>

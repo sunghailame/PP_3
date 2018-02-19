@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface PersonRepository extends Repository<Person, Long> {
 	
-	Collection<Person> findById(@Param("id")Long id);
-	void save(Person Person);
+	Person findById(@Param("id")int id);
+	void save(Person p);
 }
