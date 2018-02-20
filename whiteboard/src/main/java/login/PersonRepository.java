@@ -6,7 +6,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface PersonRepository extends Repository<Person, Long> {
 //	@Query("SELECT person FROM Person person left join fetch person.username WHERE person.id =:id")
-	Person findById(@Param("id")int id);
+//	Person findById(@Param("id")int id);
+	Person findByUsername(String username);
 	void save(Person p);
 	
 	

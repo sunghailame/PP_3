@@ -31,14 +31,15 @@ public class PersonController {
 	@PostMapping("/whiteboard")
 	public String home_from_login(@ModelAttribute Person user) {
 		//TODO: Uncomment finById and make it work
-//		Person p = PersonRepository.findById(user.id);
-//		if (p.role.contains("admin")) {
-//			return "admin/admin_home";
-//		} else if (p.role.contains("prof")) {
-//			return "prof/prof_home";
-//		} else if (p.role.contains("student")) {
-//			return "student/student_home";
-//		}
+		Person p = PersonRepository.findByUsername(user.username);
+		if (p.role.contains("admin")) {
+			return "admin/admin_home";
+		} else if (p.role.contains("prof")) {
+			return "prof/prof_home";
+		} else if (p.role.contains("student")) {
+//			System.out.println(user.email);
+			return "student/student_home";
+		}
 		if(user.username == "???") {
 			return "login/signup";
 		}
