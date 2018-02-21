@@ -1,0 +1,9 @@
+whiteboard\admin\AdminController.class
+whiteboard\WebConfig.class
+whiteboard\student\StudentController.class
+whiteboard\login\PersonController.class
+whiteboard\prof\ProfController.class
+whiteboard\login\PersonRepository.class
+whiteboard\login\Person.class
+whiteboard\Application.class
+whiteboard\login\PersonService.class
