@@ -32,6 +32,7 @@ public class PersonController {
 	public String home_from_login(@ModelAttribute Person user) {
 		//TODO: Uncomment finById and make it work
 		Person p = PersonRepository.findByUsername(user.username);
+		if(p.password == p.getPassword()) {
 		if (p.role.contains("admin")) {
 			return "admin/admin_home";
 		} else if (p.role.contains("prof")) {
@@ -39,6 +40,10 @@ public class PersonController {
 		} else if (p.role.contains("student")) {
 //			System.out.println(user.email);
 			return "student/student_home";
+		}
+		}
+		else {
+			return "/error";
 		}
 		if(user.username == "???") {
 			return "login/signup";
