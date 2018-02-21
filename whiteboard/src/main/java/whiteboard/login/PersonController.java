@@ -63,10 +63,9 @@ public class PersonController {
 	@PostMapping("/login/signup")
 	public String login_from_signup(@Valid Person person, BindingResult result) {
 		System.out.println(person.toString());
-		if(person.username.equals(null)) {
+		if(person.username.equals("")) {
 			return "login/signup";
 		}else {
-			System.out.println("save");
 		this.PersonRepository.save(person);
 		return "whiteboard";
 		}
