@@ -104,4 +104,9 @@ public class Person {
 		this.role = role;
 	}
 	
+	@Override
+	public String toString() {
+		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password;
+	}
+	
 }
