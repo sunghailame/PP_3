@@ -1,26 +1,51 @@
 function signup() {
-
-	var x = document.getElementById("user");
-	var y = document.getElementById("password");
-	var z = document.getElementById("c-password");
-	var sb = document.getElementById("sub");
-	var good = [];
-
-	sb.addEventListener("click", function() {
-
-		if (x.value.length > 0 && x.value.search(/^[A-z]+$/) != -1) {
-			good.push(true)
-			console.log("true")
+		var a = 0
+		var b = 0
+		var c = 0
+		var d = 0
+		
+		document.getElementById("sub").addEventListener("click", function(){
+		
+			if(document.getElementById("name").value.search(/^[A-z]+$/)!=-1){
+		        a = 1
+			}
+			if(document.getElementById("user").value.search(/^[A-z]+$/) != -1){	
+			    b = 1
+			}	
+			if(document.getElementById("password").value == document.getElementById("c-password").value){
+				c = 1     
+			}	         
+			if(document.getElementById("email").value.length > 0){
+				d = 1
+			}
+				      			      
+		});
+				
+		if( a == 0){
+			alert("name must be alphabets")
+			document.getElementById("myForm").reset();	
 		}
-		if (y.value.length > 0 && y.value == z.value) {
-			good.push(true)
+		if( b == 0){
+			document.getElementById("user") = "???"
+			alert(document.getElementById("user"))
+			alert("username must be alphabets")
+			document.getElementById("myForm").reset();
 		}
-		if (good[0] == true && good[1] == true) {
-			console.log(good[0])
-			window.location.href = "login/signup.html"
-		} else {
-			alert("The passwords do not match, please try again!")
+		if(c == 0){
+			alert("password fields are not the same")
+			document.getElementById("myForm").reset();
 		}
-
-	});
+		if( d == 0){
+			alert("wrong email format")
+			document.getElementById("myForm").reset();
+		}
+		if( a == 1){
+			if(b == 1){
+				if(c == 1){
+					if(d == 1){		
+							window.location.href = "whiteboard"
+					}
+				}
+			}
+		}
 }
