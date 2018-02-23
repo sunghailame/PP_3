@@ -19,42 +19,44 @@ public class PersonController {
 	@Autowired
 
 	private PersonRepository PersonRepository;
+
 	@Autowired
-    public PersonController(PersonRepository pr) {
-        this.PersonRepository = pr;
-    }
+	public PersonController(PersonRepository pr) {
+		this.PersonRepository = pr;
+	}
+
 	@GetMapping("/whiteboard")
 	public String login_main(@ModelAttribute Person user) {
 		return "whiteboard";
 	}
 
 	@PostMapping("/whiteboard")
-	public String home_from_login(@ModelAttribute Person user) {
-		//TODO: Uncomment finById and make it work
-		Person p = PersonRepository.findByUsername(user.username);
-		if(user.password.equals(p.getPassword())) {
-		if (p.role.contains("admin")) {
-			return "admin/admin_home";
-		} else if (p.role.contains("prof")) {
-			return "prof/prof_home";
-		} else if (p.role.contains("student")) {
-			return "student/student_home";
-		}
-		}
-		else {
-			return "login/error";
-		}
+	public String home_from_login(@ModelAttribute Person user){
 		
-		return "login/greeting";
+		try {
+		Person p = PersonRepository.findByUsername(user.username);
+		if (user.password.equals(p.getPassword())) {
+				if (p.role.contains("admin")) {
+					return "admin/admin_home";
+				} else if (p.role.contains("prof")) {
+					return "prof/prof_home";
+				} else if (p.role.contains("student")) {
+					return "student/student_home";
+				}
+			} else {
+				return "login/error";
+			}
+
+			return "login/greeting";
+		}
+		catch (NullPointerException E) {
+			return "login/error";
+			
+		}
 	}
-	
-	
+
 	@GetMapping("/login/signup")
 	public String signup_from_login(Map<String, Object> model) {
-		//Person n = new  Person( "abc", "TEST 1", "5", "aaa", "something", "admin");
-//		model.addAttribute("user", user);
-//		PersonRepository.save(user);
-
 		Person person = new Person();
 		model.put("person", person);
 		return "login/signup";
@@ -62,12 +64,11 @@ public class PersonController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@Valid Person person, BindingResult result) {
-		System.out.println(person.toString());
-		if(person.username.equals("")) {
+		if (person.username.equals("")) {
 			return "login/signup";
-		}else {
-		this.PersonRepository.save(person);
-		return "whiteboard";
+		} else {
+			this.PersonRepository.save(person);
+			return "whiteboard";
 		}
 	}
 
