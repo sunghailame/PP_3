@@ -15,7 +15,6 @@ public class StudentController {
 
   @GetMapping("/student/student_home")
     public String signup_from_login(@CookieValue("username") String username, Model model) {
-    	System.out.println(username);
     	model.addAttribute("username",username);
         return "student/student_home";
     }
