@@ -1,11 +1,8 @@
 signup();
 
-<<<<<<< HEAD
-function signup(){
 
-=======
 function signup() {
->>>>>>> 36bd148ad4a1942c11820a25bfc843726d7a1298
+
 		var a = 0
 		var b = 0
 		var c = 0
@@ -26,7 +23,6 @@ function signup() {
 				d = 1
 			}
 				      			      
-		});
 				
 		if( a == 0){
 			alert("name must be alphabets")
@@ -44,5 +40,7 @@ function signup() {
 			alert("wrong email format")
 			document.getElementById("myForm").reset();
 		}
+		
+		});
 		
 }
