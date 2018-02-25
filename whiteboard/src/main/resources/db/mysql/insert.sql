@@ -4,11 +4,11 @@ INSERT INTO person VALUES ('1000003', 'Frances Ugarte', 'fugartepassword', 'fuga
 INSERT INTO person VALUES ('1000004', 'Nannie Pebbles', 'npebblespassword', 'npebbles@iastate.edu','admin','npebbles' );
 INSERT INTO person VALUES ('1000005', 'Roland Cruz', 'rcruzpassword', 'rcruz@gmail.com','admin','rcruz' );
 INSERT INTO person VALUES ('1000006', 'Bertha David', 'bdavidpassword', 'bdavid@gmail.com','admin','bdavid' );
-INSERT INTO person VALUES ('2000001', 'Kristi Davis', 'kdavispassword', 'kdavis@gmail.com','professor','kdavis' );
-INSERT INTO person VALUES ('2000002', 'Willard Adams', 'wadamspassword', 'wadams@gmail.com','professor','wadams' );
+INSERT INTO person VALUES ('2000001', 'Kristi Davis', 'kdavispassword', 'kdavis@gmail.com','prof','kdavis' );
+INSERT INTO person VALUES ('2000002', 'Willard Adams', 'wadamspassword', 'wadams@gmail.com','prof','wadams' );
 INSERT INTO person VALUES ('2000003', 'David Jones', 'djonespassword', 'djones@gmail.com','professor','djones' );
-INSERT INTO person VALUES ('2000004', 'Fernando Washington', 'fwashingtonpassword', 'fwashington@gmail.com','professor','fwashington' );
-INSERT INTO person VALUES ('2000005', 'Dorothy Damian', 'ddamianpassword', 'ddamian@gmail.com','professor','ddamian' );
+INSERT INTO person VALUES ('2000004', 'Fernando Washington', 'fwashingtonpassword', 'fwashington@gmail.com','prof','fwashington' );
+INSERT INTO person VALUES ('2000005', 'Dorothy Damian', 'ddamianpassword', 'ddamian@gmail.com','prof','ddamian' );
 INSERT INTO person VALUES ('2000006', 'Doris Thomas', 'dthomaspassword', 'dthomas@gmail.com','student','dthomas' );
 INSERT INTO person VALUES ('3000001', 'Linda Bonner', 'lbonnerpassword', 'lbonner@gmail.com','student','lbonner' );
 INSERT INTO person VALUES ('3000002', 'Mozelle Craig', 'mcraigpassword', 'mcraig@gmail.com','student','mcraig' );
