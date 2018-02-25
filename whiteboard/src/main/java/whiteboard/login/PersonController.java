@@ -28,6 +28,7 @@ public class PersonController {
 	public String home_from_login(HttpServletResponse response, @ModelAttribute Person person) {
 		try {
 			Person p = PersonRepository.findByUsername(person.username);
+			
 			if (person.password.equals(p.getPassword())) {
 				Cookie passData = new Cookie("username",person.username);
 				passData.setMaxAge(10000);
