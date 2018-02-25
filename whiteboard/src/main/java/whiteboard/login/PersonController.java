@@ -1,11 +1,9 @@
 package whiteboard.login;
 
-import java.util.Map;
 
-import javax.validation.Valid;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PersonController {
@@ -20,50 +19,45 @@ public class PersonController {
 
 	private PersonRepository PersonRepository;
 
-	@Autowired
-	public PersonController(PersonRepository pr) {
-		this.PersonRepository = pr;
-	}
-
 	@GetMapping("/whiteboard")
 	public String login_main(@ModelAttribute Person user) {
 		return "whiteboard";
 	}
 
 	@PostMapping("/whiteboard")
-	public String home_from_login(@ModelAttribute Person user){
-		
+	public String home_from_login(HttpServletResponse response, @ModelAttribute Person person) {
 		try {
-		Person p = PersonRepository.findByUsername(user.username);
-		if (user.password.equals(p.getPassword())) {
+			Person p = PersonRepository.findByUsername(person.username);
+			if (person.password.equals(p.getPassword())) {
+				Cookie passData = new Cookie("username",person.username);
+				passData.setMaxAge(10000);
+				response.addCookie(passData);
 				if (p.role.contains("admin")) {
-					return "admin/admin_home";
+					return "redirect:/prof/admin_home";
 				} else if (p.role.contains("prof")) {
-					return "prof/prof_home";
+					return "redirect:/prof/prof_home";
 				} else if (p.role.contains("student")) {
-					return "student/student_home";
+					return "redirect:/student/student_home";
 				}
 			} else {
-				return "login/error";
+				return "redirect:login/error";
 			}
 
-			return "login/greeting";
-		}
-		catch (NullPointerException E) {
-			return "login/error";
-			
+			return "redirect:login/greeting";
+		} catch (NullPointerException E) {
+			return "redirect:login/error";
 		}
 	}
 
 	@GetMapping("/login/signup")
-	public String signup_from_login(Map<String, Object> model) {
+	public String signup_from_login(Model model) {
 		Person person = new Person();
-		model.put("person", person);
+		model.addAttribute("person", person);
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
-	public String login_from_signup(@Valid Person person, BindingResult result) {
+	public String login_from_signup(@ModelAttribute Person person, BindingResult result) {
 		if (person.username.equals("")) {
 			return "login/signup";
 		} else {
@@ -71,5 +65,6 @@ public class PersonController {
 			return "whiteboard";
 		}
 	}
+	
 
 }

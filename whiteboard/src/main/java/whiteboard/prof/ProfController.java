@@ -9,12 +9,12 @@ import whiteboard.login.Person;
 
 public class ProfController {
     @GetMapping("/prof/prof_home")
-    public String signup_from_login(Model model, Person user) {
+    public String signup_from_login(Model model, Person person) {
         return "prof/prof_home";
     }
     
      @PostMapping("/prof/prof_home")
-    public String login_from_signup(@ModelAttribute Person user) {
+    public String login_from_signup(@ModelAttribute Person person) {
         return "login/greeting";
     }
 }

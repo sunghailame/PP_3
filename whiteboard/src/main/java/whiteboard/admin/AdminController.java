@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 public class AdminController {
     @GetMapping("/admin/admin_home")
-    public String signup_from_login(Model model, Person user) {
+    public String signup_from_login(Model model, Person person) {
         return "admin/admin_home";
     }
     
      @PostMapping("/admin/admin_home")
-    public String login_from_signup(@ModelAttribute Person user) {
+    public String login_from_signup(@ModelAttribute Person person) {
         return "login/greeting";
     }
 }
