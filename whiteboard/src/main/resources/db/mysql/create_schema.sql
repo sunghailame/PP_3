@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS person (
     `Password` VARCHAR(45) ,
     `Email` VARCHAR(45) ,
     `Role` VARCHAR(45) ,
-    `Username` VARCHAR(45) 
+    `Username` VARCHAR(45) ,
+	CONSTRAINT UC_person UNIQUE (Username)
     )
     ;
 
