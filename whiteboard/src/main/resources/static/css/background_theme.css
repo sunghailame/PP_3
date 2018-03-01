@@ -1,7 +1,12 @@
 <style>
 
-body {
-	background-image: url("whiteboard_back.jpg");
+.background{
+	width=100%;
+	background: url("/img/whiteboard_back.jpg");
+}
+
+p {
+    font-size: 20px;
 }
 
 </style>

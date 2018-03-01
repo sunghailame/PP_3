@@ -108,4 +108,7 @@ public class Person {
 		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password;
 	}
 	
+	public String toStringData() {
+		return this.id+"="+this.name+"="+this.username+"="+this.email+"="+this.role+"="+this.password;
+	}
 }
