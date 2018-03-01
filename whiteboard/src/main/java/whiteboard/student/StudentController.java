@@ -25,7 +25,6 @@ public class StudentController {
 	  	stud.password = dataSplit[5];
     	model.addAttribute("username", stud.username);
     	model.addAttribute("name", stud.name);
-    	System.out.println(person.toString());
         return "student/student_home";
     }
     

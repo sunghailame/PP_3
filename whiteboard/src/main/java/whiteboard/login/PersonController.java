@@ -35,7 +35,7 @@ public class PersonController {
 				passData.setMaxAge(10000);
 				response.addCookie(passData);
 				if (p.role.contains("admin")) {
-					return "redirect:/prof/admin_home";
+					return "redirect:/admin/admin_home";
 				} else if (p.role.contains("prof")) {
 					return "redirect:/prof/prof_home";
 				} else if (p.role.contains("student")) {
