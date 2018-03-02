@@ -42,12 +42,11 @@ public class PersonController {
 					return "redirect:/student/student_home";
 				}
 			} else {
-				return "redirect:login/error";
+				return "login/error";
 			}
-
-			return "redirect:login/greeting";
+			return "login/error";
 		} catch (NullPointerException E) {
-			return "redirect:login/error";
+			return "login/error";
 		}
 	}
 
