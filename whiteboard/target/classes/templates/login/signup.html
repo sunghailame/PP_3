@@ -10,7 +10,6 @@
 <body>
     <h1>Sign Up Page</h1>
     <form id="myForm" action="#" th:action="@{/login/signup}" th:object="${person}" method="post">
-
         <p>
             Username: <input id="user" type="text" th:field="*{username}" />
         </p>
