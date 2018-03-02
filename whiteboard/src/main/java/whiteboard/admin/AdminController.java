@@ -1,6 +1,7 @@
 package whiteboard.admin;
 
 import whiteboard.login.Person;
+import whiteboard.login.PersonRepository;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ public class AdminController {
 	  	admin.password = dataSplit[5];
     	model.addAttribute("username", admin.username);
     	model.addAttribute("name", admin.name);
+    	
         return "admin/admin_home";
     }
     
