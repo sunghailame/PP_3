@@ -6,14 +6,14 @@
 //import javax.persistence.ManyToOne;
 //import javax.persistence.JoinColumn;
 //
+//
 //@Entity
 //@Table(name = "Admin")
 //public class Admin {
-//
+//	
 //	@ManyToOne
 //	@JoinColumn(name = "ID")
-//	private Person person;
-//	
-//	
-//	
+//	private Person person;	
 //}
+//
+
