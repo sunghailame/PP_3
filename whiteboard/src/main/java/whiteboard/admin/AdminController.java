@@ -86,7 +86,7 @@ public class AdminController {
 
 	@PostMapping("/admin/create_course")
 	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result) {
-		//TODO add save course to CourseRepository
+		
 		this.courseRepository.save(course);
 		return "admin/admin_home";
 	}
