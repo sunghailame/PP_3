@@ -2,11 +2,7 @@ body {
 	background-image: url("whiteboard_back.jpg");
     background-repeat:   no-repeat;
     background-position: center top; 
-<<<<<<< HEAD
-    background-size: 600px 440px;
-=======
-    background-size: 100%;
->>>>>>> e1616547ce3f3a5f12f6c7ff394f9fa3f02671b6
+    background-size: 600px 780px;
 }
 
 h1 {
