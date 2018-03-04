@@ -5,6 +5,8 @@ import whiteboard.login.PersonRepository;
 
 import java.util.ArrayList;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -30,7 +32,7 @@ public class AdminController {
 		return people;
 	}
 	
-	
+
     @GetMapping("/admin/admin_home")
     public String signup_from_login(@CookieValue("person") String person, Model model) {
 	  	System.out.println(person);
