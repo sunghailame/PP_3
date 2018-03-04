@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Entity
 @Table(name = "Course")
+@SessionAttributes("Course")
 public class Course {
 	
 	@NotNull
@@ -46,7 +47,7 @@ public class Course {
 		return course_name;
 	}
 
-	public void setCourseNmae(String CourseName) {
+	public void setCourseName(String CourseName) {
 		this.course_name = CourseName;
 	}
 	
