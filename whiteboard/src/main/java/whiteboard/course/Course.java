@@ -30,6 +30,10 @@ public class Course {
 		this.course_name = CourseName;
 	}
 
+	public Course() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String geCourseCode() {
 		return course_code;
 	}
