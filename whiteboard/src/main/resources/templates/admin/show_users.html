@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - User List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link rel="stylesheet" media="all"  
+      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+</head>
+<body>
+	<h1>User List</h1>
+	
+	<table align="center">
+	<tr>
+	<th>Username</th>
+	<th>Name</th>
+	<th>Role</th>
+	<th>Email</th>
+	</tr>
+	<tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.email}"></td>
+        </tr>
+	
+	</table>
+    <a href="../whiteboard">Logout</a>
+</body>
+</html>

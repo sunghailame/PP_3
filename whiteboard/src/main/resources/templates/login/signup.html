@@ -10,11 +10,18 @@
   <link rel="stylesheet" type="text/css" href="/css/login.css"/>
 
 <title>Sign up</title>
+<<<<<<< HEAD
+=======
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" media="all"  
+      href="../../css/background_theme.css" th:href="@{/css/background_theme.css}" />
+>>>>>>> 02291a501a5b68442908200b39473abd045d9595
 </head>
 <body>
     <div class="container-fluid">
     <h1>Sign Up Page</h1>
     <form id="myForm" action="#" th:action="@{/login/signup}" th:object="${person}" method="post">
+<<<<<<< HEAD
         <div class="form-group">
         <label for="password">Username:</label>
              <input id="user" class="form-control" type="text" placeholder="Enter Username" th:field="*{username}"/>
@@ -44,6 +51,26 @@
         <label for="c-password">Repeat Password:</label>
              <input id="c-password" class="form-control" type="password" placeholder="Repeat Password" />
         </div>
+=======
+        <p>
+            Username: <input id="user" type="text" th:field="*{username}" />
+        </p>
+        <p>
+            Email: <input id="email" type="text" th:field="*{email}" />
+        </p>
+        <p>
+            Last Name: <input id="name" type="text" th:field="*{name}" />
+        </p>
+        <p>
+            Role: <input id="role" type="text" th:field="*{role}" />
+        </p>
+        <p>
+            Password: <input id="password" type="password" th:field="*{password}" />
+        </p>
+        <p>
+            Repeat Password: <input id="c-password" type="password" />
+        </p>
+>>>>>>> 02291a501a5b68442908200b39473abd045d9595
 
         <p>
             <input id="sub" class="btn btn-primary" type="submit" value="Submit" />

@@ -28,24 +28,25 @@ public class PersonController {
 	public String home_from_login(HttpServletResponse response, @ModelAttribute Person person) {
 		try {
 			Person p = PersonRepository.findByUsername(person.username);
+			
 			if (person.password.equals(p.getPassword())) {
-				Cookie passData = new Cookie("username",person.username);
+				Cookie passData = new Cookie("person",p.toStringData());
+				System.out.println(p.toString());
 				passData.setMaxAge(10000);
 				response.addCookie(passData);
 				if (p.role.contains("admin")) {
-					return "redirect:/prof/admin_home";
+					return "redirect:/admin/admin_home";
 				} else if (p.role.contains("prof")) {
 					return "redirect:/prof/prof_home";
 				} else if (p.role.contains("student")) {
 					return "redirect:/student/student_home";
 				}
 			} else {
-				return "redirect:login/error";
+				return "login/error";
 			}
-
-			return "redirect:login/greeting";
+			return "login/error";
 		} catch (NullPointerException E) {
-			return "redirect:login/error";
+			return "login/error";
 		}
 	}
 

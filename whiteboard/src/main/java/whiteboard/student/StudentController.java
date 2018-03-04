@@ -14,8 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class StudentController {
 
   @GetMapping("/student/student_home")
-    public String signup_from_login(@CookieValue("username") String username, Model model) {
-    	model.addAttribute("username",username);
+    public String signup_from_login(@CookieValue("person") String person, Model model) {
+	  	String[] dataSplit = person.split("=");
+	  	Person stud = new Person();
+	  	stud.id = Integer.parseInt(dataSplit[0]);
+	  	stud.name = dataSplit[1];
+	  	stud.username = dataSplit[2];
+	  	stud.email = dataSplit[3];
+	  	stud.role = dataSplit[4];
+	  	stud.password = dataSplit[5];
+    	model.addAttribute("username", stud.username);
+    	model.addAttribute("name", stud.name);
         return "student/student_home";
     }
     

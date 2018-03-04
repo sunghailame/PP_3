@@ -3,11 +3,13 @@
 <head>
     <title>Prof</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link rel="stylesheet" media="all"  
+      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
 </head>
 <body>
 	<h1>WIP - Prof</h1>
-	<p th:text="'Hello, ' + ${username} + '!'" />
+	<p th:text="'Hello, ' + ${username} + ' - ' + ${name} + '!'"/>
 	
-    <a href="whiteboard">Logout</a>
+    <a href="../whiteboard">Logout</a>
 </body>
 </html>

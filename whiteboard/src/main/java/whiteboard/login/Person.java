@@ -55,10 +55,10 @@ public class Person {
 		this.name = name;
 	}
 
-//	public String getId() {
-//		return id;
-//	}
-//
+	public int getId() {
+		return id;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -108,4 +108,7 @@ public class Person {
 		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password;
 	}
 	
+	public String toStringData() {
+		return this.id+"="+this.name+"="+this.username+"="+this.email+"="+this.role+"="+this.password;
+	}
 }
