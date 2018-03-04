@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Entity
 @Table(name = "Course")
-
 public class Course {
 	
 	@NotNull
+	@Id
 	@Column(name = "CourseCode")
 	public String course_code;
 	
@@ -34,7 +34,7 @@ public class Course {
 		
 	}
 
-	public String geCourseCode() {
+	public String getCourseCode() {
 		return course_code;
 	}
 

@@ -8,6 +8,6 @@ public interface EnrollmentRepository extends Repository<Person, Long> {
 		//Enrollment findByID(String id);
 		
 		
-		void Enrollment(Enrollment e);
+		//void Enrollment(Enrollment e);
 }
 
