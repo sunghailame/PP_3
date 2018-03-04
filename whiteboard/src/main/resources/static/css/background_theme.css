@@ -2,7 +2,7 @@ body {
 	background-image: url("whiteboard_back.jpg");
     background-repeat:   no-repeat;
     background-position: center top; 
-    background-size: 660px 440px;
+    background-size: 100%;
 }
 
 h1 {
