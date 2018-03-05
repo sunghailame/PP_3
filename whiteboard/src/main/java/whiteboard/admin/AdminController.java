@@ -28,6 +28,7 @@ public class AdminController {
 
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
 	private CourseRepository courseRepository;
 
 	// @GetMapping(path= "/login/signup")
@@ -81,13 +82,16 @@ public class AdminController {
 	public String create_course_from_admin(Model model) {
 		Course course = new Course();
 		model.addAttribute("course", course);
+		model.addAttribute("message","");
 		return "admin/create_course";
 	}
 
 	@PostMapping("/admin/create_course")
-	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result) {
+	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result, Model model) {
+		System.out.println(course.toString());
 		this.courseRepository.save(course);
-		return "admin/admin_home";
+		model.addAttribute("message", "Created course!");
+		return "admin/create_course";
 	}
 
 }

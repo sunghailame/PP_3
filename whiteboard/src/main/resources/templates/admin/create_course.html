@@ -10,15 +10,14 @@
 </head>
 <body>
     <h1>Add Course</h1>
-    <form id="myForm" action="#" th:action="@{/admin/create_course}" th:object="${course}" method="post">
-             <input id="course_code" class="form-control" type="text" placeholder="Enter Course Code" th:field="*{course_code}" />
-
-            <input type="course_name" class="form-control" id="course_name" placeholder="Enter Course Name" th:field="*{course_name}" />
+    <p th:text="''+${message}"/>
+    <form action="#" th:action="@{/admin/create_course}" th:object="${course}" method="post">
+            <p>Enter Course Code: <input id="course_code" type="text" th:field="*{course_code}" /></p>
+			<p>Enter Course Name: <input id="course_name" type="text" th:field="*{course_name}" /></p>
 
         <p>
-            <input id="sub" class="btn btn-primary" type="submit" value="Submit" />
+            <input type="submit" value="Submit" />
         </p>
     </form>
-    </div>
 </body>
 </html>
