@@ -20,12 +20,13 @@ public class PersonController {
 	private PersonRepository PersonRepository;
 
 	@GetMapping("/whiteboard")
-	public String login_main(@ModelAttribute Person user) {
+	public String login_main(@ModelAttribute Person user, Model model) {
+		model.addAttribute("message","");
 		return "whiteboard";
 	}
 
 	@PostMapping("/whiteboard")
-	public String home_from_login(HttpServletResponse response, @ModelAttribute Person person) {
+	public String home_from_login(HttpServletResponse response, @ModelAttribute Person person, Model model) {
 		try {
 			Person p = PersonRepository.findByUsername(person.username);
 			
@@ -34,19 +35,22 @@ public class PersonController {
 				System.out.println(p.toString());
 				passData.setMaxAge(10000);
 				response.addCookie(passData);
-				if (p.role.contains("admin")) {
+				if (p.role.toUpperCase().contains("ADMIN")) {
 					return "redirect:/admin/admin_home";
-				} else if (p.role.contains("prof")) {
+				} else if (p.role.toUpperCase().contains("PROFESSOR")) {
 					return "redirect:/prof/prof_home";
-				} else if (p.role.contains("student")) {
+				} else if (p.role.toUpperCase().contains("STUDENT")) {
 					return "redirect:/student/student_home";
 				}
 			} else {
-				return "login/error";
+				model.addAttribute("message","Password/Username not found. Please try again.");
+				return "whiteboard";
 			}
-			return "login/error";
-		} catch (NullPointerException E) {
-			return "login/error";
+			model.addAttribute("message","Password/Username not found. Please try again.");
+			return "whiteboard";
+		} catch (Exception E) {
+			model.addAttribute("message","Password/Username not found. Please try again.");
+			return "whiteboard";
 		}
 	}
 
@@ -54,16 +58,24 @@ public class PersonController {
 	public String signup_from_login(Model model) {
 		Person person = new Person();
 		model.addAttribute("person", person);
+		model.addAttribute("message","");
 		return "login/signup";
 	}
 
 	@PostMapping("/login/signup")
-	public String login_from_signup(@ModelAttribute Person person, BindingResult result) {
-		if (person.username.equals("")) {
+	public String login_from_signup(@ModelAttribute Person person, BindingResult result, Model model) {
+		try {
+			if (person.username.equals("")) {
+				model.addAttribute("message","Error. Please try again.");
+				return "login/signup";
+			} else {
+				this.PersonRepository.save(person);
+				model.addAttribute("message","Please login.");
+				return "whiteboard";
+			}
+		} catch (Exception E) {
+			model.addAttribute("message","Error. Please try again with different credentials.");
 			return "login/signup";
-		} else {
-			this.PersonRepository.save(person);
-			return "whiteboard";
 		}
 	}
 	

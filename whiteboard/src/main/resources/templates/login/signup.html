@@ -16,6 +16,7 @@
 <body>
     <div class="container-fluid">
     <h1>Registration Form</h1>
+    <p th:text="''+${message}"/>
     <form id="myForm" action="#" th:action="@{/login/signup}" th:object="${person}" method="post">
         <div class="form-group">
         <label for="password">Username:</label>
