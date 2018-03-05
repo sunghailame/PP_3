@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Entity
 @Table(name = "Course")
-@SessionAttributes("Course")
 public class Course {
 	
 	@NotNull
+	@Id
 	@Column(name = "CourseCode")
 	public String course_code;
 	
@@ -24,32 +24,32 @@ public class Course {
 
 
 	
-	public Course(String CourseCode, String CourseName) {
+	public String getCourse_code() {
+		return course_code;
+	}
+
+	public void setCourse_code(String course_code) {
+		this.course_code = course_code;
+	}
+
+	public String getCourse_name() {
+		return course_name;
+	}
+
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
+	}
+
+	public Course(String course_code, String course_name) {
 		super();
-		this.course_code = CourseCode;
-		this.course_name = CourseName;
+		this.course_code = course_code;
+		this.course_name = course_name;
 	}
 
 	public Course() {
 		
 	}
 
-	public String getCourseCode() {
-		return course_code;
-	}
-
-	public void setCourseCode(String CourseCode) {
-		this.course_code = CourseCode;
-	}
-
-	public String getCourseName() {
-		return course_name;
-	}
-
-	public void setCourseName(String CourseName) {
-		this.course_name = CourseName;
-	}
-	
 	@Override
 	public String toString() {
 		return " Course Code: "+this.course_code+" Course Name: "+this.course_name;
