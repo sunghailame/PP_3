@@ -3,25 +3,19 @@ package whiteboard.admin;
 import whiteboard.course.Course;
 import whiteboard.course.CourseRepository;
 import whiteboard.login.Person;
-import whiteboard.login.PersonRepository;
 
-import java.util.ArrayList;
-
-import javax.sql.DataSource;
-
-import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 @Controller
 public class AdminController {
@@ -30,22 +24,6 @@ public class AdminController {
 	private AdminRepository adminRepository;
 	@Autowired
 	private CourseRepository courseRepository;
-
-	// @GetMapping(path= "/login/signup")
-	// public @ResponseBody String addUsers (@RequestParam int ID, @RequestParam
-	// String name,
-	// @RequestParam String email, @RequestParam String role, @RequestParam String
-	// username) {
-	// Person p = new Person();
-	// p.setId(ID);
-	// p.setName(name);
-	// p.setEmail(email);
-	// p.setRole(role);
-	// p.setUsername(username);
-	// adminRepository.save(p);
-	// return "admin/show_users";
-	//
-	// }
 
 	@GetMapping("/admin/admin_home")
 	public String signup_from_login(@CookieValue("person") String person, Model model) {
@@ -85,7 +63,20 @@ public class AdminController {
 		model.addAttribute("message","");
 		return "admin/create_course";
 	}
+	
+//	@GetMapping("/admin/delete_course")
+//	public String delete_course_from_admin(Course course, Model model) {
+//		adminRepository.deleteByNameIn(course.course_name);
+//		return "admin/delete_course";
+//	}
 
+	@DeleteMapping("/admin/delete_course")
+	public ResponseEntity<?> deleteCoures(@PathVariable(value = "CourseCode") String courseCode) {
+		Course course = adminRepository.deleteByNameIn(courseCode);
+		adminRepository.delete(course);
+		
+		return ResponseEntity.ok().build();
+	}
 	@PostMapping("/admin/create_course")
 	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result, Model model) {
 		System.out.println(course.toString());
