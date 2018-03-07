@@ -77,6 +77,7 @@ public class AdminController {
 		
 		return ResponseEntity.ok().build();
 	}
+	
 	@PostMapping("/admin/create_course")
 	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result, Model model) {
 		System.out.println(course.toString());
