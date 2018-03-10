@@ -11,6 +11,7 @@ import whiteboard.login.Person;
 
 @Controller
 public class ProfController {
+	
     @GetMapping("/prof/prof_home")
     public String signup_from_login(@CookieValue("person") String person, Model model) {
 	  	String[] dataSplit = person.split("=");

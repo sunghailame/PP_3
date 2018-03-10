@@ -1,28 +1,14 @@
 
-//package whiteboard.enrollment;
-//
-//import org.springframework.data.repository.Repository;
-//
-//import whiteboard.login.Person;
-//
-//public interface EnrollmentRepository extends Repository<Person, Long> {
-//		Enrollment findByID(String id);
-//		
-//		
-//		void Enrollment(Enrollment e);
-//}
-//
-=======
 package whiteboard.enrollment;
 
 import org.springframework.data.repository.Repository;
 
-import whiteboard.login.Person;
 
-//public interface EnrollmentRepository extends Repository<Person, Long> {
+public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 		//Enrollment findByID(String id);
-		
-		
-		//void Enrollment(Enrollment e);
-//}
+			
+		void save(Enrollment e);
+}
+
+
 
