@@ -61,12 +61,11 @@ public class AdminController {
 		model.addAttribute("username", admin.username);
 		model.addAttribute("name", admin.name);
 		adminRepository.save(admin);
-
 		return "admin/admin_home";
 	}
 
 	@PostMapping("/admin/admin_home")
-	public String login_from_signup(@ModelAttribute Person person) {
+	public String login_from_signup(@ModelAttribute Person admin) {
 		return "login/greeting";
 	}
 
