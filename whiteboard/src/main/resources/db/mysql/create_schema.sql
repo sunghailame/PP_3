@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS person (
     `Email` VARCHAR(45) ,
     `Role` VARCHAR(45) ,
     `Username` VARCHAR(45) ,
+    `Enrolled` BIT ,
 	CONSTRAINT UC_person UNIQUE (Username)
     )
     ;

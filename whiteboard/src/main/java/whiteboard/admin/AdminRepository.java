@@ -7,7 +7,8 @@ import whiteboard.login.*;
 
 public interface AdminRepository extends CrudRepository<Person, Long>{
 
-	Course deleteByNameIn(String names);
 
-	void delete(Course course);
+	//Course deleteByNameIn(String names);
+
+	//void delete(Course course);
 }

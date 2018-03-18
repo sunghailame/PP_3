@@ -1,4 +1,4 @@
-package whiteboard.login;
+package whiteboard.admin;
 
 import javax.persistence.Entity;
 import javax.persistence.Column;
@@ -10,44 +10,29 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-@Entity
-@Table(name = "person")
-@SessionAttributes("person")
-public class Person {
-	
-	@NotNull
-	@Column(name = "ID")
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+public class DummyStudent {
 	
 	public int id;
 	
 
-	@Column(name = "Name")
 	public String name;
 
-	@Column(name = "Email")
-	@Email(message = "*Please provide a valid Email")
 	public String email;
 
-	@Column(name = "username")
 	public String username;
 
-	@Column(name = "Password")
 	public String password;
 
-	@Column(name = "Role")
 	public String role;
 	
-	@Column(name = "Enrolled")
 	public boolean enrolled;
 	
 	
-	public Person() {
+	public DummyStudent() {
 		
 	}
 	
-	public Person(String username, String password, String name, String email, String role, int id, boolean enrolled) {
+	public DummyStudent(String username, String password, String name, String email, String role, int id, boolean enrolled) {
 
 		super();
 		this.role = role;
@@ -117,7 +102,7 @@ public class Person {
 	
 	@Override
 	public String toString() {
-		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password+" Enrolled: "+this.enrolled;
+		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password;
 	}
 	
 	public String toStringData() {

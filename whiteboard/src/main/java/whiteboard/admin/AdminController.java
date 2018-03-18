@@ -6,6 +6,8 @@ import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.login.Person;
 
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -67,11 +69,11 @@ public class AdminController {
 		return "admin/create_course";
 	}
 	
-//	@GetMapping("/admin/delete_course")
-//	public String delete_course_from_admin(Course course, Model model) {
-//		adminRepository.deleteByNameIn(course.course_name);
-//		return "admin/delete_course";
-//	}
+	/*@GetMapping("/admin/delete_course")
+	public String delete_course_from_admin(Course course, Model model) {
+		adminRepository.deleteByNameIn(course.course_name);
+		return "admin/delete_course";
+	}
 
 	@DeleteMapping("/admin/delete_course")
 	public ResponseEntity<?> deleteCoures(@PathVariable(value = "CourseCode") String courseCode) {
@@ -80,7 +82,7 @@ public class AdminController {
 		
 		return ResponseEntity.ok().build();
 	}
-	
+	*/
 	@PostMapping("/admin/create_course")
 	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result, Model model) {
 		System.out.println(course.toString());
@@ -91,17 +93,28 @@ public class AdminController {
 	
 	@GetMapping("/admin/enroll_student")
 	public String enroll_student_from_admin(Model model) {
-		Enrollment enrollment = new Enrollment();
-		model.addAttribute("enrollment", enrollment);
+		//Enrollment enrollment = new Enrollment();
+		//model.addAttribute("enrollment", enrollment);
+		Iterable<Person> users = adminRepository.findAll();
+		
+		model.addAttribute("users", users);
 		model.addAttribute("message","");
 		return "admin/enroll_student";
 	}
 	
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(@ModelAttribute Enrollment enrollment, BindingResult result, Model model) {
-		System.out.println(enrollment.toString());
-		this.enrollmentRepository.save(enrollment);
-		model.addAttribute("message", "Enrolled Student!");
+	public String admin_home_from_enroll_student(/*@ModelAttribute Enrollment enrollment,*/ BindingResult result, Model model) {
+		//System.out.println(enrollment.toString());
+		//this.enrollmentRepository.save(enrollment);
+		Iterable<Person> users = adminRepository.findAll();
+		Iterator iter = users.iterator();
+		while(iter.hasNext()) {
+			Person user = (Person) iter.next();
+			if(user.enrolled)
+				System.out.println(user.name);
+		}
+		
+		model.addAttribute("message", "Enrolled Students!");
 		return "admin/enroll_student";
 	}
 	
