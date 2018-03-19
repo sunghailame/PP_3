@@ -138,8 +138,8 @@ public class AdminController {
 				DummyCourse m = new DummyCourse();
 				if(iterate.hasNext()) {
 					String[] dataSplit = iterate.next().split("=");
-					m.courseCode = dataSplit[0];
-					m.courseName = dataSplit[1];
+					m.courseCode = dataSplit[2];
+					m.courseName = dataSplit[0];
 					m.enrolled = Boolean.parseBoolean(dataSplit[1]);
 				}
 				
