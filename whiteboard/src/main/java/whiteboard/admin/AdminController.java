@@ -105,19 +105,31 @@ public class AdminController {
 			DummyStudent p = new DummyStudent(user.id, false, user.username);
 			users.add(p);
 		}
+		
+		Iterable<Course> course_temp = courseRepository.findAll();
+		ArrayList<DummyCourse> courses = new ArrayList<>();
+		Iterator<Course> iterate = course_temp.iterator();
+		while(iterate.hasNext()) {
+			Course course = iterate.next();
+			DummyCourse m = new DummyCourse(course.course_code, course.course_name, false);
+			courses.add(m);
+		}
+		
 		FormWrapper userList = new FormWrapper();
 		userList.setUsers(users);
+		userList.setCourses(courses);
 		model.addAttribute("userList", userList);
 		model.addAttribute("message","");
 		return "admin/enroll_student";
 	}
 	
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> users, Model model) {
+	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> users, @RequestParam("c_enrolled") List<String> courses, Model model) {
 		//System.out.println(enrollment.toString());
 		//this.enrollmentRepository.save(enrollment);
 		try {
 			System.out.println(users);
+			System.out.println(courses);
 			Iterator<String> iter = users.iterator();
 			ArrayList<DummyStudent> users_temp = new ArrayList<>();
 			while(iter.hasNext()) {

@@ -11,6 +11,22 @@
 <body>
     <p th:text="''+${message}"/>
     <form action="#" th:action="@{/admin/enroll_student}" th:object="${userList}" method="post">
+	
+	<h1>Courses</h1>
+	<table align="center">
+	<tr>
+	<th>Course Name</th>
+	<th>Course Code</th>
+	<th>Add</th>
+	</tr>
+	<tr th:each="course : ${userList.courses}">
+        <td th:text="${course.courseName}"></td>
+        <td th:text="${course.courseCode}"></td>
+        <td><input type="checkbox" th:name="c_enrolled" th:value="${course}" /></td>
+        </tr>
+	
+	</table>
+	
 	<h1>Students</h1>
 	<table align="center">
 	<tr>
