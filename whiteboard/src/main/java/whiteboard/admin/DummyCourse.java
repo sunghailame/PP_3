@@ -53,6 +53,6 @@ public class DummyCourse {
 	
 	@Override
 	public String toString() {
-		return ""+this.courseName+"="+this.enrolled+"="+this.courseCode;
+		return ""+this.courseCode+"="+this.courseCode+"="+this.enrolled;
 	}
 }

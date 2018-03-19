@@ -125,12 +125,8 @@ public class AdminController {
 	
 	@PostMapping("/admin/enroll_student")
 	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> users, @RequestParam("c_enrolled") List<String> courses, Model model) {
-		//System.out.println(enrollment.toString());
-		//this.enrollmentRepository.save(enrollment);
-		try {
-			System.out.println(users);
-			System.out.println(courses);
 		
+		try {
 			Iterator<String> iter = users.iterator();
 			while(iter.hasNext()) {
 				
@@ -138,14 +134,15 @@ public class AdminController {
 				DummyCourse m = new DummyCourse();
 				if(iterate.hasNext()) {
 					String[] dataSplit = iterate.next().split("=");
-					m.courseCode = dataSplit[2];
-					m.courseName = dataSplit[0];
-					m.enrolled = Boolean.parseBoolean(dataSplit[1]);
+					m.courseCode = dataSplit[0];
+					m.courseName = dataSplit[1];
+					m.enrolled = Boolean.parseBoolean(dataSplit[2]);
 				}
 				
 				String[] dataSplit = iter.next().split("=");
 				DummyStudent p = new DummyStudent(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]),dataSplit[2]);
 				Enrollment c = new Enrollment(p.id, m.courseCode, "1");
+				System.out.println(c.toString());
 				this.enrollmentRepository.save(c);
 			}
 			
