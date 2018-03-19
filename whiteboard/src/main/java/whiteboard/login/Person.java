@@ -39,7 +39,6 @@ public class Person {
 	@Column(name = "Role")
 	public String role;
 	
-	
 	public Person() {
 		
 	}

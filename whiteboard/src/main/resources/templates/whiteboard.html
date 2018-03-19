@@ -18,6 +18,8 @@
 	<div class="container-fluid">
 	<h1>Welcome to Whiteboard!</h1>
 	
+	<p th:text="''+${message}"/>
+	
     <form action="#" th:action="@{/whiteboard}" th:object="${person}" method="post">
 	<div class="form-group">
     	<label>Username:</label>
