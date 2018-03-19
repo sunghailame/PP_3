@@ -12,38 +12,28 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 public class DummyStudent {
 	
-	public int id;
-	
-
-	public String name;
-
-	public String email;
-
 	public String username;
-
-	public String password;
-
-	public String role;
-	
+	public int id;
 	public boolean enrolled;
-	
 	
 	public DummyStudent() {
 		
 	}
 	
-	public DummyStudent(String username, String password, String name, String email, String role, int id, boolean enrolled) {
+	public DummyStudent(int id, boolean enrolled, String username) {
 
 		super();
-		this.role = role;
-		this.username = username;
-		this.password = password;
 		this.id = id;
-		this.email = email;
-		this.name = name;
+		this.username = username;
 		this.enrolled = enrolled;
 	}
+	public String getUsername() {
+		return username;
+	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public int getId() {
 		return id;
 	}
@@ -52,45 +42,6 @@ public class DummyStudent {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
 	
 	public boolean isEnrolled() {
 		return enrolled;
@@ -102,10 +53,6 @@ public class DummyStudent {
 	
 	@Override
 	public String toString() {
-		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password;
-	}
-	
-	public String toStringData() {
-		return this.id+"="+this.name+"="+this.username+"="+this.email+"="+this.role+"="+this.password;
+		return "Username: "+this.username+"ID: "+this.id+" Enrolled: "+this.enrolled;
 	}
 }

@@ -6,6 +6,7 @@ import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.login.Person;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,23 +96,34 @@ public class AdminController {
 	public String enroll_student_from_admin(Model model) {
 		//Enrollment enrollment = new Enrollment();
 		//model.addAttribute("enrollment", enrollment);
-		Iterable<Person> users = adminRepository.findAll();
-		
-		model.addAttribute("users", users);
+		Iterable<Person> users_temp = adminRepository.findAll();
+		ArrayList<DummyStudent> users = new ArrayList<>();
+		Iterator<Person> iter = users_temp.iterator();
+		while(iter.hasNext()) {
+			Person user = (Person) iter.next();
+			DummyStudent p = new DummyStudent(user.id, false, user.username);
+			users.add(p);
+		}
+		FormWrapper userList = new FormWrapper();
+		userList.setUsers(users);
+		model.addAttribute("userList", userList);
 		model.addAttribute("message","");
 		return "admin/enroll_student";
 	}
 	
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(/*@ModelAttribute Enrollment enrollment,*/ BindingResult result, Model model) {
+	public String admin_home_from_enroll_student(@ModelAttribute FormWrapper userList, Model model) {
 		//System.out.println(enrollment.toString());
 		//this.enrollmentRepository.save(enrollment);
-		Iterable<Person> users = adminRepository.findAll();
+		//Iterable<Person> userCheck = adminRepository.findAll();
+		ArrayList<DummyStudent> users = userList.users;
 		Iterator iter = users.iterator();
 		while(iter.hasNext()) {
-			Person user = (Person) iter.next();
-			if(user.enrolled)
-				System.out.println(user.name);
+			DummyStudent user = (DummyStudent) iter.next();
+			System.out.println(user.toString());
+			if(user.enrolled) {
+				System.out.println("Enrolled!");
+			}
 		}
 		
 		model.addAttribute("message", "Enrolled Students!");

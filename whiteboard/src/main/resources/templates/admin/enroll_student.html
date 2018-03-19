@@ -10,7 +10,7 @@
 </head>
 <body>
     <p th:text="''+${message}"/>
-    <form action="#" th:action="@{/admin/enroll_student}" th:object="${users}" method="post">
+    <form action="#" th:action="@{/admin/enroll_student}" th:object="${userList}" method="post">
 
 	<!-- 
 	<h1>Courses</h1>
@@ -35,16 +35,16 @@
 	<th>ID</th>
 	<th>Add</th>
 	</tr>
-	<tr th:each="user : ${users}">
+	<tr th:each="user : ${userList.users}">
         <td th:text="${user.username}"></td>
         <td th:text="${user.id}"></td>
         <td><input type="checkbox" th:checked="${user.enrolled}" /></td>
         </tr>
 	
 	</table>
-
-            <input type="submit" value="Submit" /> <a href="admin/admin_home">Back</a></p>
-        </p>
+<p>
+            <input type="submit" value="Submit" /> <a href="admin/admin_home">Back</a>
+            </p>
     </form>
 </body>
 </html>

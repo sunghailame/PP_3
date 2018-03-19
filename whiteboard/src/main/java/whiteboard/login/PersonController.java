@@ -29,7 +29,7 @@ public class PersonController {
 	public String home_from_login(HttpServletResponse response, @ModelAttribute Person person, Model model) {
 		try {
 			Person p = PersonRepository.findByUsername(person.username);
-			System.out.println("FOUND: "+p);
+			
 			if (person.password.equals(p.getPassword())) {
 				Cookie passData = new Cookie("person",p.toStringData());
 				System.out.println(p.toString());

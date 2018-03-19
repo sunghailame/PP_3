@@ -39,15 +39,11 @@ public class Person {
 	@Column(name = "Role")
 	public String role;
 	
-	@Column(name = "Enrolled")
-	public boolean enrolled;
-	
-	
 	public Person() {
 		
 	}
 	
-	public Person(String username, String password, String name, String email, String role, int id, boolean enrolled) {
+	public Person(String username, String password, String name, String email, String role, int id) {
 
 		super();
 		this.role = role;
@@ -56,7 +52,6 @@ public class Person {
 		this.id = id;
 		this.email = email;
 		this.name = name;
-		this.enrolled = enrolled;
 	}
 
 	public int getId() {
@@ -107,17 +102,9 @@ public class Person {
 		this.role = role;
 	}
 	
-	public boolean isEnrolled() {
-		return enrolled;
-	}
-
-	public void setEnrolled(boolean enrolled) {
-		this.enrolled = enrolled;
-	}
-	
 	@Override
 	public String toString() {
-		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password+" Enrolled: "+this.enrolled;
+		return "ID: "+this.id+" Name: "+this.name+" Username: "+this.username+" Email: "+this.email+" Role: "+this.role+" Password: "+this.password;
 	}
 	
 	public String toStringData() {
