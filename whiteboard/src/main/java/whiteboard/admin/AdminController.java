@@ -130,18 +130,27 @@ public class AdminController {
 		try {
 			System.out.println(users);
 			System.out.println(courses);
+		
 			Iterator<String> iter = users.iterator();
-			ArrayList<DummyStudent> users_temp = new ArrayList<>();
 			while(iter.hasNext()) {
+				
+				Iterator<String> iterate = courses.iterator();
+				DummyCourse m = new DummyCourse();
+				if(iterate.hasNext()) {
+					String[] dataSplit = iterate.next().split("=");
+					m.courseCode = dataSplit[0];
+					m.courseName = dataSplit[1];
+					m.enrolled = Boolean.parseBoolean(dataSplit[1]);
+				}
+				
 				String[] dataSplit = iter.next().split("=");
 				DummyStudent p = new DummyStudent(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]),dataSplit[2]);
+				Enrollment c = new Enrollment(p.id, m.courseCode, "1");
+				this.enrollmentRepository.save(c);
 			}
+			
 			model.addAttribute("message", "Enrolled Students!");
 		} catch (Exception E) {
-			model.addAttribute("message","Error");
-			FormWrapper userList = new FormWrapper();
-			userList.setUsers(null);
-			model.addAttribute(userList);
 			model.addAttribute("message", "Error enrolling. Try again.");
 		}
 		return "admin/admin_home";
