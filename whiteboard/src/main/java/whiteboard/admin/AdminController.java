@@ -45,8 +45,7 @@ public class AdminController {
 		admin.email = dataSplit[3];
 		admin.role = dataSplit[4];
 		admin.password = dataSplit[5];
-		model.addAttribute("username", admin.username);
-		model.addAttribute("name", admin.name);
+		model.addAttribute("message", "Hello "+admin.name+"!");
 		adminRepository.save(admin);
 		return "admin/admin_home";
 	}
@@ -124,19 +123,16 @@ public class AdminController {
 			while(iter.hasNext()) {
 				String[] dataSplit = iter.next().split("=");
 				DummyStudent p = new DummyStudent(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]),dataSplit[2]);
-				users_temp.add(p);
 			}
-			FormWrapper userList = new FormWrapper();
-			userList.setUsers(users_temp);
-			model.addAttribute("userList",userList);
+			model.addAttribute("message", "Enrolled Students!");
 		} catch (Exception E) {
 			model.addAttribute("message","Error");
 			FormWrapper userList = new FormWrapper();
 			userList.setUsers(null);
 			model.addAttribute(userList);
+			model.addAttribute("message", "Error enrolling. Try again.");
 		}
-		model.addAttribute("message", "Enrolled Students!");
-		return "admin/enroll_student";
+		return "admin/admin_home";
 	}
 	
 	
