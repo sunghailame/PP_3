@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+@SessionAttributes
 public class DummyStudent {
 	
 	public String username;

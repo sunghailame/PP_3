@@ -112,11 +112,11 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(@ModelAttribute FormWrapper userList, Model model) {
+	public String admin_home_from_enroll_student(@ModelAttribute FormWrapper userList, BindingResult result, Model model) {
 		//System.out.println(enrollment.toString());
 		//this.enrollmentRepository.save(enrollment);
 		//Iterable<Person> userCheck = adminRepository.findAll();
-		ArrayList<DummyStudent> users = userList.users;
+		ArrayList<DummyStudent> users = userList.getUsers();
 		Iterator iter = users.iterator();
 		while(iter.hasNext()) {
 			DummyStudent user = (DummyStudent) iter.next();
