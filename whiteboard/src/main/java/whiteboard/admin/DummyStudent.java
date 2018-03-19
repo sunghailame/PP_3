@@ -54,6 +54,6 @@ public class DummyStudent {
 	
 	@Override
 	public String toString() {
-		return "Username: "+this.username+"ID: "+this.id+" Enrolled: "+this.enrolled;
+		return ""+this.id+"="+this.enrolled+"="+this.username;
 	}
 }

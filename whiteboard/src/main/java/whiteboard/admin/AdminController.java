@@ -8,6 +8,7 @@ import whiteboard.login.Person;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -34,7 +36,7 @@ public class AdminController {
 
 	@GetMapping("/admin/admin_home")
 	public String signup_from_login(@CookieValue("person") String person, Model model) {
-		System.out.println(person);
+		
 		String[] dataSplit = person.split("=");
 		Person admin = new Person();
 		admin.id = Integer.parseInt(dataSplit[0]);
@@ -112,20 +114,27 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(@ModelAttribute FormWrapper userList, BindingResult result, Model model) {
+	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> users, Model model) {
 		//System.out.println(enrollment.toString());
 		//this.enrollmentRepository.save(enrollment);
-		//Iterable<Person> userCheck = adminRepository.findAll();
-		ArrayList<DummyStudent> users = userList.getUsers();
-		Iterator iter = users.iterator();
-		while(iter.hasNext()) {
-			DummyStudent user = (DummyStudent) iter.next();
-			System.out.println(user.toString());
-			if(user.enrolled) {
-				System.out.println("Enrolled!");
+		try {
+			System.out.println(users);
+			Iterator<String> iter = users.iterator();
+			ArrayList<DummyStudent> users_temp = new ArrayList<>();
+			while(iter.hasNext()) {
+				String[] dataSplit = iter.next().split("=");
+				DummyStudent p = new DummyStudent(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]),dataSplit[2]);
+				users_temp.add(p);
 			}
+			FormWrapper userList = new FormWrapper();
+			userList.setUsers(users_temp);
+			model.addAttribute("userList",userList);
+		} catch (Exception E) {
+			model.addAttribute("message","Error");
+			FormWrapper userList = new FormWrapper();
+			userList.setUsers(null);
+			model.addAttribute(userList);
 		}
-		
 		model.addAttribute("message", "Enrolled Students!");
 		return "admin/enroll_student";
 	}
