@@ -1,4 +1,4 @@
-package whiteboard;
+/*package whiteboard;
 
 import javax.persistence.Entity;
 
@@ -34,4 +34,4 @@ public class user {
 		this.password = password;
 	}
 
-}
+}*/
