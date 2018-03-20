@@ -11,38 +11,37 @@ import org.hibernate.validator.constraints.Email;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @SessionAttributes
-public class DummyStudent {
+public class DummyCourse {
 	
-	public String username;
-	public int id;
+	public String courseCode;
+	public String courseName;
 	public boolean enrolled;
 	
-	public DummyStudent() {
+	public DummyCourse() {
 		
 	}
 	
-	public DummyStudent(int id, boolean enrolled, String username) {
+	public DummyCourse(String courseCode, String courseName, boolean enrolled) {
 
 		super();
-		this.id = id;
-		this.username = username;
+		this.courseCode = courseCode;
+		this.courseName = courseName;
 		this.enrolled = enrolled;
 	}
-	public String getUsername() {
-		return username;
+	public String getCourseName() {
+		return courseName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCourseName(String coursename) {
+		this.courseName = coursename;
 	}
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public String getCourseCode() {
+		return courseCode;
 	}
 
+	public void setCourseCode(String coursecode) {
+		this.courseCode = coursecode;
+	}
 	
 	public boolean isEnrolled() {
 		return enrolled;
@@ -54,6 +53,6 @@ public class DummyStudent {
 	
 	@Override
 	public String toString() {
-		return ""+this.id+"="+this.enrolled+"="+this.username;
+		return ""+this.courseCode+"="+this.courseCode+"="+this.enrolled;
 	}
 }

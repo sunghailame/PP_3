@@ -11,23 +11,22 @@
 <body>
     <p th:text="''+${message}"/>
     <form action="#" th:action="@{/admin/enroll_student}" th:object="${userList}" method="post">
-
-	<!-- 
+	
 	<h1>Courses</h1>
-		<table align="center">
-		<tr>
-		<th>Course Code</th>
-		<th>Course Name</th>
-		<th>Edit users</th>
-		</tr>
-		<tr th:each="course : ${courses}">
-	        <td th:text="${course.course_code}"></td>
-	        <td th:text="${course.course_name}"></td>
-	        <td><input type="checkbox" /></td>
-	        </tr>
+	<table align="center">
+	<tr>
+	<th>Course Name</th>
+	<th>Course Code</th>
+	<th>Add</th>
+	</tr>
+	<tr th:each="course : ${userList.courses}">
+        <td th:text="${course.courseName}"></td>
+        <td th:text="${course.courseCode}"></td>
+        <td><input type="checkbox" th:name="c_enrolled" th:value="${course}" /></td>
+        </tr>
 	
 	</table>
--->
+	
 	<h1>Students</h1>
 	<table align="center">
 	<tr>
@@ -38,13 +37,13 @@
 	<tr th:each="user : ${userList.users}">
         <td th:text="${user.username}"></td>
         <td th:text="${user.id}"></td>
-        <td><input type="checkbox" th:checked="${user.enrolled}" /></td>
+        <td><input type="checkbox" th:name="enrolled" th:value="${user}" /></td>
         </tr>
 	
 	</table>
-<p>
-            <input type="submit" value="Submit" /> <a href="admin/admin_home">Back</a>
-            </p>
+	<p>
+    	<input type="submit" value="Submit" /> <a href="admin/admin_home">Back</a>
+    </p>
     </form>
 </body>
 </html>

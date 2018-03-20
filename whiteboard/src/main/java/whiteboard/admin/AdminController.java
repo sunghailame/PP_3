@@ -8,6 +8,7 @@ import whiteboard.login.Person;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -34,7 +36,7 @@ public class AdminController {
 
 	@GetMapping("/admin/admin_home")
 	public String signup_from_login(@CookieValue("person") String person, Model model) {
-		System.out.println(person);
+		
 		String[] dataSplit = person.split("=");
 		Person admin = new Person();
 		admin.id = Integer.parseInt(dataSplit[0]);
@@ -43,8 +45,7 @@ public class AdminController {
 		admin.email = dataSplit[3];
 		admin.role = dataSplit[4];
 		admin.password = dataSplit[5];
-		model.addAttribute("username", admin.username);
-		model.addAttribute("name", admin.name);
+		model.addAttribute("message", "Hello "+admin.name+"!");
 		adminRepository.save(admin);
 		return "admin/admin_home";
 	}
@@ -104,30 +105,52 @@ public class AdminController {
 			DummyStudent p = new DummyStudent(user.id, false, user.username);
 			users.add(p);
 		}
+		
+		Iterable<Course> course_temp = courseRepository.findAll();
+		ArrayList<DummyCourse> courses = new ArrayList<>();
+		Iterator<Course> iterate = course_temp.iterator();
+		while(iterate.hasNext()) {
+			Course course = iterate.next();
+			DummyCourse m = new DummyCourse(course.course_code, course.course_name, false);
+			courses.add(m);
+		}
+		
 		FormWrapper userList = new FormWrapper();
 		userList.setUsers(users);
+		userList.setCourses(courses);
 		model.addAttribute("userList", userList);
 		model.addAttribute("message","");
 		return "admin/enroll_student";
 	}
 	
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(@ModelAttribute FormWrapper userList, BindingResult result, Model model) {
-		//System.out.println(enrollment.toString());
-		//this.enrollmentRepository.save(enrollment);
-		//Iterable<Person> userCheck = adminRepository.findAll();
-		ArrayList<DummyStudent> users = userList.getUsers();
-		Iterator iter = users.iterator();
-		while(iter.hasNext()) {
-			DummyStudent user = (DummyStudent) iter.next();
-			System.out.println(user.toString());
-			if(user.enrolled) {
-				System.out.println("Enrolled!");
-			}
-		}
+	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> users, @RequestParam("c_enrolled") List<String> courses, Model model) {
 		
-		model.addAttribute("message", "Enrolled Students!");
-		return "admin/enroll_student";
+		try {
+			Iterator<String> iter = users.iterator();
+			while(iter.hasNext()) {
+				
+				Iterator<String> iterate = courses.iterator();
+				DummyCourse m = new DummyCourse();
+				if(iterate.hasNext()) {
+					String[] dataSplit = iterate.next().split("=");
+					m.courseCode = dataSplit[0];
+					m.courseName = dataSplit[1];
+					m.enrolled = Boolean.parseBoolean(dataSplit[2]);
+				}
+				
+				String[] dataSplit = iter.next().split("=");
+				DummyStudent p = new DummyStudent(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]),dataSplit[2]);
+				Enrollment c = new Enrollment(p.id, m.courseCode, "1");
+				System.out.println(c.toString());
+				this.enrollmentRepository.save(c);
+			}
+			
+			model.addAttribute("message", "Enrolled Students!");
+		} catch (Exception E) {
+			model.addAttribute("message", "Error enrolling. Try again.");
+		}
+		return "admin/admin_home";
 	}
 	
 	
