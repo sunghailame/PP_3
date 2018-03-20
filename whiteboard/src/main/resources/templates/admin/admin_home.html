@@ -1,24 +1,49 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <title>Admin</title>
+    <title>Admin HomePage</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <link rel="stylesheet" media="all"  
-      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/admin_home.css">
 </head>
 <body>
-	<h1>WIP - Admin</h1>
-	<p th:text="'Hello, ' + ${username} + ' - ' + ${name} + '!'"/>
-	<a href ="show_users">View user list</a>
-	<a href="create_course">Create new course</a>
-	<a href="enroll_student">Enroll students</a>
-	
-    <a href="../whiteboard">Logout</a>
+
+
+<ul id="contents">
+	<li id="logo"><a href="HomePage">WhiteBoard</a></li>
+  <li id="logout"><a href="logout">Logout</a></li>
+</ul>
+
+<div class="card1">
+  <img src="blueBackground.png" style="width:100%">
+  <div class="container">
+    <h4><b>People</b></h4> 
+  </div>
+</div>
+
+<div class="card2">
+  <img src="blueBackground.png" style="width:100%">
+  <div class="container">
+    <h4><b>Add Students</b></h4>  
+  </div>
+</div>
+
+<div class="card3">
+  <img src="blueBackground.png" style="width:100%">
+  <div class="container">
+    <h4><b>Add Instructor</b></h4> 
+  </div>
+</div>
+
+<div class="card4">
+  <img src="blueBackground.png" style="width:100%">
+  <div class="container">
+    <h4><b>Add New Course</b></h4>  
+  </div>
+</div>
 </body>
 </html>
