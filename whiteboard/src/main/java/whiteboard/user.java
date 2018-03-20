@@ -1,14 +1,14 @@
-/*package whiteboard;
+package whiteboard;
 
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 
-@Entity
+//@Entity
 public class user {
 	
-	@NotEmpty
+	//@NotEmpty
 	public String username;
 	public String password;
 	
@@ -34,4 +34,4 @@ public class user {
 		this.password = password;
 	}
 
-}*/
+}
