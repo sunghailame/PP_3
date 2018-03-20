@@ -16,6 +16,8 @@ ul {
     padding: 8px 16px;
     text-decoration: none;
     border-bottom: 1px solid #555;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+
 
 }
 
@@ -26,6 +28,8 @@ ul {
     background-color: grey;
     text-decoration: none;
     border-bottom: 1px solid #555;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size:25px;
 }
 
 li a:hover {
