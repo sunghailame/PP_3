@@ -95,23 +95,23 @@ public class AdminController {
 	
 	@GetMapping("/admin/enroll_student")
 	public String enroll_student_from_admin(Model model) {
-		//Enrollment enrollment = new Enrollment();
-		//model.addAttribute("enrollment", enrollment);
+		Enrollment enrollment = new Enrollment();
+		model.addAttribute("enrollment", enrollment);
 		Iterable<Person> users_temp = adminRepository.findAll();
-		ArrayList<DummyStudent> users = new ArrayList<>();
+		ArrayList<EnrollPerson> users = new ArrayList<>();
 		Iterator<Person> iter = users_temp.iterator();
 		while(iter.hasNext()) {
 			Person user = (Person) iter.next();
-			DummyStudent p = new DummyStudent(user.id, false, user.username);
+			EnrollPerson p = new EnrollPerson(user.id, false, user.username);
 			users.add(p);
 		}
 		
 		Iterable<Course> course_temp = courseRepository.findAll();
-		ArrayList<DummyCourse> courses = new ArrayList<>();
+		ArrayList<EnrollCourse> courses = new ArrayList<>();
 		Iterator<Course> iterate = course_temp.iterator();
 		while(iterate.hasNext()) {
 			Course course = iterate.next();
-			DummyCourse m = new DummyCourse(course.course_code, course.course_name, false);
+			EnrollCourse m = new EnrollCourse(course.course_code, course.course_name, false);
 			courses.add(m);
 		}
 		
@@ -131,7 +131,7 @@ public class AdminController {
 			while(iter.hasNext()) {
 				
 				Iterator<String> iterate = courses.iterator();
-				DummyCourse m = new DummyCourse();
+				EnrollCourse m = new EnrollCourse();
 				if(iterate.hasNext()) {
 					String[] dataSplit = iterate.next().split("=");
 					m.courseCode = dataSplit[0];
@@ -140,7 +140,7 @@ public class AdminController {
 				}
 				
 				String[] dataSplit = iter.next().split("=");
-				DummyStudent p = new DummyStudent(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]),dataSplit[2]);
+				EnrollPerson p = new EnrollPerson(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]), dataSplit[2]);
 				Enrollment c = new Enrollment(p.id, m.courseCode, "1");
 				System.out.println(c.toString());
 				this.enrollmentRepository.save(c);
