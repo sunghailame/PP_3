@@ -31,12 +31,10 @@ public class AdminController {
 
 	@GetMapping("/admin/admin_home")
 	public String signup_from_login(@CookieValue("person") String person, Model model) {
-		
 		Person admin = new Person();
 		admin.parseStringData(person.split("="));
-	
-		model.addAttribute("message", "Hello "+admin.name+"!");
 		adminRepository.save(admin);
+		model.addAttribute("message", "Hello "+admin.name+"!");
 		return "admin/admin_home";
 	}
 
@@ -49,7 +47,6 @@ public class AdminController {
 	public String show_users_from_admin(Person person, Model model) {
 		Iterable<Person> users = adminRepository.findAll();
 		model.addAttribute("users", users);
-
 		return "admin/show_users";
 	}
 
@@ -78,59 +75,65 @@ public class AdminController {
 	
 	@PostMapping("/admin/create_course")
 	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result, Model model) {
-		System.out.println(course.toString());
 		this.courseRepository.save(course);
 		model.addAttribute("message", "Created course!");
-		return "admin/create_course";
+		return "admin/admin_home";
 	}
 	
 	@GetMapping("/admin/enroll_student")
 	public String enroll_student_from_admin(Model model) {
-		Enrollment enrollment = new Enrollment();
-		model.addAttribute("enrollment", enrollment);
+		
+		//Get list of all students, save to list of EnrollPerson type for form
 		Iterable<Person> users_temp = adminRepository.findAll();
 		ArrayList<EnrollPerson> users = new ArrayList<>();
-		Iterator<Person> iter = users_temp.iterator();
-		while(iter.hasNext()) {
-			Person user = (Person) iter.next();
+		Iterator<Person> u_cur = users_temp.iterator();
+		while(u_cur.hasNext()) {
+			Person user = (Person) u_cur.next();
 			EnrollPerson p = new EnrollPerson(user.id, false, user.username);
 			users.add(p);
 		}
 		
+		//Get list of all courses, save to list of EnrollCourse type for form
 		Iterable<Course> course_temp = courseRepository.findAll();
 		ArrayList<EnrollCourse> courses = new ArrayList<>();
-		Iterator<Course> iterate = course_temp.iterator();
-		while(iterate.hasNext()) {
-			Course course = iterate.next();
+		Iterator<Course> c_cur = course_temp.iterator();
+		while(c_cur.hasNext()) {
+			Course course = c_cur.next();
 			EnrollCourse m = new EnrollCourse(course.course_code, course.course_name, false);
 			courses.add(m);
 		}
 		
+		//Create wrapper for sending to view with users and courses
 		FormWrapper userList = new FormWrapper();
 		userList.setUsers(users);
 		userList.setCourses(courses);
+		
+		//Add the list to the view
 		model.addAttribute("userList", userList);
 		model.addAttribute("message","");
 		return "admin/enroll_student";
 	}
 	
+	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?
 	@PostMapping("/admin/enroll_student")
 	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> users, @RequestParam("c_enrolled") List<String> courses, Model model) {
 		
 		try {
-			Iterator<String> iter = users.iterator();
-			while(iter.hasNext()) {
-				
-				Iterator<String> iterate = courses.iterator();
+			
+			//Parse the string data send back from the view
+			//One course and students to enroll
+			Iterator<String> u_cur = users.iterator();
+			while(u_cur.hasNext()) {
+				Iterator<String> c_cur = courses.iterator();
 				EnrollCourse m = new EnrollCourse();
-				if(iterate.hasNext()) {
-					String[] dataSplit = iterate.next().split("=");
+				if(c_cur.hasNext()) {
+					String[] dataSplit = c_cur.next().split("=");
 					m.courseCode = dataSplit[0];
 					m.courseName = dataSplit[1];
 					m.enrolled = Boolean.parseBoolean(dataSplit[2]);
 				}
 				
-				String[] dataSplit = iter.next().split("=");
+				String[] dataSplit = u_cur.next().split("=");
 				EnrollPerson p = new EnrollPerson(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]), dataSplit[2]);
 				Enrollment c = new Enrollment(p.id, m.courseCode, "1");
 				System.out.println(c.toString());
