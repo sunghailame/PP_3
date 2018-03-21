@@ -5,21 +5,16 @@ import whiteboard.course.CourseRepository;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.login.Person;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,14 +32,9 @@ public class AdminController {
 	@GetMapping("/admin/admin_home")
 	public String signup_from_login(@CookieValue("person") String person, Model model) {
 		
-		String[] dataSplit = person.split("=");
 		Person admin = new Person();
-		admin.id = Integer.parseInt(dataSplit[0]);
-		admin.name = dataSplit[1];
-		admin.username = dataSplit[2];
-		admin.email = dataSplit[3];
-		admin.role = dataSplit[4];
-		admin.password = dataSplit[5];
+		admin.parseStringData(person.split("="));
+	
 		model.addAttribute("message", "Hello "+admin.name+"!");
 		adminRepository.save(admin);
 		return "admin/admin_home";
