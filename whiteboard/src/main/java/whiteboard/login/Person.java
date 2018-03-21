@@ -110,4 +110,13 @@ public class Person {
 	public String toStringData() {
 		return this.id+"="+this.name+"="+this.username+"="+this.email+"="+this.role+"="+this.password;
 	}
+	
+	public void parseStringData(String[] dataSplit) {
+		this.id = Integer.parseInt(dataSplit[0]);
+		this.name = dataSplit[1];
+		this.username = dataSplit[2];
+		this.email = dataSplit[3];
+		this.role = dataSplit[4];
+		this.password = dataSplit[5];
+	}
 }
