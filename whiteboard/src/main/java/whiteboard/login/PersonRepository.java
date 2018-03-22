@@ -14,6 +14,8 @@ public interface PersonRepository extends Repository<Person, Long> {
 	Person findByUsername(String username);
 	
 	void save(Person p);
+//	void save(Student s);
+	
 	
 	
 }

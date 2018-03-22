@@ -34,6 +34,7 @@ public class LoginController {
 				passData.setMaxAge(10000);
 				response.addCookie(passData);
 				if (p.role.toUpperCase().contains("ADMIN")) {
+					
 					return "redirect:/admin/admin_home";
 				} else if (p.role.toUpperCase().contains("PROFESSOR")) {
 					return "redirect:/prof/prof_home";
@@ -68,6 +69,9 @@ public class LoginController {
 				return "login/signup";
 			} else {
 				this.PersonRepository.save(person);
+				if (person.role.toUpperCase().contains("ADMIN")) {
+					
+				}
 				model.addAttribute("message","Please login.");
 				return "whiteboard";
 			}
