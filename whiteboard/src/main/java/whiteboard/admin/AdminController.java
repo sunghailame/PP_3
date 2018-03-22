@@ -116,28 +116,19 @@ public class AdminController {
 	
 	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> users, @RequestParam("c_enrolled") List<String> courses, Model model) {
-		
+	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
+		String courseCode;
 		try {
-			
 			//Parse the string data send back from the view
 			//One course and students to enroll
-			Iterator<String> u_cur = users.iterator();
+			String[] splitCourse = enroll_course.split("=");
+			courseCode = splitCourse[0];
+			
+			Iterator<String> u_cur = enroll_users.iterator();
 			while(u_cur.hasNext()) {
-				Iterator<String> c_cur = courses.iterator();
-				EnrollCourse m = new EnrollCourse();
-				if(c_cur.hasNext()) {
-					String[] dataSplit = c_cur.next().split("=");
-					m.courseCode = dataSplit[0];
-					m.courseName = dataSplit[1];
-					m.enrolled = Boolean.parseBoolean(dataSplit[2]);
-				}
 				
-				String[] dataSplit = u_cur.next().split("=");
-				EnrollPerson p = new EnrollPerson(Integer.parseInt(dataSplit[0]), Boolean.parseBoolean(dataSplit[1]), dataSplit[2]);
-				Enrollment c = new Enrollment(p.id, m.courseCode, "1");
-				System.out.println(c.toString());
-				this.enrollmentRepository.save(c);
+				String[] splitUser = u_cur.next().split("=");
+				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1"));
 			}
 			
 			model.addAttribute("message", "Enrolled Students!");

@@ -9,4 +9,3 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 			
 		void save(Enrollment e);
 }
-
