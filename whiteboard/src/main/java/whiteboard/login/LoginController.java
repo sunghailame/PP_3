@@ -1,6 +1,8 @@
 package whiteboard.login;
 
-
+import whiteboard.admin.*;
+import whiteboard.student.*;
+import whiteboard.prof.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class LoginController {
 	@Autowired
 
 	private PersonRepository PersonRepository;
+	private AdminRepository AdminRepository;
+	private StudentRepository StudentRepository;
+	private ProfRepository ProfRepository;
 
 	@GetMapping("/whiteboard")
 	public String login_main(@ModelAttribute Person user, Model model) {
@@ -63,15 +68,24 @@ public class LoginController {
 
 	@PostMapping("/login/signup")
 	public String login_from_signup(@ModelAttribute Person person, BindingResult result, Model model) {
+		
 		try {
 			if (person.username.equals("")) {
 				model.addAttribute("message","Error. Please try again.");
 				return "login/signup";
 			} else {
 				this.PersonRepository.save(person);
+
 				if (person.role.toUpperCase().contains("ADMIN")) {
-					
+					this.AdminRepository.save(person);
 				}
+				else if (person.role.toUpperCase().contains("PROFESSOR")) {
+					this.ProfRepository.save(person);
+				}
+				else if (person.role.toUpperCase().contains("STUDENT")) {
+					this.StudentRepository.save(person);
+				}
+
 				model.addAttribute("message","Please login.");
 				return "whiteboard";
 			}
