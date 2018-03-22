@@ -68,6 +68,7 @@ public class LoginController {
 				return "login/signup";
 			} else {
 				this.PersonRepository.save(person);
+				this.S
 				model.addAttribute("message","Please login.");
 				return "whiteboard";
 			}
