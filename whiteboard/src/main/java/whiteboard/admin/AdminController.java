@@ -129,7 +129,9 @@ public class AdminController {
 			while(u_cur.hasNext()) {
 				
 				String[] splitUser = u_cur.next().split("====");
-				//TODO: add role
+				System.out.println(splitUser[0]);
+				System.out.println(courseCode);
+				System.out.println(splitUser[3]);
 				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
 			}
 			
