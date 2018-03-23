@@ -28,17 +28,21 @@ public class ProfController {
 	
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
-	
 	@Autowired
 	private LectureRepository lectureRepository;
-	
+	@Autowired
 	private PersonRepository personRepository;
+	
+	private Enrollment course;
 	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
+    	
+    	//Parse Cookie into correct Person object
     	Person prof = new Person();
 		prof.parseStringData(person.split("===="));
 		
+		//Retrieve list of courses the prof is enrolled in
 		ArrayList<Enrollment> courses = new ArrayList<>();
 		ArrayList<Enrollment> enrolled = enrollmentRepository.findAll();
 		Iterator<Enrollment> e_cur = enrolled.iterator();
@@ -49,47 +53,56 @@ public class ProfController {
 			}
 		}
 		
-		model.addAttribute("message", "Hello "+prof.name+"!");
+		//Add objects to view
+		model.addAttribute("message", "");
 		model.addAttribute("courses", courses);
-		model.addAttribute("person",person);
+		model.addAttribute("person", person);
+		
         return "prof/prof_home";
     }
-     @PostMapping("/prof/prof_home")
+    @PostMapping("/prof/prof_home")
     public String prof_home_post(@ModelAttribute Person person, @RequestParam("c_enrolled") String enroll_course, Model model) {
-    	 Enrollment course = new Enrollment();
-    	 System.out.println(enroll_course.toString());
-    	 course.parseStringData(enroll_course.split("===="));
-    	 model.addAttribute("course",course);
-    	 model.addAttribute("message", "");
-    	 return "prof/course_page";
-    }
-   
-     @GetMapping("/prof/attendance_page")
-     public String view_student_get(@ModelAttribute Person person, Model model) {
-//    	 if(person.role.toUpperCase().contains("STUDENT")) {
-//    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
-//    	 }
+    	//Get selected course from post 
+    	this.course = new Enrollment();
+    	this.course.parseStringData(enroll_course.split("===="));
     	 
-    	 return "prof/attendance_page";
-     }
-     
-     @PostMapping("/prof/attendance_page")
-     public String view_student_post(@ModelAttribute Person person, Model model) {
-    	 return "prof/attendance_page";
-     }
-     @GetMapping("/prof/course_page")
-     public String course_page_get(@ModelAttribute Person person, @ModelAttribute Course course, Model model) {
-     	 System.out.println(course.toString());
+    	 //Get list of lectures by courseCode and profId
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
      	 ArrayList<ViewLecture> lectures = new ArrayList<>();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
-     		 if(person.id == lecture.profId) {
+     		 if(this.course.person_id == lecture.profId && this.course.course_code == lecture.courseCode) {
      			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId);
      			 lectures.add(l);
      		 }
      	 }
+     	 
+     	 //Attach the lectureList to the view
+     	 FormWrapper lectureList = new FormWrapper();
+     	 lectureList.setLectures(lectures);
+     	 model.addAttribute("lectures", lectureList);
+     	 model.addAttribute("message", "");
+     	 return "prof/course_page";
+    }
+     
+     
+     @GetMapping("/prof/course_page")
+     public String course_page_get(@ModelAttribute Person person, Model model) {
+    	 
+    	 //Get list of lectures by courseCode and profId
+    	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
+     	 ArrayList<ViewLecture> lectures = new ArrayList<>();
+     	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
+     	 while(lec_cur.hasNext()) {
+     		 Lecture lecture = (Lecture)lec_cur.next();
+     		 if(this.course.person_id == lecture.profId && this.course.course_code == lecture.courseCode) {
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId);
+     			 lectures.add(l);
+     		 }
+     	 }
+     	 
+     	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
@@ -99,49 +112,15 @@ public class ProfController {
      
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, String choose_course, Model model) {
-
-    	 String lectureTitle;
-    	 String courseCode;
-    	 int profId;
-    	 System.out.println(choose_course.toString());
-    	 try {
- 			
-    		String[] splitResponse = choose_course.split("====");
- 			lectureTitle = splitResponse[0];
- 			courseCode = splitResponse[2];
- 			profId = Integer.parseInt(splitResponse[4]);
- 			Course course = new Course();
- 			
- 			ArrayList<Lecture> lectures = lectureRepository.findAll();
- 			Iterator<Lecture> l_cur = lectures.iterator();
- 			ArrayList<ViewLecture> lectureList = new ArrayList<>();
- 			
- 			while(l_cur.hasNext()) {
- 				Lecture lec_temp = l_cur.next();
- 			//	if(lec_temp.courseCode.equals(choose_course.course_code) && lec_temp.profId == person.id) {
- 				//	ViewLecture l = new ViewLecture(lec_temp.title, lec_temp.date, lec_temp.courseCode, false, lec_temp.profId);
- 					//lectureList.add(l);
- 			//}
- 			//Get attendance list	
- 			model.addAttribute("message", "");
- 			}
- 			
- 		} catch (Exception E) {
- 			model.addAttribute("message", "Error displaying lectures. Try again.");
- 		}
+    	 System.out.println("post on course_page");
  		return "admin/admin_home";
  	}
      
-     
-     
-     
-     
-     //TODO: Add the logic to make this stuff work using Lecture and ViewLecture/FormWrapper
      @GetMapping("/prof/new_lecture")
-     public String new_lecture_get(@ModelAttribute Person person, @ModelAttribute Enrollment course, Model model) {
+     public String new_lecture_get(@ModelAttribute Person person, Model model) {
      	 Lecture new_lecture = new Lecture();
      	 new_lecture.profId = person.id;
-     	 new_lecture.courseCode = course.course_code;
+     	 new_lecture.courseCode = this.course.course_code;
      	 
     	 
     	 model.addAttribute("message", "");
@@ -156,12 +135,26 @@ public class ProfController {
      @GetMapping("/prof/view_lecture")
      public String view_lecture_get(@ModelAttribute Person person, Model model) {
      	 model.addAttribute("message", "");
-     	 return "prof/new_lecture";
+     	 return "prof/view_lecture";
      }
      @PostMapping("/prof/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, Model model) {
      	 model.addAttribute("message", "");
      	 return "prof/prof_home";
+     }
+     
+     @GetMapping("/prof/attendance_page")
+     public String view_student_get(@ModelAttribute Person person, Model model) {
+//    	 if(person.role.toUpperCase().contains("STUDENT")) {
+//    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
+//    	 }
+    	 
+    	 return "prof/attendance_page";
+     }
+     
+     @PostMapping("/prof/attendance_page")
+     public String view_student_post(@ModelAttribute Person person, Model model) {
+    	 return "prof/attendance_page";
      }
      
 }

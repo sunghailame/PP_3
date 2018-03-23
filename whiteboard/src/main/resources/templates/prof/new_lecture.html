@@ -11,7 +11,7 @@
 	<form id="myForm" action="#" th:action="@{/prof/new_lecture}" th:object="${new_lecture}" method="post">
 
 		<p>
-			Unique Title: <input id="title" type="text" th:field="*{lecture}" />
+			Unique Title: <input id="title" type="text" th:field="*{title}" />
 		</p>
 		<p>
 			Details: <input id="details" type="text" th:field="*{details}" />
