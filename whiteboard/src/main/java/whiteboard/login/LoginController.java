@@ -23,13 +23,13 @@ public class LoginController {
 	private ProfRepository ProfRepository;
 
 	@GetMapping("/whiteboard")
-	public String login_main(@ModelAttribute Person user, Model model) {
+	public String login_get(@ModelAttribute Person user, Model model) {
 		model.addAttribute("message","");
 		return "whiteboard";
 	}
 
 	@PostMapping("/whiteboard")
-	public String home_from_login(HttpServletResponse response, @ModelAttribute Person person, Model model) {
+	public String login_post(HttpServletResponse response, @ModelAttribute Person person, Model model) {
 		try {
 			Person p = PersonRepository.findByUsername(person.username);
 			
@@ -41,7 +41,7 @@ public class LoginController {
 				if (p.role.toUpperCase().contains("ADMIN")) {
 					
 					return "redirect:/admin/admin_home";
-				} else if (p.role.toUpperCase().contains("PROFESSOR")) {
+				} else if (p.role.toUpperCase().contains("PROF")) {
 					return "redirect:/prof/prof_home";
 				} else if (p.role.toUpperCase().contains("STUDENT")) {
 					return "redirect:/student/student_home";
@@ -59,7 +59,7 @@ public class LoginController {
 	}
 
 	@GetMapping("/login/signup")
-	public String signup_from_login(Model model) {
+	public String signup_get(Model model) {
 		Person person = new Person();
 		model.addAttribute("person", person);
 		model.addAttribute("message","");
@@ -67,8 +67,12 @@ public class LoginController {
 	}
 
 	@PostMapping("/login/signup")
-	public String login_from_signup(@ModelAttribute Person person, BindingResult result, Model model) {
-		
+
+//	public String login_from_signup(@ModelAttribute Person person, BindingResult result, Model model) {
+//		
+
+	public String signup_post(@ModelAttribute Person person, BindingResult result, Model model) {
+
 		try {
 			if (person.username.equals("")) {
 				model.addAttribute("message","Error. Please try again.");
@@ -76,15 +80,17 @@ public class LoginController {
 			} else {
 				this.PersonRepository.save(person);
 
-				if (person.role.toUpperCase().contains("ADMIN")) {
-					this.AdminRepository.save(person);
-				}
-				else if (person.role.toUpperCase().contains("PROFESSOR")) {
-					this.ProfRepository.save(person);
-				}
-				else if (person.role.toUpperCase().contains("STUDENT")) {
-					this.StudentRepository.save(person);
-				}
+
+//				if (person.role.toUpperCase().contains("ADMIN")) {
+//					this.AdminRepository.save(person);
+//				}
+//				else if (person.role.toUpperCase().contains("PROFESSOR")) {
+//					this.ProfRepository.save(person);
+//				}
+//				else if (person.role.toUpperCase().contains("STUDENT")) {
+//					this.StudentRepository.save(person);
+//				}
+
 
 				model.addAttribute("message","Please login.");
 				return "whiteboard";

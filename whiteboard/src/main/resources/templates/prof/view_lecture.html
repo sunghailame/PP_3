@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Prof home</title>
+    <title>Course home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <link rel="stylesheet" media="all"  
       href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
@@ -9,15 +9,7 @@
 <body>
 
 	<p th:text="''+${message}"/>
-	<h1>Courses</h1>
-	
-	<div th:if="${courses != null}">
-    <ul>
-       <li th:each="course : ${courses}" th:name="choose_course" ><a href="course_page" th:text="${course.course_code}"></a></li>
-    </ul>
-</div>
-	
-	<h1>Attendance</h1>
+	<h1>View Lecture</h1>
     <a href="../whiteboard">Logout</a>
 </body>
 </html>

@@ -15,10 +15,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 public class Enrollment {
 	
+	
 	@NotNull
 	@Column(name = "ID")
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	public int id;
+	
+	@NotNull
+	@Column(name = "PersonID") 
+	public int person_id;
 	
 
 	@Column(name = "CourseCode")
@@ -26,13 +33,18 @@ public class Enrollment {
 
 	@Column(name = "SectionNo")
 	public String section_no;
+	
+	@Column(name = "Role")
+	public String role;
 
 	
-	public Enrollment(int id, String course_code, String section_no) {
+	public Enrollment(int id, int person_id, String course_code, String section_no, String role) {
 		super();
 		this.id = id;
+		this.person_id = person_id;
 		this.course_code = course_code;
 		this.section_no = section_no;
+		this.role = role;
 	}
 	
 	public Enrollment() {
@@ -46,6 +58,16 @@ public class Enrollment {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public int getPersonId() {
+		return person_id;
+	}
+
+	public void setPersonId(int person_id) {
+		this.person_id = person_id;
+	}
+	
+	
 
 	public String getCourseCode() {
 		return course_code;
@@ -63,12 +85,20 @@ public class Enrollment {
 		this.section_no = SectionNo;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 	@Override
 	public String toString() {
-		return "ID: "+this.id+" Course Code: "+this.course_code+" Section No: "+this.section_no;
+		return "ID: "+this.id+" Course Code: "+this.course_code+" Section No: "+this.section_no+" Role: "+this.role;
 	}
 	
 	public String toStringData() {
-		return this.id+"="+this.course_code+"="+this.section_no;
+		return this.id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
 	}
 }

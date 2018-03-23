@@ -16,17 +16,19 @@ public class EnrollPerson {
 	public String username;
 	public int id;
 	public boolean enrolled;
+	public String role;
 	
 	public EnrollPerson() {
 		
 	}
 	
-	public EnrollPerson(int id, boolean enrolled, String username) {
+	public EnrollPerson(int id, boolean enrolled, String username, String role) {
 
 		super();
 		this.id = id;
 		this.username = username;
 		this.enrolled = enrolled;
+		this.role = role;
 	}
 	public String getUsername() {
 		return username;
@@ -52,8 +54,16 @@ public class EnrollPerson {
 		this.enrolled = enrolled;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 	@Override
 	public String toString() {
-		return ""+this.id+"="+this.enrolled+"="+this.username;
+		return ""+this.id+"===="+this.enrolled+"===="+this.username+"===="+this.role;
 	}
 }
