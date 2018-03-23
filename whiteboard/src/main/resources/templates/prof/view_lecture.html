@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Course home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link rel="stylesheet" media="all"  
+      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+</head>
+<body>
+
+	<p th:text="''+${message}"/>
+	<h1>Lecture details</h1>
+	<div th:if="${lecture != null}">
+    	<p th: text="$lecture.title"/>
+    	<p th: text="$lecture.details"/>
+    	<p th: text="$lecture.link"/>
+	</div>
+    <a href="../whiteboard">Logout</a>
+</body>
+</html>

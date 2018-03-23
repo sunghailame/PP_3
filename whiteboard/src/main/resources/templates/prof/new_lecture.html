@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Course home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link rel="stylesheet" media="all"  
+      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+</head>
+<body>
+	<h1>Add New Lecture</h1>
+	<form id="myForm" action="#" th:action="@{/prof/new_lecture}" th:object="${lecture}" method="post">
+
+		<p>
+			Unique Title: <input id="title" type="text" th:field="*{title}" />
+		</p>
+		<p>
+			Details: <input id="details" type="text" th:field="*{details}" />
+		</p>
+		<p>
+			Link: <input id="link" type="text" th:field="*{link}" />
+		</p>
+
+		<p>
+			<input id="sub" type="submit" value="Submit" />
+		</p>
+	</form>
+
+</body>
+</html>

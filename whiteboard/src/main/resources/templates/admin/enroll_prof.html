@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/enroll_student.css"></link>
+      
+<title>Sign up</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="admin_home">WhiteBoard</a></li>
+  		<li id="people"><a href="../admin/show_users">View People</a></li>
+  		<li id="addInstructor"><a href="../whiteboard">Add Instructor</a></li>
+  		<li id="addCourse"><a href="../admin/create_course">Add New Course</a></li>
+  		<li id="logout"><a href="../whiteboard">logout</a></li>
+	</ul>
+	</div>
+    <p th:text="''+${message}"/>
+    <form action="#" th:action="@{/admin/enroll_prof}" th:object="${userList}" method="post">
+	<h1>Courses</h1>
+	<table id="courses" align="center">
+	<tr>
+	<th>Course Name</th>
+	<th>Course Code</th>
+	<th>Add</th>
+	</tr>
+	<tr th:each="course : ${userList.courses}">
+        <td th:text="${course.courseName}"></td>
+        <td th:text="${course.courseCode}"></td>
+        <td><input type="radio" th:name="c_enrolled" th:value="${course}" /></td>
+        </tr>
+	
+	</table>
+	
+	<h1>Professors</h1>
+	<table id="classes" align="center">
+	<tr>
+	<th>Username</th>
+	<th>ID</th>
+	<th>Add</th>
+	</tr>
+	<tr th:each="user : ${userList.users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.id}"></td>
+        <td><input type="checkbox" th:name="enrolled" th:value="${user}" /></td>
+        </tr>
+	
+	</table>
+	<p id="subBack">
+    	<button type="submit" class="btn btn-primary">Submit</button>
+    	<a href="admin/admin_home">Back</a>
+    </p>
+    </form>
+
+</body>
+</html>
