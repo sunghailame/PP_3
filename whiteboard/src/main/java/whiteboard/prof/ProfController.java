@@ -55,7 +55,10 @@ public class ProfController {
     	 return "login/greeting";
     }
    
-     
+     @GetMapping("/prof/attendance_page")
+     public String view_student_list(@ModelAttribute Person person, Model model) {
+    	 return "prof/attendance_page";
+     }
      @GetMapping("/prof/course_page")
      public String course_page_get(@ModelAttribute Person person, Model model) {
      	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
