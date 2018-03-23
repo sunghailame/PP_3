@@ -33,19 +33,16 @@ public class ProfController {
 	@Autowired
 	private PersonRepository personRepository;
 	
-	private Enrollment course;
-	
-	public void dispCoursePage() {
-		
-	}
-	
+	private int glob_profId;
+	private String glob_courseCode;
+	private String glob_lecTitle;
 	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
-    	
     	//Parse Cookie into correct Person object
     	Person prof = new Person();
 		prof.parseStringData(person.split("===="));
+		this.glob_profId = prof.id;
 		
 		//Retrieve list of courses the prof is enrolled in
 		ArrayList<Enrollment> courses = new ArrayList<>();
@@ -68,40 +65,22 @@ public class ProfController {
     @PostMapping("/prof/prof_home")
     public String prof_home_post(@ModelAttribute Person person, @RequestParam("c_enrolled") String enroll_course, Model model) {
     	//Get selected course from post 
-    	this.course = new Enrollment();
-    	this.course.parseStringData(enroll_course.split("===="));
-    	 
-    	 //Get list of lectures by courseCode and profId
-    	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
-     	 ArrayList<ViewLecture> lectures = new ArrayList<>();
-     	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
-     	 while(lec_cur.hasNext()) {
-     		 Lecture lecture = (Lecture)lec_cur.next();
-     		 if(this.course.person_id == lecture.profId && this.course.course_code == lecture.courseCode) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId);
-     			 lectures.add(l);
-     		 }
-     	 }
-     	 
-     	 //Attach the lectureList to the view
-     	 FormWrapper lectureList = new FormWrapper();
-     	 lectureList.setLectures(lectures);
-     	 model.addAttribute("lectures", lectureList);
-     	 model.addAttribute("message", "");
-     	 return "prof/course_page";
+    	Enrollment course = new Enrollment();
+    	course.parseStringData(enroll_course.split("===="));
+    	this.glob_courseCode = course.course_code;
+     	 return "redirect:/prof/course_page";
     }
      
      
      @GetMapping("/prof/course_page")
-     public String course_page_get(@ModelAttribute Person person, Model model) {
-    	 
-    	 //Get list of lectures by courseCode and profId
+     public String course_page_get(Model model) {
+    	//Get list of lectures by courseCode and profId
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
      	 ArrayList<ViewLecture> lectures = new ArrayList<>();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
-     		 if(this.course.person_id == lecture.profId && this.course.course_code == lecture.courseCode) {
+     		 if(this.glob_profId == lecture.profId && this.glob_courseCode == lecture.courseCode) {
      			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId);
      			 lectures.add(l);
      		 }
@@ -111,7 +90,6 @@ public class ProfController {
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
-     	 model.addAttribute("message", "");
      	 return "prof/course_page";
      }
      
@@ -126,7 +104,7 @@ public class ProfController {
      	 Lecture new_lecture = new Lecture();
      	 new_lecture.id = 0;
      	 new_lecture.profId = person.id;
-     	 new_lecture.courseCode = this.course.course_code;
+     	 new_lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
      	 new_lecture.date = new java.sql.Date(getCur.getTime());
      	 model.addAttribute("lecture", new_lecture);
