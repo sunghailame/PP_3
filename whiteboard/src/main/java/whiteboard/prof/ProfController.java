@@ -24,7 +24,7 @@ public class ProfController {
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
-		prof.parseStringData(person.split("="));
+		prof.parseStringData(person.split("%=%=%="));
 		//profRepository.save(prof);
 		
 		ArrayList<Enrollment> courses = new ArrayList<>();
@@ -62,6 +62,32 @@ public class ProfController {
      	 
      	 model.addAttribute("message", "");
      	 return "login/greeting";
+     }
+     
+     
+     
+     
+     //TODO: Add the logic to make this stuff work using Lecture and ViewLecture/FormWrapper
+     @GetMapping("/prof/new_lecture")
+     public String new_lecture_get(@ModelAttribute Person person, Model model) {
+     	 model.addAttribute("message", "");
+     	 return "prof/new_lecture";
+     }
+     @PostMapping("/prof/new_lecture")
+     public String new_lecture_post(@ModelAttribute Person person, Model model) {
+     	 model.addAttribute("message", "");
+     	 return "prof/prof_home";
+     }
+     
+     @GetMapping("/prof/view_lecture")
+     public String view_lecture_get(@ModelAttribute Person person, Model model) {
+     	 model.addAttribute("message", "");
+     	 return "prof/new_lecture";
+     }
+     @PostMapping("/prof/view_lecture")
+     public String view_lecture_post(@ModelAttribute Person person, Model model) {
+     	 model.addAttribute("message", "");
+     	 return "prof/prof_home";
      }
      
 }

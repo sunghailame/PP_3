@@ -53,6 +53,6 @@ public class EnrollCourse {
 	
 	@Override
 	public String toString() {
-		return ""+this.courseCode+"="+this.courseCode+"="+this.enrolled;
+		return ""+this.courseCode+"%=%=%="+this.courseCode+"%=%=%="+this.enrolled;
 	}
 }

@@ -15,7 +15,7 @@ public class StudentController {
 
   @GetMapping("/student/student_home")
     public String signup_from_login(@CookieValue("person") String person, Model model) {
-	  	String[] dataSplit = person.split("=");
+	  	String[] dataSplit = person.split("%=%=%=");
 	  	Person stud = new Person();
 	  	stud.id = Integer.parseInt(dataSplit[0]);
 	  	stud.name = dataSplit[1];

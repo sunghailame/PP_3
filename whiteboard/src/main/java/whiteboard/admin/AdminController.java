@@ -32,7 +32,7 @@ public class AdminController {
 	@GetMapping("/admin/admin_home")
 	public String admin_home_get(@CookieValue("person") String person, Model model) {
 		Person admin = new Person();
-		admin.parseStringData(person.split("="));
+		admin.parseStringData(person.split("%=%=%="));
 		adminRepository.save(admin);
 		model.addAttribute("message", "Hello "+admin.name+"!");
 		return "admin/admin_home";
@@ -122,13 +122,13 @@ public class AdminController {
 		try {
 			//Parse the string data send back from the view
 			//One course and students to enroll
-			String[] splitCourse = enroll_course.split("=");
+			String[] splitCourse = enroll_course.split("%=%=%=");
 			courseCode = splitCourse[0];
 			
 			Iterator<String> u_cur = enroll_users.iterator();
 			while(u_cur.hasNext()) {
 				
-				String[] splitUser = u_cur.next().split("=");
+				String[] splitUser = u_cur.next().split("%=%=%=");
 				//TODO: add role
 				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
 			}
@@ -183,13 +183,13 @@ public class AdminController {
 		try {
 			//Parse the string data send back from the view
 			//One course and students to enroll
-			String[] splitCourse = enroll_course.split("=");
+			String[] splitCourse = enroll_course.split("%=%=%=");
 			courseCode = splitCourse[0];
 			
 			Iterator<String> u_cur = enroll_users.iterator();
 			while(u_cur.hasNext()) {
 				
-				String[] splitUser = u_cur.next().split("=");
+				String[] splitUser = u_cur.next().split("%=%=%=");
 				//TODO: add role
 				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
 			}

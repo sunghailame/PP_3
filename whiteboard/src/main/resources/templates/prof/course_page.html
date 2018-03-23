@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Course home</title>
@@ -14,12 +14,12 @@
 	<tr>
 	<th>Lecture</th>
 	<th>Date</th>
-	<th>View Attendance</th>
+	<th>View</th>
 	</tr>
 	<tr th:each="lecture : ${lectures}">
         <td th:text="${lecture.title}"></td>
         <td th:text="${lecture.date}"></td>
-        <td><input type="checkbox" th:name="attendance" th:value="${lecture.title}" /></td>
+        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture.view}" /></td>
         </tr>
 	</table>
 	<a href="prof/new_lecture">Add new lecture</a>

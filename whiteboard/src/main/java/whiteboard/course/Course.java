@@ -56,7 +56,7 @@ public class Course {
 	}
 	
 	public String toStringData() {
-		return this.course_code+"="+this.course_name;
+		return this.course_code+"%=%=%="+this.course_name;
 	}
 }
 

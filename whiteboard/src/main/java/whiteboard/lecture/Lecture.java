@@ -17,12 +17,18 @@ public class Lecture {
 		public Date date;
 		@Column(name = "CourseCode")
 		public String courseCode;
+		@Column(name = "Details")
+		public String details;
+		@Column(name = "Link")
+		public String link;
 		
-		public Lecture(String title, Date date, String courseCode) {
+		public Lecture(String title, Date date, String courseCode, String details, String link) {
 			super();
 			this.title = title;
 			this.date = date;
 			this.courseCode = courseCode;
+			this.details = details;
+			this.link = link;
 		}
 
 		public Lecture() {
@@ -43,6 +49,7 @@ public class Lecture {
 		public String getCourseCode() {
 			return courseCode;
 		}
+		
 		public void setDate(Date date) {
 			this.date = date;
 		}
@@ -51,13 +58,29 @@ public class Lecture {
 			return date;
 		}
 
+		public void setDetails(String details) {
+			this.details = details;
+		}
+
+		public String getDetails() {
+			return details;
+		}
+		
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		public String getLink() {
+			return link;
+		}
 
 		@Override
 		public String toString() {
-			return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode;
+			return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode+" Details: "
+					+this.details+" Link: "+this.link;
 		}
 		
 		public String toStringData() {
-			return this.title+"="+this.date+"="+this.courseCode;
+			return this.title+"%=%=%="+this.date+"%=%=%="+this.courseCode+"%=%=%="+this.details+"%=%=%="+this.link;
 		}
 	}

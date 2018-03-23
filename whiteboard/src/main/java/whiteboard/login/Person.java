@@ -108,7 +108,7 @@ public class Person {
 	}
 	
 	public String toStringData() {
-		return this.id+"="+this.name+"="+this.username+"="+this.email+"="+this.role+"="+this.password;
+		return this.id+"%=%=%="+this.name+"%=%=%="+this.username+"%=%=%="+this.email+"%=%=%="+this.role+"%=%=%="+this.password;
 	}
 	
 	public void parseStringData(String[] dataSplit) {

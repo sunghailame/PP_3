@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes
 public class FormWrapper{
 	
-	public ArrayList<ViewLecture> users;
+	public ArrayList<ViewLecture> lectures;
 	
-	public ArrayList<ViewLecture> getUsers(){
-		return users;
+	public ArrayList<ViewLecture> getLectures(){
+		return lectures;
 	}
 	
-	public void setUsers(ArrayList<ViewLecture> users) {
-		this.users = users;
+	public void setLectures(ArrayList<ViewLecture> lectures) {
+		this.lectures = lectures;
 	}
 	
 }
