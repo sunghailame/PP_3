@@ -35,7 +35,7 @@ public class LoginController {
 				response.addCookie(passData);
 				if (p.role.toUpperCase().contains("ADMIN")) {
 					return "redirect:/admin/admin_home";
-				} else if (p.role.toUpperCase().contains("PROFESSOR")) {
+				} else if (p.role.toUpperCase().contains("PROF")) {
 					return "redirect:/prof/prof_home";
 				} else if (p.role.toUpperCase().contains("STUDENT")) {
 					return "redirect:/student/student_home";
@@ -68,7 +68,6 @@ public class LoginController {
 				return "login/signup";
 			} else {
 				this.PersonRepository.save(person);
-				this.S
 				model.addAttribute("message","Please login.");
 				return "whiteboard";
 			}
