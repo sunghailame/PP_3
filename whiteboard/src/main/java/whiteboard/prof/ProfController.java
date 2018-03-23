@@ -68,7 +68,8 @@ public class ProfController {
     	Enrollment course = new Enrollment();
     	course.parseStringData(enroll_course.split("===="));
     	this.glob_courseCode = course.course_code;
-     	 return "redirect:/prof/course_page";
+    	System.out.println("GLOB COURSE CODE: " +course.course_code);
+     	return "redirect:/prof/course_page";
     }
      
      
@@ -80,7 +81,8 @@ public class ProfController {
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
-     		 if(this.glob_profId == lecture.profId && this.glob_courseCode == lecture.courseCode) {
+     		 System.out.println("Glob: "+this.glob_profId+" Lec id: "+lecture.profId+" Glob: "+this.glob_courseCode+" CC: "+lecture.courseCode);
+     		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
      			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId);
      			 lectures.add(l);
      		 }
@@ -100,13 +102,9 @@ public class ProfController {
  	}
      
      @GetMapping("/prof/new_lecture")
-     public String new_lecture_get(@ModelAttribute Person person, Model model) {
+     public String new_lecture_get(Model model) {
      	 Lecture new_lecture = new Lecture();
-     	 new_lecture.id = 0;
-     	 new_lecture.profId = person.id;
-     	 new_lecture.courseCode = this.glob_courseCode;
-     	 java.util.Date getCur = new java.util.Date();
-     	 new_lecture.date = new java.sql.Date(getCur.getTime());
+     	 
      	 model.addAttribute("lecture", new_lecture);
     	 
     	 model.addAttribute("message", "");
@@ -114,9 +112,14 @@ public class ProfController {
      }
      @PostMapping("/prof/new_lecture")
      public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture, Model model) {
+    	 lecture.id = 0;
+     	 lecture.profId = this.glob_profId;
+     	 lecture.courseCode = this.glob_courseCode;
+     	 java.util.Date getCur = new java.util.Date();
+     	 lecture.date = new java.sql.Date(getCur.getTime());
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
-     	 return "prof/course_page";
+     	 return "redirect:/prof/course_page";
      }
      
      @GetMapping("/prof/view_lecture")
