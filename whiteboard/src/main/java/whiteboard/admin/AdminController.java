@@ -90,7 +90,7 @@ public class AdminController {
 		while(u_cur.hasNext()) {
 			Person user = (Person) u_cur.next();
 			if(user.role.toUpperCase().contains("STUDENT")) {
-				EnrollPerson p = new EnrollPerson(user.id, false, user.username);
+				EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
 				users.add(p);
 			}
 		}
@@ -130,7 +130,8 @@ public class AdminController {
 			while(u_cur.hasNext()) {
 				
 				String[] splitUser = u_cur.next().split("=");
-				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1"));
+				//TODO: add role
+				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
 			}
 			
 			model.addAttribute("message", "Enrolled Students!");
@@ -150,7 +151,7 @@ public class AdminController {
 		while(u_cur.hasNext()) {
 			Person user = (Person) u_cur.next();
 			if(user.role.toUpperCase().contains("PROF")) {
-				EnrollPerson p = new EnrollPerson(user.id, false, user.username);
+				EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
 				users.add(p);
 			}
 		}
@@ -190,7 +191,8 @@ public class AdminController {
 			while(u_cur.hasNext()) {
 				
 				String[] splitUser = u_cur.next().split("=");
-				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1"));
+				//TODO: add role
+				this.enrollmentRepository.save(new Enrollment(Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
 			}
 			
 			model.addAttribute("message", "Enrolled Students!");

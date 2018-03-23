@@ -26,13 +26,17 @@ public class Enrollment {
 
 	@Column(name = "SectionNo")
 	public String section_no;
+	
+	@Column(name = "Role")
+	public String role;
 
 	
-	public Enrollment(int id, String course_code, String section_no) {
+	public Enrollment(int id, String course_code, String section_no, String role) {
 		super();
 		this.id = id;
 		this.course_code = course_code;
 		this.section_no = section_no;
+		this.role = role;
 	}
 	
 	public Enrollment() {
@@ -63,12 +67,20 @@ public class Enrollment {
 		this.section_no = SectionNo;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 	@Override
 	public String toString() {
-		return "ID: "+this.id+" Course Code: "+this.course_code+" Section No: "+this.section_no;
+		return "ID: "+this.id+" Course Code: "+this.course_code+" Section No: "+this.section_no+" Role: "+this.role;
 	}
 	
 	public String toStringData() {
-		return this.id+"="+this.course_code+"="+this.section_no;
+		return this.id+"="+this.course_code+"="+this.section_no+"="+this.role;
 	}
 }
