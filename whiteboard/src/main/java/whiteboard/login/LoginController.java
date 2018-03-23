@@ -35,7 +35,6 @@ public class LoginController {
 			
 			if (person.password.equals(p.getPassword())) {
 				Cookie passData = new Cookie("person",p.toStringData());
-				System.out.println(p.toString());
 				passData.setMaxAge(10000);
 				response.addCookie(passData);
 				if (p.role.toUpperCase().contains("ADMIN")) {

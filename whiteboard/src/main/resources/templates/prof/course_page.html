@@ -10,6 +10,7 @@
 
 	<p th:text="''+${message}"/>
 	<h1>Lectures</h1>
+	<div th:if="${lectures != null}">
 	<table align="center">
 	<tr>
 	<th>Lecture</th>
@@ -22,6 +23,7 @@
         <td><input type="checkbox" th:name="view_lecture" th:value="${lecture.view}" /></td>
         </tr>
 	</table>
+	</div>
 	<a href="prof/new_lecture">Add new lecture</a>
     <a href="../whiteboard">Logout</a>
 </body>

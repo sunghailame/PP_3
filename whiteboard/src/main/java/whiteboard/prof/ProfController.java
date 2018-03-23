@@ -31,7 +31,6 @@ public class ProfController {
     public String prof_home_get(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
 		prof.parseStringData(person.split("===="));
-		//profRepository.save(prof);
 		
 		ArrayList<Enrollment> courses = new ArrayList<>();
 		
@@ -40,13 +39,13 @@ public class ProfController {
 		
 		while(e_cur.hasNext()) {
 			Enrollment temp_prof = e_cur.next();
-			if(prof.id == temp_prof.id) {
+			if(prof.id == temp_prof.person_id) {
 				courses.add(temp_prof);
 			}
 		}
 		
 		model.addAttribute("message", "Hello "+prof.name+"!");
-		model.addAttribute("courses",courses);
+		model.addAttribute("courses", courses);
         return "prof/prof_home";
     }
     
@@ -64,17 +63,50 @@ public class ProfController {
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
+     		 if(person.id == lecture.profId) {
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId);
+     			 lectures.add(l);
+     		 }
      	 }
      	 
+     	 FormWrapper lectureList = new FormWrapper();
+     	 lectureList.setLectures(lectures);
+     	 model.addAttribute("lectures", lectureList);
      	 model.addAttribute("message", "");
      	 return "prof/course_page";
      }
      @PostMapping("/prof/course_page")
-     public String course_page_post(@ModelAttribute Person person, Model model) {
-     	 
-     	 model.addAttribute("message", "");
-     	 return "login/greeting";
-     }
+     public String course_page_post(@ModelAttribute Person person, String view_lecture, Model model) {
+    	 String lectureTitle;
+    	 int profId;
+    	 String courseCode;
+    	 
+    	 try {
+ 			String[] splitResponse = view_lecture.split("====");
+ 			lectureTitle = splitResponse[0];
+ 			courseCode = splitResponse[2];
+ 			profId = Integer.parseInt(splitResponse[4]);
+ 			
+ 			ArrayList<Lecture> lectures = lectureRepository.findAll();
+ 			Iterator<Lecture> l_cur = lectures.iterator();
+ 			
+ 			while(l_cur.hasNext()) {
+ 				Lecture lec_temp = l_cur.next();
+ 				if(lec_temp.courseCode.equals(courseCode) && lec_temp.profId == profId &&
+ 						lec_temp.title.equals(courseCode)) {
+ 					
+ 					//Add to lecture object to send to view
+ 			}
+ 			
+ 			//Get attendance list
+ 				
+ 			model.addAttribute("message", "");
+ 			}
+ 		} catch (Exception E) {
+ 			model.addAttribute("message", "Error displaying lectures. Try again.");
+ 		}
+ 		return "admin/admin_home";
+ 	}
      
      
      
