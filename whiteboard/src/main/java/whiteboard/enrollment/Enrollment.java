@@ -95,10 +95,18 @@ public class Enrollment {
 	
 	@Override
 	public String toString() {
-		return "ID: "+this.person_id+" Course Code: "+this.course_code+" Section No: "+this.section_no+" Role: "+this.role;
+		return this.person_id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
 	}
 	
 	public String toStringData() {
 		return this.person_id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
+	}
+	
+	public void parseStringData(String[] dataSplit) {
+		this.person_id = Integer.parseInt(dataSplit[0]);
+		this.course_code = dataSplit[1];
+		this.section_no = dataSplit[2];
+		this.role = dataSplit[3];
+		this.id = 0;
 	}
 }

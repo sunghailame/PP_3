@@ -9,7 +9,12 @@
 <body>
 
 	<p th:text="''+${message}"/>
-	<h1>View Lecture</h1>
+	<h1>Lecture details</h1>
+	<div th:if="${lecture != null}">
+    	<p th: text="$lecture.title"/>
+    	<p th: text="$lecture.details"/>
+    	<p th: text="$lecture.link"/>
+	</div>
     <a href="../whiteboard">Logout</a>
 </body>
 </html>

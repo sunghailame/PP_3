@@ -33,7 +33,6 @@ public class AdminController {
 	public String admin_home_get(@CookieValue("person") String person, Model model) {
 		Person admin = new Person();
 		admin.parseStringData(person.split("===="));
-		adminRepository.save(admin);
 		model.addAttribute("message", "Hello "+admin.name+"!");
 		return "admin/admin_home";
 	}

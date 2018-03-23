@@ -7,9 +7,23 @@
       href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
 </head>
 <body>
+	<h1>Add New Lecture</h1>
+	<form id="myForm" action="#" th:action="@{/prof/new_lecture}" th:object="${new_lecture}" method="post">
 
-	<p th:text="''+${message}"/>
-	<h1>New Lecture</h1>
-    <a href="../whiteboard">Logout</a>
+		<p>
+			Unique Title: <input id="title" type="text" th:field="*{lecture}" />
+		</p>
+		<p>
+			Details: <input id="details" type="text" th:field="*{details}" />
+		</p>
+		<p>
+			Link: <input id="link" type="text" th:field="*{link}" />
+		</p>
+
+		<p>
+			<input id="sub" type="submit" value="Submit" />
+		</p>
+	</form>
+
 </body>
 </html>
