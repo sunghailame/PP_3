@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Add New Lecture</h1>
-	<form id="myForm" action="#" th:action="@{/prof/new_lecture}" th:object="${new_lecture}" method="post">
+	<form id="myForm" action="#" th:action="@{/prof/new_lecture}" th:object="${lecture}" method="post">
 
 		<p>
 			Unique Title: <input id="title" type="text" th:field="*{title}" />

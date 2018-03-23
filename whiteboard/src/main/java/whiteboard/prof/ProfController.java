@@ -35,6 +35,11 @@ public class ProfController {
 	
 	private Enrollment course;
 	
+	public void dispCoursePage() {
+		
+	}
+	
+	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
     	
@@ -119,17 +124,21 @@ public class ProfController {
      @GetMapping("/prof/new_lecture")
      public String new_lecture_get(@ModelAttribute Person person, Model model) {
      	 Lecture new_lecture = new Lecture();
+     	 new_lecture.id = 0;
      	 new_lecture.profId = person.id;
      	 new_lecture.courseCode = this.course.course_code;
-     	 
+     	 java.util.Date getCur = new java.util.Date();
+     	 new_lecture.date = new java.sql.Date(getCur.getTime());
+     	 model.addAttribute("lecture", new_lecture);
     	 
     	 model.addAttribute("message", "");
      	 return "prof/new_lecture";
      }
      @PostMapping("/prof/new_lecture")
-     public String new_lecture_post(@ModelAttribute Person person, Model model) {
-     	 model.addAttribute("message", "");
-     	 return "prof/prof_home";
+     public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture, Model model) {
+     	 this.lectureRepository.save(lecture);
+    	 model.addAttribute("message", "");
+     	 return "prof/course_page";
      }
      
      @GetMapping("/prof/view_lecture")
