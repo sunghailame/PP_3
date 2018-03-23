@@ -18,9 +18,6 @@ public class LoginController {
 	@Autowired
 
 	private PersonRepository PersonRepository;
-	private AdminRepository AdminRepository;
-	private StudentRepository StudentRepository;
-	private ProfRepository ProfRepository;
 
 	@GetMapping("/whiteboard")
 	public String login_get(@ModelAttribute Person user, Model model) {
@@ -78,18 +75,6 @@ public class LoginController {
 				return "login/signup";
 			} else {
 				this.PersonRepository.save(person);
-
-
-//				if (person.role.toUpperCase().contains("ADMIN")) {
-//					this.AdminRepository.save(person);
-//				}
-//				else if (person.role.toUpperCase().contains("PROFESSOR")) {
-//					this.ProfRepository.save(person);
-//				}
-//				else if (person.role.toUpperCase().contains("STUDENT")) {
-//					this.StudentRepository.save(person);
-//				}
-
 
 				model.addAttribute("message","Please login.");
 				return "whiteboard";

@@ -9,5 +9,5 @@ import whiteboard.login.Person;
 
 public interface ProfRepository extends Repository<Person, Long> {
 	
-	void save(Person p);
+	
 }
