@@ -20,13 +20,15 @@ public class ViewLecture {
 	public Date date;
 	public String courseCode;
 	public boolean view;
+	public int profId;
 	
-	public ViewLecture(String title, Date date, String courseCode, boolean view) {
+	public ViewLecture(String title, Date date, String courseCode, boolean view, int profId) {
 		super();
 		this.title = title;
 		this.date = date;
 		this.courseCode = courseCode;
 		this.view = view;
+		this.profId = profId;
 	}
 
 	public ViewLecture() {
@@ -61,14 +63,23 @@ public class ViewLecture {
 	public void setView(boolean view) {
 		this.view = view;
 	}
+	
+	public void setProfId(int profId) {
+		this.profId = profId;
+	}
+	
+	public int getProfId() {
+		return profId;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode+" View: "+this.view;
+		return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode+" View: "+
+				this.view+" ProfId: "+this.profId;
 	}
 	
 	public String toStringData() {
-		return this.title+"%=%=%="+this.date+"%=%=%="+this.courseCode+"%=%=%="+this.view;
+		return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.view+"===="+this.profId;
 	}
 }

@@ -81,6 +81,6 @@ public class Enrollment {
 	}
 	
 	public String toStringData() {
-		return this.id+"%=%=%="+this.course_code+"%=%=%="+this.section_no+"%=%=%="+this.role;
+		return this.id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
 	}
 }

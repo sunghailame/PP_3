@@ -3,11 +3,13 @@ package whiteboard.lecture;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Table(name="Lectures")
+@Entity
+@Table(name="Lecture")
 public class Lecture {
 	
 		
@@ -21,14 +23,18 @@ public class Lecture {
 		public String details;
 		@Column(name = "Link")
 		public String link;
+		@Column(name = "ProfId")
+		@Id
+		public int profId;
 		
-		public Lecture(String title, Date date, String courseCode, String details, String link) {
+		public Lecture(String title, Date date, String courseCode, String details, String link, int profId) {
 			super();
 			this.title = title;
 			this.date = date;
 			this.courseCode = courseCode;
 			this.details = details;
 			this.link = link;
+			this.profId = profId;
 		}
 
 		public Lecture() {
@@ -73,14 +79,23 @@ public class Lecture {
 		public String getLink() {
 			return link;
 		}
+		
+		public void setProfId(int profId) {
+			this.profId = profId;
+		}
+		
+		public int getProfId() {
+			return profId;
+		}
 
 		@Override
 		public String toString() {
 			return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode+" Details: "
-					+this.details+" Link: "+this.link;
+					+this.details+" Link: "+this.link+" ProfId: "+this.profId;
 		}
 		
 		public String toStringData() {
-			return this.title+"%=%=%="+this.date+"%=%=%="+this.courseCode+"%=%=%="+this.details+"%=%=%="+this.link;
+			return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.details+
+					"===="+this.link+"===="+this.profId;
 		}
 	}

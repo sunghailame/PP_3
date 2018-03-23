@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import whiteboard.course.Course;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
+import whiteboard.lecture.Lecture;
+import whiteboard.lecture.LectureRepository;
 import whiteboard.login.Person;
 
 @Controller
@@ -21,10 +24,13 @@ public class ProfController {
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
 	
+	@Autowired
+	private LectureRepository lectureRepository;
+	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
-		prof.parseStringData(person.split("%=%=%="));
+		prof.parseStringData(person.split("===="));
 		//profRepository.save(prof);
 		
 		ArrayList<Enrollment> courses = new ArrayList<>();
@@ -45,7 +51,7 @@ public class ProfController {
     }
     
      @PostMapping("/prof/prof_home")
-    public String prof_home_post(@ModelAttribute Person person, Model model) {
+    public String prof_home_post(@ModelAttribute Person person, Course course, Model model) {
     	 
     	 model.addAttribute("message", "");
     	 return "login/greeting";
@@ -53,6 +59,12 @@ public class ProfController {
      
      @GetMapping("/prof/course_page")
      public String course_page_get(@ModelAttribute Person person, Model model) {
+     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
+     	 ArrayList<ViewLecture> lectures = new ArrayList<>();
+     	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
+     	 while(lec_cur.hasNext()) {
+     		 Lecture lecture = (Lecture)lec_cur.next();
+     	 }
      	 
      	 model.addAttribute("message", "");
      	 return "prof/course_page";

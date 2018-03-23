@@ -64,6 +64,6 @@ public class EnrollPerson {
 	
 	@Override
 	public String toString() {
-		return ""+this.id+"%=%=%="+this.enrolled+"%=%=%="+this.username+"%=%=%="+this.role;
+		return ""+this.id+"===="+this.enrolled+"===="+this.username+"===="+this.role;
 	}
 }
