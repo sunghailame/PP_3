@@ -46,15 +46,15 @@ public class ProfController {
 		
 		model.addAttribute("message", "Hello "+prof.name+"!");
 		model.addAttribute("courses", courses);
+		model.addAttribute("person",person);
         return "prof/prof_home";
     }
-    
      @PostMapping("/prof/prof_home")
     public String prof_home_post(@ModelAttribute Person person, Course course, Model model) {
-    	 
     	 model.addAttribute("message", "");
     	 return "login/greeting";
     }
+   
      
      @GetMapping("/prof/course_page")
      public String course_page_get(@ModelAttribute Person person, Model model) {
@@ -68,7 +68,6 @@ public class ProfController {
      			 lectures.add(l);
      		 }
      	 }
-     	 
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
