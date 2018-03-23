@@ -68,7 +68,7 @@ public class LoginController {
 	@PostMapping("/login/signup")
 
 //	public String login_from_signup(@ModelAttribute Person person, BindingResult result, Model model) {
-//		
+		
 
 	public String signup_post(@ModelAttribute Person person, BindingResult result, Model model) {
 
