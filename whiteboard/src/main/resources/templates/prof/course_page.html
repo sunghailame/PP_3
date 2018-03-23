@@ -10,9 +10,19 @@
 
 	<p th:text="''+${message}"/>
 	<h1>Lectures</h1>
-	
-	
-	<h1>Attendance</h1>
+	<table align="center">
+	<tr>
+	<th>Lecture</th>
+	<th>Date</th>
+	<th>View Attendance</th>
+	</tr>
+	<tr th:each="lecture : ${lectures}">
+        <td th:text="${lecture.title}"></td>
+        <td th:text="${lecture.date}"></td>
+        <td><input type="checkbox" th:name="attendance" th:value="${lecture.title}" /></td>
+        </tr>
+	</table>
+	<a href="prof/new_lecture">Add new lecture</a>
     <a href="../whiteboard">Logout</a>
 </body>
 </html>

@@ -63,4 +63,5 @@ public class ProfController {
      	 model.addAttribute("message", "");
      	 return "login/greeting";
      }
+     
 }
