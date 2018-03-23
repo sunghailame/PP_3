@@ -61,9 +61,10 @@ public class ProfController {
    
      @GetMapping("/prof/attendance_page")
      public String view_student_get(@ModelAttribute Person person, Model model) {
-    	 if(person.role.toUpperCase().contains("STUDENT")) {
-    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
-    	 }
+//    	 if(person.role.toUpperCase().contains("STUDENT")) {
+//    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
+//    	 }
+    	 
     	 return "prof/attendance_page";
      }
      

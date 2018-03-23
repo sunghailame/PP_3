@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class Student {
 	
 	@NotNull
-	@Column(name = "ID")
+	@Column(name = "StudentID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
