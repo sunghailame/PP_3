@@ -31,7 +31,6 @@ public class ProfController {
     public String prof_home_get(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
 		prof.parseStringData(person.split("===="));
-		//profRepository.save(prof);
 		
 		ArrayList<Enrollment> courses = new ArrayList<>();
 		
@@ -40,13 +39,13 @@ public class ProfController {
 		
 		while(e_cur.hasNext()) {
 			Enrollment temp_prof = e_cur.next();
-			if(prof.id == temp_prof.id) {
+			if(prof.id == temp_prof.person_id) {
 				courses.add(temp_prof);
 			}
 		}
 		
 		model.addAttribute("message", "Hello "+prof.name+"!");
-		model.addAttribute("courses",courses);
+		model.addAttribute("courses", courses);
         return "prof/prof_home";
     }
     
@@ -93,21 +92,21 @@ public class ProfController {
  			
  			while(l_cur.hasNext()) {
  				Lecture lec_temp = l_cur.next();
- 				if(lec_temp.courseCode.equals(courseCode) && lec_temp.profId == profId && lec_temp.title.equals(courseCode)) {
+ 				if(lec_temp.courseCode.equals(courseCode) && lec_temp.profId == profId &&
+ 						lec_temp.title.equals(courseCode)) {
+ 					
  					//Add to lecture object to send to view
  			}
  			
  			//Get attendance list
  				
- 			model.addAttribute("message", "Enrolled Students!");
+ 			model.addAttribute("message", "");
+ 			}
  		} catch (Exception E) {
- 			model.addAttribute("message", "Error enrolling. Try again.");
+ 			model.addAttribute("message", "Error displaying lectures. Try again.");
  		}
  		return "admin/admin_home";
  	}
-     	 model.addAttribute("message", "");
-     	 return "login/greeting";
-     }
      
      
      

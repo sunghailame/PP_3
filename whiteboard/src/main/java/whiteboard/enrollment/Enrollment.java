@@ -95,10 +95,10 @@ public class Enrollment {
 	
 	@Override
 	public String toString() {
-		return "ID: "+this.id+" Course Code: "+this.course_code+" Section No: "+this.section_no+" Role: "+this.role;
+		return "ID: "+this.person_id+" Course Code: "+this.course_code+" Section No: "+this.section_no+" Role: "+this.role;
 	}
 	
 	public String toStringData() {
-		return this.id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
+		return this.person_id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
 	}
 }
