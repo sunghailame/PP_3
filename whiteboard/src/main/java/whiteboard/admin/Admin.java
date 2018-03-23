@@ -1,4 +1,4 @@
-package whiteboard.student;
+package whiteboard.admin;
 
 import javax.persistence.Entity;
 import javax.persistence.Column;
@@ -10,22 +10,22 @@ import javax.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Entity
-@Table(name = "Student")
-@SessionAttributes("Studednt")
-public class Student {
+@Table(name = "Admin")
+@SessionAttributes("Admin")
+public class Admin {
 	
 	@NotNull
-	@Column(name = "StudentID")
+	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
 	public int id;
 	
-	public Student() {
+	public Admin() {
 		
 	}
 	
-	public Student(int id) {
+	public Admin(int id) {
 
 		super();
 		this.id = id;

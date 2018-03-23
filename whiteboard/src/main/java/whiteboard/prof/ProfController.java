@@ -21,6 +21,7 @@ import whiteboard.lecture.LectureRepository;
 import whiteboard.login.Person;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
+import whiteboard.login.PersonRepository;
 
 @Controller
 public class ProfController {
@@ -31,6 +32,7 @@ public class ProfController {
 	@Autowired
 	private LectureRepository lectureRepository;
 	
+	private PersonRepository personRepository;
 	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
@@ -62,7 +64,19 @@ public class ProfController {
     	 return "prof/course_page";
     }
    
+     @GetMapping("/prof/attendance_page")
+     public String view_student_get(@ModelAttribute Person person, Model model) {
+//    	 if(person.role.toUpperCase().contains("STUDENT")) {
+//    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
+//    	 }
+    	 
+    	 return "prof/attendance_page";
+     }
      
+     @PostMapping("/prof/attendance_page")
+     public String view_student_post(@ModelAttribute Person person, Model model) {
+    	 return "prof/attendance_page";
+     }
      @GetMapping("/prof/course_page")
      public String course_page_get(@ModelAttribute Person person, @ModelAttribute Course course, Model model) {
      	 System.out.println(course.toString());

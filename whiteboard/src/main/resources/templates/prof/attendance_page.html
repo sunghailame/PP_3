@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link rel="stylesheet" media="all"  
+      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+</head>
+<body>
+
+	<p th:text="''+${message}"/>
+	<h1>Students</h1>
+	<div th:if="${students != null}">
+	<table align="center">
+	<tr>
+	<th>Lecture</th>
+	<th>Date</th>
+	<th>View</th>
+	</tr>
+	<tr th:each="lecture : ${lectures.lectures}">
+        <td th:text="${lecture?.title}"></td>
+        <td th:text="${lecture?.date}"></td>
+        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture?.view}" /></td>
+        </tr>
+	</table>
+	</div>
+	<a href="prof/new_lecture">Add new lecture</a>
+    <a href="../whiteboard">Logout</a>
+</body>
+</html>

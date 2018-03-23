@@ -1,6 +1,8 @@
 package whiteboard.login;
 
-
+import whiteboard.admin.*;
+import whiteboard.student.*;
+import whiteboard.prof.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ public class LoginController {
 				passData.setMaxAge(10000);
 				response.addCookie(passData);
 				if (p.role.toUpperCase().contains("ADMIN")) {
+					
 					return "redirect:/admin/admin_home";
 				} else if (p.role.toUpperCase().contains("PROF")) {
 					return "redirect:/prof/prof_home";
@@ -60,13 +63,19 @@ public class LoginController {
 	}
 
 	@PostMapping("/login/signup")
+
+//	public String login_from_signup(@ModelAttribute Person person, BindingResult result, Model model) {
+		
+
 	public String signup_post(@ModelAttribute Person person, BindingResult result, Model model) {
+
 		try {
 			if (person.username.equals("")) {
 				model.addAttribute("message","Error. Please try again.");
 				return "login/signup";
 			} else {
 				this.PersonRepository.save(person);
+
 				model.addAttribute("message","Please login.");
 				return "whiteboard";
 			}
