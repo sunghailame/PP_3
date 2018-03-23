@@ -10,6 +10,7 @@
 
 	<p th:text="''+${message}"/>
 	<h1>Lectures</h1>
+	<form action="#" th:action="@{/prof/course_page}" th:object="${lectures}" method="post">
 	<div th:if="${lectures != null}">
 	<table align="center">
 	<tr>
@@ -20,12 +21,14 @@
 	<tr th:each="lecture : ${lectures.lectures}">
         <td th:text="${lecture?.title}"></td>
         <td th:text="${lecture?.date}"></td>
-        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture?.view}" /></td>
+        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture}" /></td>
         </tr>
 	</table>
 	</div>
 	<a href="new_lecture">Add new lecture</a>
     <a href="../whiteboard">Logout</a>
-    <a href="prof_home">Back</a>
+    <a href="redirect:/prof_home">Back</a>
+    <input type="submit" value="Submit" />
+    </form>
 </body>
 </html>

@@ -96,7 +96,7 @@ public class ProfController {
      }
      
      @PostMapping("/prof/course_page")
-     public String course_page_post(@ModelAttribute Person person, String choose_course, Model model) {
+     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 System.out.println("post on course_page");
  		return "admin/admin_home";
  	}
