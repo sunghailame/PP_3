@@ -22,7 +22,7 @@ public class ProfController {
 	private EnrollmentRepository enrollmentRepository;
 	
     @GetMapping("/prof/prof_home")
-    public String signup_from_login(@CookieValue("person") String person, Model model) {
+    public String prof_home_get(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
 		prof.parseStringData(person.split("="));
 		//profRepository.save(prof);
@@ -45,9 +45,22 @@ public class ProfController {
     }
     
      @PostMapping("/prof/prof_home")
-    public String login_from_signup(@ModelAttribute Person person, Model model) {
+    public String prof_home_post(@ModelAttribute Person person, Model model) {
     	 
     	 model.addAttribute("message", "");
     	 return "login/greeting";
     }
+     
+     @GetMapping("/prof/course_page")
+     public String course_page_get(@ModelAttribute Person person, Model model) {
+     	 
+     	 model.addAttribute("message", "");
+     	 return "prof/course_page";
+     }
+     @PostMapping("/prof/course_page")
+     public String course_page_post(@ModelAttribute Person person, Model model) {
+     	 
+     	 model.addAttribute("message", "");
+     	 return "login/greeting";
+     }
 }

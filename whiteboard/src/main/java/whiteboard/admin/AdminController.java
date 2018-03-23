@@ -30,7 +30,7 @@ public class AdminController {
 	private EnrollmentRepository enrollmentRepository;
 
 	@GetMapping("/admin/admin_home")
-	public String signup_from_login(@CookieValue("person") String person, Model model) {
+	public String admin_home_get(@CookieValue("person") String person, Model model) {
 		Person admin = new Person();
 		admin.parseStringData(person.split("="));
 		adminRepository.save(admin);
@@ -39,25 +39,31 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/admin_home")
-	public String login_from_signup(@ModelAttribute Person admin) {
+	public String admin_home_post(@ModelAttribute Person admin) {
 		return "login/greeting";
 	}
 
 	@GetMapping("/admin/show_users")
-	public String show_users_from_admin(Person person, Model model) {
+	public String show_users_get(Person person, Model model) {
 		Iterable<Person> users = adminRepository.findAll();
 		model.addAttribute("users", users);
 		return "admin/show_users";
 	}
 
 	@GetMapping("/admin/create_course")
-	public String create_course_from_admin(Model model) {
+	public String create_course_get(Model model) {
 		Course course = new Course();
 		model.addAttribute("course", course);
 		model.addAttribute("message","");
 		return "admin/create_course";
 	}
 	
+	@PostMapping("/admin/create_course")
+	public String create_course_post(@ModelAttribute Course course, BindingResult result, Model model) {
+		this.courseRepository.save(course);
+		model.addAttribute("message", "Created course!");
+		return "admin/admin_home";
+	}
 	/*@GetMapping("/admin/delete_course")
 	public String delete_course_from_admin(Course course, Model model) {
 		adminRepository.deleteByNameIn(course.course_name);
@@ -73,15 +79,8 @@ public class AdminController {
 	}
 	*/
 	
-	@PostMapping("/admin/create_course")
-	public String admin_home_from_create_course(@ModelAttribute Course course, BindingResult result, Model model) {
-		this.courseRepository.save(course);
-		model.addAttribute("message", "Created course!");
-		return "admin/admin_home";
-	}
-	
 	@GetMapping("/admin/enroll_student")
-	public String enroll_student_from_admin(Model model) {
+	public String enroll_student_get(Model model) {
 		
 		//Get list of all students, save to list of EnrollPerson type for form
 		Iterable<Person> users_temp = adminRepository.findAll();
@@ -118,7 +117,7 @@ public class AdminController {
 	
 	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?
 	@PostMapping("/admin/enroll_student")
-	public String admin_home_from_enroll_student(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
+	public String enroll_student_post(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
 		String courseCode;
 		try {
 			//Parse the string data send back from the view
@@ -142,7 +141,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin/enroll_prof")
-	public String enroll_prof_from_admin(Model model) {
+	public String enroll_prof_get(Model model) {
 		
 		//Get list of all students, save to list of EnrollPerson type for form
 		Iterable<Person> users_temp = adminRepository.findAll();
@@ -179,7 +178,7 @@ public class AdminController {
 	
 	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?
 	@PostMapping("/admin/enroll_prof")
-	public String admin_home_from_enroll_prof(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
+	public String enroll_prof_post(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
 		String courseCode;
 		try {
 			//Parse the string data send back from the view

@@ -13,7 +13,7 @@
 	
 	<div th:if="${courses != null}">
     <ul>
-       <li th:each="course : ${courses}" th:name="choose_course" ><a href="prof/course_page" th:text="${course.course_code}"></a></li>
+       <li th:each="course : ${courses}" th:name="choose_course" ><a href="course_page" th:text="${course.course_code}"></a></li>
     </ul>
 </div>
 	
