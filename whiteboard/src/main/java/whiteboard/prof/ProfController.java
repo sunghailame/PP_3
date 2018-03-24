@@ -81,7 +81,7 @@ public class ProfController {
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details);
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
      			 lectures.add(l);
      		 }
      	 }
@@ -105,7 +105,7 @@ public class ProfController {
     	 if(attendance.equals("attendance")) {
     		 retLec.setAttendance(true);
     		 retLec.attendance = true;
-    		 
+    		 return "redirect:/prof/course_page";
     		 //TODO: Update this lecture's attendance column in MySQL
     		 
     	 }
