@@ -59,9 +59,20 @@ public class AdminController {
 	
 	@PostMapping("/admin/create_course")
 	public String create_course_post(@ModelAttribute Course course, BindingResult result, Model model) {
-		this.courseRepository.save(course);
-		model.addAttribute("message", "Created course!");
-		return "admin/admin_home";
+		
+		try {
+			if(course.course_name == "") {
+				model.addAttribute("message", "Error. Try again.");
+				return "admin/create_course";
+			} else {
+				this.courseRepository.save(course);
+				model.addAttribute("message", "Created course!");
+				return "admin/admin_home";
+			}
+		} catch(Exception e) {
+			model.addAttribute("message", "Error. Try again.");
+			return "admin/create_course";
+		}
 	}
 	/*@GetMapping("/admin/delete_course")
 	public String delete_course_from_admin(Course course, Model model) {

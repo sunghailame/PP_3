@@ -32,8 +32,10 @@ public class Lecture {
 		public String link;
 		@Column(name = "ProfId")
 		public int profId;
+		@Column(name = "Attendance")
+		public boolean attendance;
 		
-		public Lecture(String title, Date date, String courseCode, String details, String link, int profId, int id) {
+		public Lecture(String title, Date date, String courseCode, String details, String link, int profId, int id, boolean attendance) {
 			super();
 			this.title = title;
 			this.date = date;
@@ -42,6 +44,7 @@ public class Lecture {
 			this.link = link;
 			this.profId = profId;
 			this.id = id;
+			this.attendance = attendance;
 		}
 
 		public Lecture() {
@@ -102,15 +105,29 @@ public class Lecture {
 		public int getId() {
 			return id;
 		}
+		
+		public boolean isAttendance() {
+			return attendance;
+		}
+
+		public void setAttendance(boolean attendance) {
+			this.attendance = attendance;
+		}
 
 		@Override
 		public String toString() {
-			return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode+" Details: "
-					+this.details+" Link: "+this.link+" ProfId: "+this.profId;
+			return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.details+
+					"===="+this.link+"===="+this.profId+"===="+this.attendance;
 		}
 		
-		public String toStringData() {
-			return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.details+
-					"===="+this.link+"===="+this.profId;
+		public String parseStringData(String[] dataSplit) {
+			this.title = dataSplit[0];
+			this.date = Date.valueOf(dataSplit[1]);
+			this.courseCode = dataSplit[2];
+			this.details =dataSplit[3];
+			this.link = dataSplit[4];
+			this.profId = Integer.parseInt(dataSplit[5]);
+			this.attendance = Boolean.getBoolean(dataSplit[6]);
+			return dataSplit[7];
 		}
 	}

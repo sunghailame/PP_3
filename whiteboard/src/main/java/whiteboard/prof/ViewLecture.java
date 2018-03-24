@@ -21,14 +21,18 @@ public class ViewLecture {
 	public String courseCode;
 	public boolean view;
 	public int profId;
+	public String details;
+	public String link;
 	
-	public ViewLecture(String title, Date date, String courseCode, boolean view, int profId) {
+	public ViewLecture(String title, Date date, String courseCode, boolean view, int profId, String link, String details) {
 		super();
 		this.title = title;
 		this.date = date;
 		this.courseCode = courseCode;
 		this.view = view;
 		this.profId = profId;
+		this.details = details;
+		this.link = link;
 	}
 
 	public ViewLecture() {
@@ -71,15 +75,25 @@ public class ViewLecture {
 	public int getProfId() {
 		return profId;
 	}
+	
+	public void setDetails(String details) {
+		this.details = details;
+	}
+	public String getDetails() {
+		return details;
+	}
+	
+	public void setLink(String link) {
+		this.link = link;
+	}
+	public String getLink() {
+		return link;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode+" View: "+
-				this.view+" ProfId: "+this.profId;
-	}
-	
-	public String toStringData() {
-		return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.view+"===="+this.profId;
+		return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.details+
+				"===="+this.link+"===="+this.profId;
 	}
 }

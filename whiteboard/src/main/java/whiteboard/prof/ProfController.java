@@ -68,7 +68,6 @@ public class ProfController {
     	Enrollment course = new Enrollment();
     	course.parseStringData(enroll_course.split("===="));
     	this.glob_courseCode = course.course_code;
-    	System.out.println("GLOB COURSE CODE: " +course.course_code);
      	return "redirect:/prof/course_page";
     }
      
@@ -81,9 +80,8 @@ public class ProfController {
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
-     		 System.out.println("Glob: "+this.glob_profId+" Lec id: "+lecture.profId+" Glob: "+this.glob_courseCode+" CC: "+lecture.courseCode);
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId);
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details);
      			 lectures.add(l);
      		 }
      	 }
@@ -96,17 +94,28 @@ public class ProfController {
      }
      
      @PostMapping("/prof/course_page")
-     public String course_page_post(@ModelAttribute Person person, String choose_course, Model model) {
+     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 System.out.println("post on course_page");
- 		return "admin/admin_home";
+    	 System.out.println(view_lecture);
+    	 Lecture retLec = new Lecture();
+    	 
+    	 String attendance = retLec.parseStringData(view_lecture.split("===="));
+    	 this.glob_lecTitle = retLec.title;
+    	 
+    	 if(attendance.equals("attendance")) {
+    		 retLec.attendance = true;
+    		 //TODO: Update this lecture's attendance column in MySQL
+    	 }
+    	 
+    	 System.out.println(retLec.toString());
+    	 
+ 		return "redirect:/prof/view_lecture";
  	}
      
      @GetMapping("/prof/new_lecture")
      public String new_lecture_get(Model model) {
      	 Lecture new_lecture = new Lecture();
-     	 
      	 model.addAttribute("lecture", new_lecture);
-    	 
     	 model.addAttribute("message", "");
      	 return "prof/new_lecture";
      }
@@ -117,14 +126,33 @@ public class ProfController {
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
      	 lecture.date = new java.sql.Date(getCur.getTime());
+     	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";
      }
      
      @GetMapping("/prof/view_lecture")
-     public String view_lecture_get(@ModelAttribute Person person, Model model) {
-     	 model.addAttribute("message", "");
+     public String view_lecture_get(Model model) {
+    	 Lecture lecture = new Lecture();
+    	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
+    	 Iterator<Lecture> l_cur = temp_lecture.iterator();
+    	 while(l_cur.hasNext()) {
+    		 Lecture temp_lec = l_cur.next();
+    		 if(temp_lec.courseCode.equals(this.glob_courseCode) && temp_lec.profId == this.glob_profId && 
+    				 temp_lec.title.equals(this.glob_lecTitle)) {
+    			 lecture.title = temp_lec.title;
+    			 lecture.date = temp_lec.date;
+    			 lecture.courseCode = temp_lec.courseCode;
+    			 lecture.details = temp_lec.details;
+    			 lecture.link = temp_lec.link;
+    			 lecture.profId = temp_lec.profId;
+    			 lecture.id = 0;
+    		 }
+    	 }
+    	 
+    	 model.addAttribute("lecture",lecture);
+    	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
      @PostMapping("/prof/view_lecture")
