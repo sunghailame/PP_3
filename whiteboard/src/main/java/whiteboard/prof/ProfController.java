@@ -107,7 +107,6 @@ public class ProfController {
     		 retLec.attendance = true;
     		 return "redirect:/prof/course_page";
     		 //TODO: Update this lecture's attendance column in MySQL
-    		 
     	 }
     	 
     	 System.out.println(retLec.toString());
@@ -129,6 +128,7 @@ public class ProfController {
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
      	 lecture.date = new java.sql.Date(getCur.getTime());
+     	 lecture.attendance = false;
      	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
@@ -151,6 +151,7 @@ public class ProfController {
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
     			 lecture.id = 0;
+    			 lecture.attendance = temp_lec.attendance;
     		 }
     	 }
     	 
