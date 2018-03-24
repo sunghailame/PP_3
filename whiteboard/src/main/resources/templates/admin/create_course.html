@@ -1,22 +1,40 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-  <link rel="stylesheet" media="all"  
-      href="../../css/background_theme.css" th:href="@{/css/background_theme.css}" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/create_course.css"></link>
       
-<title>Sign up</title>
+<title>Add Course</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <h1>Add Course</h1>
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="admin_home">WhiteBoard</a></li>
+  		<li id="people"><a href="../admin/show_users">View People</a></li>
+  		<li id="addStudent"><a href="../enroll_student">Add Student</a></li>
+  		<li id="addInstructor"><a href="../admin/enroll_prof">Add Instructor</a></li>
+  		<li id="logout"><a href="../whiteboard">logout</a></li>
+	</ul>
+	</div>
+    <div>
     <p th:text="''+${message}"/>
-    <form action="#" th:action="@{/admin/create_course}" th:object="${course}" method="post">
+    <form id="courseForm" action="#" th:action="@{/admin/create_course}" th:object="${course}" method="post">
+            <h1 id="headingForm">Add Course</h1>
             <p>Enter Course Code: <input id="course_code" type="text" th:field="*{course_code}" /></p>
 			<p>Enter Course Name: <input id="course_name" type="text" th:field="*{course_name}" /></p>
 
         <p>
-            <input type="submit" value="Submit" /> <a href="admin_home">Back</a></p>
+            	<button id="sub" type="submit" class="btn btn-primary btn-lg" >Submit</button>
+            	<a href="admin_home">Back</a></p>
     </form>
+    </div>
+    
+    <script type="text/javascript" src="../js/create_course.js"></script>
 </body>
 </html>

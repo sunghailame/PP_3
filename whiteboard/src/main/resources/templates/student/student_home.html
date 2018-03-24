@@ -1,15 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Student</title>
+    <title>Student home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" media="all"  
+      <link rel="stylesheet" media="all"  
       href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
 </head>
 <body>
-	<h1>WIP - Student</h1>
-	<p th:text="'Hello, ' + ${username} + ' - ' + ${name} + '!'"/>
+
+	<p th:text="''+${message}"/>
+	<h1>Courses</h1>
+	<form action="#" th:action="@{/student/student_home}" th:object="${courses}" method="post">
+	<table id="courses" align="center">
+	<tr>
+	<th>Course Code</th>
+	<th>View</th>
+	</tr>
+	<tr th:each="course : ${courses}">
+        <td th:text="${course.courseCode}"></td>
+        <td><input type="checkbox" th:name="c_enrolled" th:value="${course}" /></td>
+        </tr>
 	
+	</table>
+	<input type="submit" value="Submit" />
+    </form>
     <a href="../whiteboard">Logout</a>
 </body>
 </html>
