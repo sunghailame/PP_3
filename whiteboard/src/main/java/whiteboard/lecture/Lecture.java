@@ -105,12 +105,16 @@ public class Lecture {
 
 		@Override
 		public String toString() {
-			return "Title: "+this.title+" Date: "+this.date+" Course Code: "+this.courseCode+" Details: "
-					+this.details+" Link: "+this.link+" ProfId: "+this.profId;
-		}
-		
-		public String toStringData() {
 			return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.details+
 					"===="+this.link+"===="+this.profId;
+		}
+		
+		public void parseStringData(String[] dataSplit) {
+			this.title = dataSplit[0];
+			this.date = Date.valueOf(dataSplit[1]);
+			this.courseCode = dataSplit[2];
+			this.details =dataSplit[3];
+			this.link = dataSplit[4];
+			this.profId = Integer.parseInt(dataSplit[5]);
 		}
 	}
