@@ -62,7 +62,7 @@ public class StudentController {
 		model.addAttribute("courses", courses);
 		model.addAttribute("person", person);
 		
-        return "prof/prof_home";
+        return "student/student_home";
     }
     @PostMapping("/student/student_home")
     public String stud_home_post(@ModelAttribute Person person, @RequestParam("c_enrolled") String enroll_course, Model model) {
@@ -70,11 +70,11 @@ public class StudentController {
     	Enrollment course = new Enrollment();
     	course.parseStringData(enroll_course.split("===="));
     	this.glob_courseCode = course.course_code;
-     	return "redirect:/stud/course_page";
+     	return "redirect:/student/course_page";
     }
      
      
-     @GetMapping("/stud/course_page")
+     @GetMapping("/student/course_page")
      public String course_page_get(Model model) {
     	//Get list of lectures by courseCode and profId
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
@@ -92,28 +92,28 @@ public class StudentController {
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
-     	 return "stud/course_page";
+     	 return "student/course_page";
      }
      
-     @PostMapping("/stud/course_page")
+     @PostMapping("/student/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
     	 
- 		return "redirect:/stud/view_lecture";
+ 		return "redirect:/student/view_lecture";
  	}
      
    
-     @GetMapping("/stud/view_lecture")
+     @GetMapping("/student/view_lecture")
      public String view_lecture_get(Model model) {
     	 Lecture lecture = new Lecture();
     	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
     	 while(l_cur.hasNext()) {
     		 Lecture temp_lec = l_cur.next();
-    		 if(temp_lec.courseCode.equals(this.glob_courseCode) && temp_lec.profId == this.glob_profId && 
+    		 if(temp_lec.courseCode.equals(this.glob_courseCode) && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
     			 lecture.title = temp_lec.title;
     			 lecture.date = temp_lec.date;
@@ -127,11 +127,11 @@ public class StudentController {
     	 
     	 model.addAttribute("lecture",lecture);
     	 model.addAttribute("message","");
-     	 return "stud/view_lecture";
+     	 return "student/view_lecture";
      }
-     @PostMapping("/stud/view_lecture")
+     @PostMapping("/student/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, Model model) {
      	 model.addAttribute("message", "");
-     	 return "stud/stud_home";
+     	 return "student/student_home";
      }
 }

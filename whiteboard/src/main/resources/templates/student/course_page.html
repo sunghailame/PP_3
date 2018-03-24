@@ -10,7 +10,7 @@
 
 	<p th:text="''+${message}"/>
 	<h1>Lectures</h1>
-	<form action="#" th:action="@{/prof/course_page}" th:object="${lectures}" method="post">
+	<form action="#" th:action="@{/student/course_page}" th:object="${lectures}" method="post">
 	<table align="center">
 	<tr>
 	<th>Lecture</th>
@@ -24,7 +24,7 @@
         </tr>
 	</table>
     <a href="../whiteboard">Logout</a>
-    <a href="prof_home">Back</a>
+    <a href="student_home">Back</a>
     <input type="submit" value="Submit" />
     </form>
 </body>
