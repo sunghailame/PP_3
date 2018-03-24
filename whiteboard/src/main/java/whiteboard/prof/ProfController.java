@@ -103,8 +103,11 @@ public class ProfController {
     	 this.glob_lecTitle = retLec.title;
     	 
     	 if(attendance.equals("attendance")) {
+    		 retLec.setAttendance(true);
     		 retLec.attendance = true;
+    		 
     		 //TODO: Update this lecture's attendance column in MySQL
+    		 
     	 }
     	 
     	 System.out.println(retLec.toString());
