@@ -98,8 +98,15 @@ public class ProfController {
     	 System.out.println("post on course_page");
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
-    	 retLec.parseStringData(view_lecture.split("===="));
+    	 
+    	 String attendance = retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
+    	 
+    	 if(attendance.equals("attendance")) {
+    		 retLec.attendance = true;
+    		 //TODO: Update this lecture's attendance column in MySQL
+    	 }
+    	 
     	 System.out.println(retLec.toString());
     	 
  		return "redirect:/prof/view_lecture";
@@ -108,9 +115,7 @@ public class ProfController {
      @GetMapping("/prof/new_lecture")
      public String new_lecture_get(Model model) {
      	 Lecture new_lecture = new Lecture();
-     	 
      	 model.addAttribute("lecture", new_lecture);
-    	 
     	 model.addAttribute("message", "");
      	 return "prof/new_lecture";
      }
@@ -121,6 +126,7 @@ public class ProfController {
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
      	 lecture.date = new java.sql.Date(getCur.getTime());
+     	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";
