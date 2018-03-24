@@ -23,8 +23,9 @@ public class ViewLecture {
 	public int profId;
 	public String details;
 	public String link;
+	public boolean attendance;
 	
-	public ViewLecture(String title, Date date, String courseCode, boolean view, int profId, String link, String details) {
+	public ViewLecture(String title, Date date, String courseCode, boolean view, int profId, String link, String details, boolean attendance) {
 		super();
 		this.title = title;
 		this.date = date;
@@ -33,6 +34,7 @@ public class ViewLecture {
 		this.profId = profId;
 		this.details = details;
 		this.link = link;
+		this.attendance = attendance;
 	}
 
 	public ViewLecture() {
@@ -88,6 +90,14 @@ public class ViewLecture {
 	}
 	public String getLink() {
 		return link;
+	}
+	
+	public boolean isAttendance() {
+		return attendance;
+	}
+
+	public void setAttendance(boolean attendance) {
+		this.attendance = attendance;
 	}
 
 

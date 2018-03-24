@@ -117,7 +117,7 @@ public class Lecture {
 		@Override
 		public String toString() {
 			return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.details+
-					"===="+this.link+"===="+this.profId+"===="+this.attendance;
+					"===="+this.link+"===="+this.profId;
 		}
 		
 		public String parseStringData(String[] dataSplit) {
@@ -127,7 +127,7 @@ public class Lecture {
 			this.details =dataSplit[3];
 			this.link = dataSplit[4];
 			this.profId = Integer.parseInt(dataSplit[5]);
-			this.attendance = Boolean.getBoolean(dataSplit[6]);
-			return dataSplit[7];
+			this.attendance = false;
+			return dataSplit[6];
 		}
 	}
