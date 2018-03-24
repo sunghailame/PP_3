@@ -28,9 +28,9 @@ public class ProfController {
 	@Autowired
 	private LectureRepository lectureRepository;
 	
-	@Autowired
-	private PersonRepository personRepository;
-	
+//	@Autowired
+//	private EnrollmentRepository enrollmentRepository;
+
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
@@ -61,9 +61,15 @@ public class ProfController {
    
      @GetMapping("/prof/attendance_page")
      public String view_student_get(@ModelAttribute Person person, Model model) {
-//    	 if(person.role.toUpperCase().contains("STUDENT")) {
-//    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
-//    	 }
+    	 ArrayList<Enrollment> enrolledList = enrollmentRepository.findAll();
+    	 ArrayList<CheckAttendance> enrollees = new ArrayList<>();
+    	 Iterator<Enrollment> enroll_cur = enrolledList.iterator();
+    	 while(enroll_cur.hasNext()) {
+    		 Enrollment enrollment = (Enrollment)enroll_cur.next();
+    		 if(person.id == enrollment.id) {
+    			
+    		 }
+    	 }
     	 
     	 return "prof/attendance_page";
      }
