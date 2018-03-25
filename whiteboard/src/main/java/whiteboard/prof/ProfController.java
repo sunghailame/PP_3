@@ -127,7 +127,7 @@ public class ProfController {
     		 lec.setAttendance(true);
     		 lectureRepository.save(lec);
     		 //lectureRepository.setAttendance(true, retLec.title, retLec.date, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 return "redirect:/prof/course_page";
+    		 return "redirect:/prof/view_lecture";
     		 //TODO: Update this lecture's attendance column in MySQL
     	 }
     	 
@@ -162,10 +162,10 @@ public class ProfController {
      @GetMapping("/prof/view_lecture")
      public String view_lecture_get(Model model) {
     	 Lecture lecture = new Lecture();
-    	 Attendance attendance = new Attendance();
     	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
     	 ArrayList<Attendance> temp_attendance = attendanceRepository.findAll();
+    	 ArrayList<Attendance> attendees = new ArrayList<>();
     	 Iterator<Attendance> a_cur = temp_attendance.iterator();
     	 
     	 while(l_cur.hasNext()) {
@@ -173,6 +173,7 @@ public class ProfController {
     		 //show the list of lectures
     		 if(temp_lec.courseCode.equals(this.glob_courseCode) && temp_lec.profId == this.glob_profId && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
+    			 System.out.println("Matching lecture?");
     			 lecture.title = temp_lec.title;
     			 lecture.lecDate = temp_lec.lecDate;
     			 lecture.courseCode = temp_lec.courseCode;
@@ -181,12 +182,14 @@ public class ProfController {
     			 lecture.profId = temp_lec.profId;
     			 lecture.id = 0;
     			 lecture.attendance = temp_lec.attendance;
+    			 model.addAttribute("lecture",lecture);
     		 }
     	 }
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
     		 //show list of attendees
     		 if(temp_attend.CourseCode.equals(this.glob_courseCode) && temp_attend.profId == this.glob_profId && temp_attend.lecture.equals(this.glob_lecTitle)) {
+    			 Attendance attendance = new Attendance();
     			 attendance.CourseCode = temp_attend.CourseCode;
     			 attendance.date = temp_attend.date;
     			 attendance.ID = temp_attend.ID;
@@ -194,10 +197,11 @@ public class ProfController {
     			 attendance.lecture = temp_attend.lecture;
     			 attendance.studId = temp_attend.studId;
     			 attendance.profId = temp_attend.profId;
+    			 attendees.add(attendance);
     		 }
     			 
     	 }
-    	 model.addAttribute("attendance", attendance);
+    	 model.addAttribute("attendance", attendees);
 
     	 //arraylist of attendance/people
     	 //model.add(arrayList)
