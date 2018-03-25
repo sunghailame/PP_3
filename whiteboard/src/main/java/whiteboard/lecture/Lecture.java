@@ -22,8 +22,8 @@ public class Lecture {
 	
 		@Column(name = "Title")
 		public String title;
-		@Column(name = "Date")
-		public Date date;
+		@Column(name = "lecDate")
+		public Date lecDate;
 		@Column(name = "CourseCode")
 		public String courseCode;
 		@Column(name = "Details")
@@ -35,10 +35,10 @@ public class Lecture {
 		@Column(name = "Attendance")
 		public boolean attendance;
 		
-		public Lecture(String title, Date date, String courseCode, String details, String link, int profId, int id, boolean attendance) {
+		public Lecture(String title, Date lecDate, String courseCode, String details, String link, int profId, int id, boolean attendance) {
 			super();
 			this.title = title;
-			this.date = date;
+			this.lecDate = lecDate;
 			this.courseCode = courseCode;
 			this.details = details;
 			this.link = link;
@@ -66,12 +66,12 @@ public class Lecture {
 			return courseCode;
 		}
 		
-		public void setDate(Date date) {
-			this.date = date;
+		public void setDate(Date dAte) {
+			this.lecDate = dAte;
 		}
 
 		public Date getDate() {
-			return date;
+			return this.lecDate;
 		}
 
 		public void setDetails(String details) {
@@ -116,18 +116,19 @@ public class Lecture {
 
 		@Override
 		public String toString() {
-			return this.title+"===="+this.date+"===="+this.courseCode+"===="+this.details+
+			return this.title+"===="+this.lecDate+"===="+this.courseCode+"===="+this.details+
 					"===="+this.link+"===="+this.profId;
 		}
 		
 		public String parseStringData(String[] dataSplit) {
 			this.title = dataSplit[0];
-			this.date = Date.valueOf(dataSplit[1]);
+			this.lecDate = Date.valueOf(dataSplit[1]);
 			this.courseCode = dataSplit[2];
 			this.details =dataSplit[3];
 			this.link = dataSplit[4];
 			this.profId = Integer.parseInt(dataSplit[5]);
 			this.attendance = false;
+			
 			return dataSplit[6];
 		}
 	}

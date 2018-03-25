@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.hibernate.HibernateException; 
+import org.hibernate.Session; 
+import org.hibernate.Transaction;
+//import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import whiteboard.course.Course;
 import whiteboard.enrollment.Enrollment;
@@ -36,6 +45,8 @@ public class ProfController {
 	private int glob_profId;
 	private String glob_courseCode;
 	private String glob_lecTitle;
+	
+	private static SessionFactory factory; 
 	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
@@ -81,7 +92,7 @@ public class ProfController {
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
      			 lectures.add(l);
      		 }
      	 }
@@ -101,10 +112,12 @@ public class ProfController {
     	 
     	 String attendance = retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
-    	 
+    	 //Session session = factory.openSession();
     	 if(attendance.equals("attendance")) {
-    		 retLec.setAttendance(true);
-    		 retLec.attendance = true;
+    		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
+    		 lec.setAttendance(true);
+    		 lectureRepository.save(lec);
+    		 //lectureRepository.setAttendance(true, retLec.title, retLec.date, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 return "redirect:/prof/course_page";
     		 //TODO: Update this lecture's attendance column in MySQL
     		 
@@ -128,7 +141,7 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
-     	 lecture.date = new java.sql.Date(getCur.getTime());
+     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
      	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
@@ -145,7 +158,7 @@ public class ProfController {
     		 if(temp_lec.courseCode.equals(this.glob_courseCode) && temp_lec.profId == this.glob_profId && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
     			 lecture.title = temp_lec.title;
-    			 lecture.date = temp_lec.date;
+    			 lecture.lecDate = temp_lec.lecDate;
     			 lecture.courseCode = temp_lec.courseCode;
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
