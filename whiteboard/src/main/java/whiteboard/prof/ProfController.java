@@ -183,8 +183,6 @@ public class ProfController {
     			 lecture.attendance = temp_lec.attendance;
     		 }
     	 }
-    	 
-    	 model.addAttribute("lecture",lecture);
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
     		 //show list of attendees
