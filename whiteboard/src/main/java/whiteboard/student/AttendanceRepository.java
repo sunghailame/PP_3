@@ -8,7 +8,7 @@ import whiteboard.lecture.Lecture;
 
 public interface AttendanceRepository extends Repository<Attendance, Long>{
 
-	ArrayList<Lecture> findAll();
+	ArrayList<Attendance> findAll();
 	void save(Attendance a);
 }
 
