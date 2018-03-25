@@ -35,8 +35,9 @@ table, th, td {
 }
 
 #subBack {
-	margin-left:75%;
+	margin-left:25%;
 }
+
 ul {
     list-style-type: none;
     margin: 0;
