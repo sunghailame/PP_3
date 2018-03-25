@@ -18,16 +18,17 @@
   	<form action="#" th:action="@{/prof/course_page}" th:object="${attendance}" method="post">
 	<div>
 		<table style="margin: 0 auto;">
-		<tr>
-	<th>Attendance list<th>
-	</th>
-	</tr>
+
+	<th>Date</th>
+	<th>Student ID</th>
+	<th>Lecture</th>
+	<th>Section</th>
 	<tr th:each="people : ${attendance}">
         <td th:text="${attendance?.date}"></td>
-        <td th:text="${attendance?.time}"></td>
-        <td th:text="${attendance?.studId}"></td>
-        <td th:text="${attendance?.lecture}"></td>
-        <td th:text="${attendance?.SectionNo}"></td>
+       <!-- <td th:text="${attendance?.time}"></td>-->
+        <td th:text="${attendance.studId}"></td>
+        <td th:text="${attendance.lecture}"></td>
+        <td th:text="${attendance.SectionNo}"></td>
         </tr>
         </table>
     <a href="../whiteboard">Logout</a>

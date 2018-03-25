@@ -74,6 +74,7 @@ public class ProfController {
 		//Add objects to view
 		model.addAttribute("message", prof.name);
 		model.addAttribute("courses", courses);
+		//model.addAttribute("link", "prof/course_page");
 		model.addAttribute("person", person);
 		model.addAttribute("linkToCourse", "prof/course_page");
 		
@@ -116,10 +117,12 @@ public class ProfController {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 
-    	 String attendance = retLec.parseStringData(view_lecture.split("===="));
+    	 //If attendance == "attendance", mark that, otherwise == "na" for view
+    	 retLec.parseStringData(view_lecture.split("===="));
+
     	 this.glob_lecTitle = retLec.title;
     	 //Session session = factory.openSession();
-    	 if(attendance.equals("attendance")) {
+    	 if(retLec.attendance) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 lec.setAttendance(true);
     		 lectureRepository.save(lec);
@@ -180,7 +183,6 @@ public class ProfController {
     			 lecture.attendance = temp_lec.attendance;
     		 }
     	 }
-    	 
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
     		 //show list of attendees
@@ -195,13 +197,11 @@ public class ProfController {
     		 }
     			 
     	 }
-    	 model.addAttribute("lecture",lecture);
     	 model.addAttribute("attendance", attendance);
 
     	 //arraylist of attendance/people
     	 //model.add(arrayList)
     	 
-    	 model.addAttribute("lecture", lecture);
 
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";

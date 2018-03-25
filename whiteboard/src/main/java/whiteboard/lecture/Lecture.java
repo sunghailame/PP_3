@@ -127,12 +127,12 @@ public class Lecture {
 			this.details =dataSplit[3];
 			this.link = dataSplit[4];
 			this.profId = Integer.parseInt(dataSplit[5]);
-			this.attendance = Boolean.getBoolean(dataSplit[6]);
-			
-			if(dataSplit.length <  7) {
-				return dataSplit[7];
-			} else {
-				return "na";
+			if("true".equals(dataSplit[6])) {
+				this.attendance = true;
+			}else {
+				this.attendance = false;
 			}
+			
+			return "";
 		}
 	}
