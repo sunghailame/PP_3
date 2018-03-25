@@ -176,7 +176,10 @@ public class ProfController {
     		 }
     	 }
     	 
-    	 model.addAttribute("lecture",lecture);
+    	 //arraylist of attendance/people
+    	 //model.add(arrayList)
+    	 
+    	 model.addAttribute("lecture", lecture);
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
