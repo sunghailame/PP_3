@@ -27,6 +27,7 @@ table, th, td {
 h1 {
 	margin-left:25%;
 	color: #4682B4;
+	padding-bottom:1%;
 }
 
 h2 {
@@ -37,6 +38,7 @@ h2 {
 
 #subBack {
 	margin-left:70%;
+	padding-top:2%
 }
 ul {
     list-style-type: none;
