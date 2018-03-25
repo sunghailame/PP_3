@@ -185,6 +185,7 @@ public class ProfController {
     		 }
     	 }
     	 
+
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
     		 //show list of attendees
@@ -201,6 +202,12 @@ public class ProfController {
     	 }
     	 model.addAttribute("lecture",lecture);
     	 model.addAttribute("attendance", attendance);
+
+    	 //arraylist of attendance/people
+    	 //model.add(arrayList)
+    	 
+    	 model.addAttribute("lecture", lecture);
+
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
