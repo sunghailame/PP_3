@@ -129,6 +129,10 @@ public class Lecture {
 			this.profId = Integer.parseInt(dataSplit[5]);
 			this.attendance = false;
 			
-			return dataSplit[6];
+			if(dataSplit.length == 7) {
+				return dataSplit[6];
+			} else {
+				return "na";
+			}
 		}
 	}

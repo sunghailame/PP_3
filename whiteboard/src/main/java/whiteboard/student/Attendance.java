@@ -22,67 +22,106 @@ public class Attendance {
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
 	public int ID;
 	@Column(name = "CourseCode")
 	public String CourseCode;
 	@Column(name = "SectionNo")
 	public String SectionNo;
-	@Column(name = "Time")
-	public Time time;
+
 	@Column(name = "Date")
 	public Date date;
+	@Column(name = "LectureTitle")
+	public String lecture;
+	@Column(name = "ProfId")
+	public int profId;
+	@Column(name = "StudId")
+	public int studId;
 	
-public Attendance(int ID, String CourseCode, String SectionNo, Time time, Date date) {
-	super();
-	this.ID = ID;
-	this.CourseCode = CourseCode;
-	this.SectionNo = SectionNo;
-	this.time = time;
-	this.date = date;
-}
-public Attendance() {
+	public Attendance(int ID, String CourseCode, String SectionNo, Time time, Date date, int profId, int studId, String lecture) {
+		super();
+		this.ID = ID;
+		this.CourseCode = CourseCode;
+		this.SectionNo = SectionNo;
+		this.date = date;
+		this.profId = profId;
+		this.studId = studId;
+		this.lecture = lecture;
+	}
+	public Attendance() {
+		
+	}
 	
-}
-
-public int getID() {
-	return ID;
-}
-
-public void setCourseCode(String CourseCode) {
-	this.CourseCode = CourseCode;
-}
-
-public String getCourseCode() {
-	return CourseCode;
-}
-
-public void setSection(String SectionNo) {
-	this.SectionNo = SectionNo;
-}
-
-public String getSection() {
-	return SectionNo;
-}
-
-public void setTime(Time time) {
-	this.time = time;
-}
-
-public Time getTime() {
-	return time;
-}
-
-public void setDate(Date date) {
-	this.date = date;
-}
-
-public Date getDate() {
-	return date;
-}
-
-@Override
-public String toString() {
-	return "ID: "+this.ID+"Course Code: "+this.CourseCode+"Section Number: "+this.SectionNo+"Time: "+this.time+"Date: "+this.date;
-}
+	public int getID() {
+		return ID;
+	}
+	
+	public void setCourseCode(String CourseCode) {
+		this.CourseCode = CourseCode;
+	}
+	
+	public String getCourseCode() {
+		return CourseCode;
+	}
+	
+	public void setSection(String SectionNo) {
+		this.SectionNo = SectionNo;
+	}
+	
+	public String getSection() {
+		return SectionNo;
+	}
+	
+	
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+	
+	public void setLecture(String lecture) {
+		this.lecture = lecture;
+	}
+	
+	public String getLecture() {
+		return lecture;
+	}
+	
+	public void setProfId(int profId) {
+		this.profId = profId;
+	}
+	
+	public int getProfId() {
+		return profId;
+	}
+	
+	public void setStudId(int studId) {
+		this.studId = studId;
+	}
+	
+	public int getStudId() {
+		return studId;
+	}
+	
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return this.ID+"===="+this.CourseCode+"===="+this.SectionNo+"===="+this.lecture+"===="+this.date+"===="+this.profId+"===="+this.studId;
+	}
+	
+	public String parseStringData(String[] dataSplit) {
+		this.ID = Integer.parseInt(dataSplit[0]);
+		this.CourseCode = dataSplit[1];
+		this.SectionNo = dataSplit[2];
+		this.lecture =dataSplit[3];
+		this.date = Date.valueOf(dataSplit[4]);
+		this.profId = Integer.parseInt(dataSplit[5]);
+		this.studId = Integer.parseInt(dataSplit[6]);
+		
+		return dataSplit[7];
+	}
 }

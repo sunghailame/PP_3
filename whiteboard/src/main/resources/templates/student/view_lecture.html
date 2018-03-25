@@ -8,14 +8,24 @@
 </head>
 <body>
 
+
+<form action="#" th:action="@{/student/view_lecture}" th:object="${lecture}" method="post">
+	
+	
 	<p th:text="''+${message}"/>
 	<h1>Lecture details</h1>
     	<p th:text="${lecture.title}"/>
     	<p th:text="${lecture.details}"/>
     	<p th:text="${link}"/>
 	
-	<h1>Attendance</h1>
+	<input type="checkbox" th:name="attendance" th:value="${lecture}+====attendance" />
+	
     <a href="../whiteboard">Logout</a>
     <a href="course_page">Back</a>
+    <input type="submit" value="Submit" />
+
+
+</form>
+
 </body>
 </html>
