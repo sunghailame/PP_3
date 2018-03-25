@@ -38,7 +38,6 @@ public class StudentController {
 	private String glob_courseCode;
 	private String glob_lecTitle;
 	private int glob_studId;
-	private boolean glob_attendance;
 	
     @GetMapping("/student/student_home")
     public String stud_home_get(@CookieValue("person") String person, Model model) {
@@ -98,12 +97,13 @@ public class StudentController {
      }
      
      @PostMapping("/student/course_page")
+
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
-    	 
+
  		return "redirect:/student/view_lecture";
 
  	}
@@ -115,6 +115,7 @@ public class StudentController {
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
     	 while(l_cur.hasNext()) {
     		 Lecture temp_lec = l_cur.next();
+
     		 if(temp_lec.courseCode.equals(this.glob_courseCode) && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
     			 lecture.title = temp_lec.title;
@@ -147,5 +148,6 @@ public class StudentController {
     	 
     	 model.addAttribute("message", "");
      	 return "redirect:/student/course_page";
+
      }
 }
