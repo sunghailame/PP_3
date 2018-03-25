@@ -104,8 +104,7 @@ public class StudentController {
     	 
  		return "redirect:/student/view_lecture";
  	}
-     
-   
+    
      @GetMapping("/student/view_lecture")
      public String view_lecture_get(Model model) {
     	 Lecture lecture = new Lecture();

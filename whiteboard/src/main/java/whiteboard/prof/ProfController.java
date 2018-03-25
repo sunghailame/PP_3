@@ -71,20 +71,7 @@ public class ProfController {
     	this.glob_courseCode = course.course_code;
      	return "redirect:/prof/course_page";
     }   
-     @GetMapping("/prof/attendance_page")
-     public String view_student_get(@ModelAttribute Person person, Model model) {
-    	 ArrayList<Enrollment> enrolledList = enrollmentRepository.findAll();
-    	 ArrayList<CheckAttendance> enrollees = new ArrayList<>();
-    	 Iterator<Enrollment> enroll_cur = enrolledList.iterator();
-    	 while(enroll_cur.hasNext()) {
-    		 Enrollment enrollment = (Enrollment)enroll_cur.next();
-    		 if(person.id == enrollment.id) {
-    			
-    		 }
-    	 }
-    	 
-    	 return "prof/attendance_page";
-     }
+ 
      
      @GetMapping("/prof/course_page")
      public String course_page_get(Model model) {
@@ -179,18 +166,14 @@ public class ProfController {
      	 return "prof/prof_home";
      }
      
-     @GetMapping("/prof/attendance_page")
-     public String view_student_get(@ModelAttribute Person person, Model model) {
-//    	 if(person.role.toUpperCase().contains("STUDENT")) {
-//    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
-//    	 }
-    	 
-    	 return "prof/attendance_page";
-     }
+//     @GetMapping("/prof/attendance_page")
+//     public String view_student_get(@ModelAttribute Person person, Model model) {
+////    	 if(person.role.toUpperCase().contains("STUDENT")) {
+////    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
+////    	 }
+//    	 
+//    	 return "prof/attendance_page";
+//     }
      
-     @PostMapping("/prof/attendance_page")
-     public String view_student_post(@ModelAttribute Person person, Model model) {
-    	 return "prof/attendance_page";
-     }
      
 }
