@@ -82,13 +82,13 @@ public class StudentController {
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
      	 ArrayList<ViewLecture> lectures = new ArrayList<>();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
-     	 while(lec_cur.hasNext()) {
-     		 Lecture lecture = (Lecture)lec_cur.next();
-     		 if(this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
-     			 lectures.add(l);
-     		 }
-     	 }
+//     	 while(lec_cur.hasNext()) {
+//     		 Lecture lecture = (Lecture)lec_cur.next();
+//     		 if(this.glob_courseCode.equals(lecture.courseCode)) {
+//     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
+//     			 lectures.add(l);
+//     		 }
+//     	 }
      	 
      	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
@@ -118,16 +118,16 @@ public class StudentController {
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
     	 while(l_cur.hasNext()) {
     		 Lecture temp_lec = l_cur.next();
-    		 if(temp_lec.courseCode.equals(this.glob_courseCode) && 
-    				 temp_lec.title.equals(this.glob_lecTitle)) {
-    			 lecture.title = temp_lec.title;
-    			 lecture.date = temp_lec.date;
-    			 lecture.courseCode = temp_lec.courseCode;
-    			 lecture.details = temp_lec.details;
-    			 lecture.link = temp_lec.link;
-    			 lecture.profId = temp_lec.profId;
-    			 lecture.id = 0;
-    		 }
+//    		 if(temp_lec.courseCode.equals(this.glob_courseCode) && 
+//    				 temp_lec.title.equals(this.glob_lecTitle)) {
+//    			 lecture.title = temp_lec.title;
+//    			 lecture.date = temp_lec.date;
+//    			 lecture.courseCode = temp_lec.courseCode;
+//    			 lecture.details = temp_lec.details;
+//    			 lecture.link = temp_lec.link;
+//    			 lecture.profId = temp_lec.profId;
+//    			 lecture.id = 0;
+//    		 }
     	 }
     	 
     	 model.addAttribute("lecture",lecture);
