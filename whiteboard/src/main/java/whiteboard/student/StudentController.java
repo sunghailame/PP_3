@@ -33,6 +33,8 @@ public class StudentController {
 	private LectureRepository lectureRepository;
 	@Autowired
 	private PersonRepository personRepository;
+	@Autowired
+	private AttendanceRepository attendanceRepository;
 	
 	private int glob_profId;
 	private String glob_courseCode;
@@ -96,12 +98,16 @@ public class StudentController {
      }
      
      @PostMapping("/student/course_page")
-     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
+     public String course_page_post(@ModelAttribute Person person, @ModelAttribute TakeAttendance attendance, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
-    	 
+    	 //check if student marked attendance and if they did, send their attendance record to sql
+    	 String marked = retLec.parseStringData(view_lecture.split("===="));
+    	 if(marked.equals("attendance")) {
+    		 this.attendanceRepository.save(attendance);
+    	 }
  		return "redirect:/student/view_lecture";
  	}
     
