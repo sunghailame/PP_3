@@ -39,6 +39,7 @@ public class ProfController {
 	private EnrollmentRepository enrollmentRepository;
 	@Autowired
 	private LectureRepository lectureRepository;
+
 	@Autowired
 	private PersonRepository personRepository;
 	
@@ -80,8 +81,8 @@ public class ProfController {
     	course.parseStringData(enroll_course.split("===="));
     	this.glob_courseCode = course.course_code;
      	return "redirect:/prof/course_page";
-    }
-     
+    }   
+ 
      
      @GetMapping("/prof/course_page")
      public String course_page_get(Model model) {
@@ -120,7 +121,6 @@ public class ProfController {
     		 //lectureRepository.setAttendance(true, retLec.title, retLec.date, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 return "redirect:/prof/course_page";
     		 //TODO: Update this lecture's attendance column in MySQL
-    		 
     	 }
     	 
     	 System.out.println(retLec.toString());
@@ -141,7 +141,12 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
+<<<<<<< HEAD
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
+=======
+     	 lecture.date = new java.sql.Date(getCur.getTime());
+     	 lecture.attendance = false;
+>>>>>>> 6b0d9df1288da64436607fe115fe8352a267bdda
      	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
@@ -164,6 +169,7 @@ public class ProfController {
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
     			 lecture.id = 0;
+    			 lecture.attendance = temp_lec.attendance;
     		 }
     	 }
     	 
@@ -177,18 +183,14 @@ public class ProfController {
      	 return "prof/prof_home";
      }
      
-     @GetMapping("/prof/attendance_page")
-     public String view_student_get(@ModelAttribute Person person, Model model) {
-//    	 if(person.role.toUpperCase().contains("STUDENT")) {
-//    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
-//    	 }
-    	 
-    	 return "prof/attendance_page";
-     }
+//     @GetMapping("/prof/attendance_page")
+//     public String view_student_get(@ModelAttribute Person person, Model model) {
+////    	 if(person.role.toUpperCase().contains("STUDENT")) {
+////    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
+////    	 }
+//    	 
+//    	 return "prof/attendance_page";
+//     }
      
-     @PostMapping("/prof/attendance_page")
-     public String view_student_post(@ModelAttribute Person person, Model model) {
-    	 return "prof/attendance_page";
-     }
      
 }

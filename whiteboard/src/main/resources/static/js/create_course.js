@@ -13,6 +13,8 @@ if(x.value.length == 0 || y.value.length ==0 ){
 
 	alert("A Field is empty");
 	document.getElementById("courseForm").reset();
+	x.value = "";
+	
 }
 
 
