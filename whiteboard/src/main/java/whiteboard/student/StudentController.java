@@ -85,7 +85,7 @@ public class StudentController {
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
      			 lectures.add(l);
      		 }
      	 }
@@ -98,7 +98,7 @@ public class StudentController {
      }
      
      @PostMapping("/student/course_page")
-     public String course_page_post(@ModelAttribute Person person, @ModelAttribute TakeAttendance attendance, @RequestParam("view_lecture") String view_lecture, Model model) {
+     public String course_page_post(@ModelAttribute Person person, @ModelAttribute Attendance attendance, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 retLec.parseStringData(view_lecture.split("===="));
@@ -121,7 +121,7 @@ public class StudentController {
     		 if(temp_lec.courseCode.equals(this.glob_courseCode) && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
     			 lecture.title = temp_lec.title;
-    			 lecture.date = temp_lec.date;
+    			 lecture.lecDate = temp_lec.lecDate;
     			 lecture.courseCode = temp_lec.courseCode;
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
