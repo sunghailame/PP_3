@@ -32,8 +32,6 @@ public class StudentController {
 	@Autowired
 	private LectureRepository lectureRepository;
 	@Autowired
-	private PersonRepository personRepository;
-	@Autowired
 	private AttendanceRepository attendanceRepository;
 	
 	private int glob_profId;
@@ -144,7 +142,7 @@ public class StudentController {
     	 if(retLec.attendance) {
     		 java.util.Date getCur = new java.util.Date();
          	 
-    		 this.attendanceRepository.save(new Attendance(0, retLec.courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, glob_studId, retLec.title));
+    		 this.attendanceRepository.save(new Attendance(0, glob_courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, glob_studId, retLec.title));
     	 }
     	 
     	 model.addAttribute("message", "");

@@ -15,13 +15,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Attendance")
-@SessionAttributes
 public class Attendance {
 
 	@NotNull
-	@Column(name = "ID")
+	@Column(name = "attendID")
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int ID;
 	@Column(name = "CourseCode")
 	public String CourseCode;
