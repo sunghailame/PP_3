@@ -126,6 +126,7 @@ public class StudentController {
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
     			 lecture.id = 0;
+    			 lecture.attendance = temp_lec.attendance;
     		 }
     	 }
     	 
@@ -136,14 +137,19 @@ public class StudentController {
      }
      @PostMapping("/student/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
-     	Attendance attend = new Attendance();
-    	 String attend_check = attend.parseStringData(attendance.split("===="));
-    	 
+     		System.out.println(attendance);
+    	 Lecture retLec = new Lecture();
+     	String attend_check = retLec.parseStringData(attendance.split("===="));
+     	
     	 if(attend_check == "attendance") {
-    		 //Add save to attendance repo
+    		 java.util.Date getCur = new java.util.Date();
+         	 
+    		 Attendance attend = new Attendance(0, retLec.courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, person.id, retLec.title);
+    		 
+    		 this.attendanceRepository.save(attend);
     	 }
     	 
     	 model.addAttribute("message", "");
-     	 return "student/student_home";
+     	 return "redirect:/student/course_page";
      }
 }

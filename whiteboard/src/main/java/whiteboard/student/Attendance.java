@@ -37,7 +37,7 @@ public class Attendance {
 	@Column(name = "StudId")
 	public int studId;
 	
-	public Attendance(int ID, String CourseCode, String SectionNo, Time time, Date date, int profId, int studId, String lecture) {
+	public Attendance(int ID, String CourseCode, String SectionNo, Date date, int profId, int studId, String lecture) {
 		super();
 		this.ID = ID;
 		this.CourseCode = CourseCode;
