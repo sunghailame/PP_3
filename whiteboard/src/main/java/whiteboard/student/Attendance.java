@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "Attendance")
 @SessionAttributes
-public class TakeAttendance {
+public class Attendance {
 
 	@NotNull
 	@Column(name = "ID")
@@ -33,7 +33,7 @@ public class TakeAttendance {
 	@Column(name = "Date")
 	public Date date;
 	
-public TakeAttendance(int ID, String CourseCode, String SectionNo, Time time, Date date) {
+public Attendance(int ID, String CourseCode, String SectionNo, Time time, Date date) {
 	super();
 	this.ID = ID;
 	this.CourseCode = CourseCode;
@@ -41,7 +41,7 @@ public TakeAttendance(int ID, String CourseCode, String SectionNo, Time time, Da
 	this.time = time;
 	this.date = date;
 }
-public TakeAttendance() {
+public Attendance() {
 	
 }
 

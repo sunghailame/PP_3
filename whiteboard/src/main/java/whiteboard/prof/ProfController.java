@@ -141,10 +141,18 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
+<<<<<<< HEAD
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
 //     	 lecture.date = new java.sql.Date(getCur.getTime());
      	 lecture.attendance = false;
 
+=======
+
+     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
+
+     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
+     	 lecture.attendance = false;
+>>>>>>> 24c8503bf0effbbf25b8235c799f60bedc127c7c
      	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
