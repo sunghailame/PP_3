@@ -22,7 +22,7 @@
         <td th:text="${lecture?.title}"></td>
         <td th:text="${lecture?.date}"></td>
         <td><input type="checkbox" th:name="view_lecture" th:value="${lecture}+'====attendance'" th:checked="${lecture.attendance}"/></td>
-        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture}+'===='" /></td>
+        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture}+'====na'" /></td>
         </tr>
 	</table>
 	<a href="new_lecture">Add new lecture</a>

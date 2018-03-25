@@ -111,13 +111,19 @@ public class ProfController {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 
+    	 //If attendance == "attendance", mark that, otherwise == "na" for view
     	 String attendance = retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
     	 //Session session = factory.openSession();
     	 if(attendance.equals("attendance")) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 lec.setAttendance(true);
-    		 lectureRepository.save(lec);
+    		 //Invert lecture from whatever it was
+    		 if(lec.isAttendance() == false) {
+    			 lec.setAttendance(true);
+    		 } else {
+    			 lec.setAttendance(false);
+    		 }
+    		 lectureRepository.save(lec); 
     		 //lectureRepository.setAttendance(true, retLec.title, retLec.date, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 return "redirect:/prof/course_page";
     		 //TODO: Update this lecture's attendance column in MySQL
@@ -141,18 +147,9 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
-<<<<<<< HEAD
-     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
-//     	 lecture.date = new java.sql.Date(getCur.getTime());
-     	 lecture.attendance = false;
-
-=======
-
-     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
 
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
      	 lecture.attendance = false;
->>>>>>> 24c8503bf0effbbf25b8235c799f60bedc127c7c
      	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
@@ -179,7 +176,10 @@ public class ProfController {
     		 }
     	 }
     	 
-    	 model.addAttribute("lecture",lecture);
+    	 //arraylist of attendance/people
+    	 //model.add(arrayList)
+    	 
+    	 model.addAttribute("lecture", lecture);
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
