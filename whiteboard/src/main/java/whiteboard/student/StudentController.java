@@ -32,8 +32,6 @@ public class StudentController {
 	@Autowired
 	private LectureRepository lectureRepository;
 	@Autowired
-	private PersonRepository personRepository;
-	@Autowired
 	private AttendanceRepository attendanceRepository;
 	
 	private int glob_profId;
@@ -138,16 +136,14 @@ public class StudentController {
      }
      @PostMapping("/student/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
-     		System.out.println(attendance);
+     	System.out.println(attendance);
     	 Lecture retLec = new Lecture();
-     	String attend_check = retLec.parseStringData(attendance.split("===="));
+     	retLec.parseStringData(attendance.split("===="));
      	
-    	 if(attend_check == "attendance") {
+    	 if(retLec.attendance) {
     		 java.util.Date getCur = new java.util.Date();
          	 
-    		 Attendance attend = new Attendance(0, retLec.courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, person.id, retLec.title);
-    		 
-    		 this.attendanceRepository.save(attend);
+    		 this.attendanceRepository.save(new Attendance(0, glob_courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, glob_studId, retLec.title));
     	 }
     	 
     	 model.addAttribute("message", "");

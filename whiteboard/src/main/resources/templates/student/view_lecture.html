@@ -18,15 +18,17 @@
     	<p th:text="${lecture.details}"/>
     	<p th:text="${link}"/>
 	
-	<div th:switch="${lecture.attendance}">
-		<p th:case="'1'"><input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" />Attendance: </p>
-		<p th:case="'0'" th:name="attendance" th:value="${lecture}+'====attendance'"> </p>
+	<div th:if="${lecture.attendance} == true">
+		<p>Attendance: </p>
+		<input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" />
+	</div>
+	<div th:unless="${lecture.attendance} == false">
+		<p></p>
 	</div>
 	
     <a href="../whiteboard">Logout</a>
     <a href="course_page">Back</a>
     <input type="submit" value="Submit" />
-
 
 </form>
 
