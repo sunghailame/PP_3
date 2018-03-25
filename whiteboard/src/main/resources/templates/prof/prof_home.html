@@ -15,15 +15,13 @@
 	<div id="sidebar">
 	<ul id="contents">
 		<li id="logo"><a href="admin_home">WhiteBoard</a></li>
-  		<li id="people"><a href="../admin/show_users">View People</a></li>
-  		<li id="addInstructor"><a href="../whiteboard">Add Instructor</a></li>
-  		<li id="addCourse"><a href="../admin/create_course">Add New Course</a></li>
-  		<li id="logout"><a href="../whiteboard">logout</a></li>
+  		<li id="logout"><a href="../../whiteboard">logout</a></li>
 	</ul>
 	</div>
 	
 	<div>
 	<p th:text="''+${message}"/>
+	<h2 th:text=" 'Welcome Professor, ' +${message}"/>
 	<h1>Courses</h1>
 	<form action="#" th:action="@{/prof/prof_home}" th:object="${courses}" method="post">
 	<table id="courses" align="center">
@@ -32,12 +30,11 @@
 	<th>View</th>
 	</tr>
 	<tr th:each="course : ${courses}">
-        <td><a th:href="${course.courseCode}"></a></td>
+        <td th:text="${course.courseCode}"></td>
         <td><input type="checkbox" th:name="c_enrolled" th:value="${course}" /></td>
         </tr>
-	
 	</table>
-	<input type="submit" value="Submit" />
+	<button id="subBack" type="submit" class="btn btn-primary btn-lg" >Submit</button>
     </form>
     </div>
 </body>
