@@ -129,16 +129,21 @@ public class StudentController {
     		 }
     	 }
     	 
-    	 model.addAttribute("lecture",lecture);
+    	 model.addAttribute("lecture", lecture);
     	 model.addAttribute("message","");
      	 return "student/view_lecture";
 
      }
      @PostMapping("/student/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
-     	 model.addAttribute("message", "");
-
-
+     	Attendance attend = new Attendance();
+    	 String attend_check = attend.parseStringData(attendance.split("===="));
+    	 
+    	 if(attend_check == "attendance") {
+    		 //Add save to attendance repo
+    	 }
+    	 
+    	 model.addAttribute("message", "");
      	 return "student/student_home";
      }
 }

@@ -18,7 +18,10 @@
     	<p th:text="${lecture.details}"/>
     	<p th:text="${link}"/>
 	
-	<input type="checkbox" th:name="attendance" th:value="${lecture}+====attendance" />
+	<div th:switch="${lecture.attendance}">
+		<p th:case="true"><input type="checkbox" th:name="attendance" th:value="${lecture}+====attendance" /></p>
+		<p th:case="*"></p>
+	</div>
 	
     <a href="../whiteboard">Logout</a>
     <a href="course_page">Back</a>

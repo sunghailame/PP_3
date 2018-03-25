@@ -113,15 +113,15 @@ public class Attendance {
 		return this.ID+"===="+this.CourseCode+"===="+this.SectionNo+"===="+this.lecture+"===="+this.date+"===="+this.profId+"===="+this.studId;
 	}
 	
-	public String parseStringData(String[] dataSplit) {
-		this.ID = Integer.parseInt(dataSplit[0]);
-		this.CourseCode = dataSplit[1];
-		this.SectionNo = dataSplit[2];
-		this.lecture =dataSplit[3];
-		this.date = Date.valueOf(dataSplit[4]);
-		this.profId = Integer.parseInt(dataSplit[5]);
-		this.studId = Integer.parseInt(dataSplit[6]);
+	public String parseStringData(String[] attendance) {
+		this.ID = Integer.parseInt(attendance[0]);
+		this.CourseCode = attendance[1];
+		this.SectionNo = attendance[2];
+		this.lecture =attendance[3];
+		this.date = Date.valueOf(attendance[4]);
+		this.profId = Integer.parseInt(attendance[5]);
+		this.studId = Integer.parseInt(attendance[6]);
 		
-		return dataSplit[7];
+		return attendance[7];
 	}
 }
