@@ -72,9 +72,10 @@ public class ProfController {
 		}
 		
 		//Add objects to view
-		model.addAttribute("message", "");
+		model.addAttribute("message", prof.name);
 		model.addAttribute("courses", courses);
 		model.addAttribute("person", person);
+		model.addAttribute("linkToCourse", "prof/course_page");
 		
         return "prof/prof_home";
     }
@@ -115,19 +116,13 @@ public class ProfController {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 
-    	 //If attendance == "attendance", mark that, otherwise == "na" for view
     	 String attendance = retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
     	 //Session session = factory.openSession();
     	 if(attendance.equals("attendance")) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 //Invert lecture from whatever it was
-    		 if(lec.isAttendance() == false) {
-    			 lec.setAttendance(true);
-    		 } else {
-    			 lec.setAttendance(false);
-    		 }
-    		 lectureRepository.save(lec); 
+    		 lec.setAttendance(true);
+    		 lectureRepository.save(lec);
     		 //lectureRepository.setAttendance(true, retLec.title, retLec.date, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 return "redirect:/prof/course_page";
     		 //TODO: Update this lecture's attendance column in MySQL
@@ -151,9 +146,10 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
-
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
+//     	 lecture.date = new java.sql.Date(getCur.getTime());
      	 lecture.attendance = false;
+
      	 
      	 this.lectureRepository.save(lecture);
     	 model.addAttribute("message", "");
@@ -185,6 +181,9 @@ public class ProfController {
     		 }
     	 }
     	 
+<<<<<<< HEAD
+    	 model.addAttribute("lecture",lecture);
+=======
 
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
@@ -208,6 +207,7 @@ public class ProfController {
     	 
     	 model.addAttribute("lecture", lecture);
 
+>>>>>>> de017b26305c65b79e2286f1cb365e4be9b58fd4
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
