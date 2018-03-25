@@ -15,26 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-	@Entity
-	@Table(name = "Attendance")
 	@SessionAttributes
 	public class CheckAttendance {
 
-		@NotNull
-		@Column(name = "ID")
-		@Id
-		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		public int ID;
-		@Column(name = "CourseCode")
 		public String CourseCode;
-		@Column(name = "SectionNo")
 		public String SectionNo;
-		@Column(name = "Time")
 		public Time time;
-		@Column(name = "Date")
 		public Date date;
-		@Column(name = "Present")
-		public Boolean present;
 		
 	public CheckAttendance(int ID, String CourseCode, String SectionNo, Time time, Date date) {
 		super();
