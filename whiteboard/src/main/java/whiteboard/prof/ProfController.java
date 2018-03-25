@@ -70,6 +70,7 @@ public class ProfController {
 		//Add objects to view
 		model.addAttribute("message", "");
 		model.addAttribute("courses", courses);
+		//model.addAttribute("link", "prof/course_page");
 		model.addAttribute("person", person);
 		
         return "prof/prof_home";
@@ -112,10 +113,10 @@ public class ProfController {
     	 Lecture retLec = new Lecture();
     	 
     	 //If attendance == "attendance", mark that, otherwise == "na" for view
-    	 String attendance = retLec.parseStringData(view_lecture.split("===="));
+    	 retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
     	 //Session session = factory.openSession();
-    	 if(attendance.equals("attendance")) {
+    	 if(retLec.attendance) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 //Invert lecture from whatever it was
     		 if(lec.isAttendance() == false) {
