@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Student- View Lecture</title>
+    <title>Prof- View Lecture</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
@@ -21,11 +21,7 @@
 	<p th:text="''+${message}"/>
 	<h1>Lecture details</h1>
 	
-	
-    	<td th:text="${lecture.title}"/>
-    	<td th:text="${lecture.details}"/>
-    	<td th:text="${lecture.link}"/>
-	
+
 	<h3>Attendance</h3>
   	<form action="#" th:action="@{/prof/course_page}" th:object="${attendance}" method="post">
 	<div>

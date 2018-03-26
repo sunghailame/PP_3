@@ -9,9 +9,15 @@ table, th, td {
 }
 
 h1 {
-	margin-left:30%;
+	margin-left:18%;
 	color: #4682B4;
 	padding-bottom:2%;
+}
+
+h3 {
+	margin-left:20%;
+	color: #4682B4;
+	padding-bottom:1%;
 }
 
 ul {
