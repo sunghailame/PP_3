@@ -123,7 +123,11 @@ public class ProfController {
     	 this.glob_lecTitle = retLec.title;
     	 if(retLec.attendance || view_lecture.contains("attendance")) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 lec.setAttendance(true);
+    		 if(lec.attendance == false) {
+    			 lec.setAttendance(true);
+    		 } else {
+    			 lec.setAttendance(false);
+    		 }
     		 lectureRepository.save(lec);
     		 return "redirect:/prof/view_lecture";
     	 }
