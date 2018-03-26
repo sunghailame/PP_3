@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -144,7 +145,7 @@ public class ProfController {
      	 return "prof/new_lecture";
      }
      @PostMapping("/prof/new_lecture")
-     public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture, Model model) {
+     public String new_lecture_post(@ModelAttribute Lecture lecture, BindingResult result, Model model) {
      	try {
 			if(lecture.title == "") {
 				model.addAttribute("message", "Error. Try again.");
