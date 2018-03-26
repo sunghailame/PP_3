@@ -121,14 +121,11 @@ public class ProfController {
     	 retLec.parseStringData(view_lecture.split("===="));
 
     	 this.glob_lecTitle = retLec.title;
-    	 //Session session = factory.openSession();
-    	 if(retLec.attendance) {
+    	 if(retLec.attendance || view_lecture.contains("attendance")) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 lec.setAttendance(true);
     		 lectureRepository.save(lec);
-    		 //lectureRepository.setAttendance(true, retLec.title, retLec.date, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
     		 return "redirect:/prof/view_lecture";
-    		 //TODO: Update this lecture's attendance column in MySQL
     	 }
     	 
     	 System.out.println(retLec.toString());
