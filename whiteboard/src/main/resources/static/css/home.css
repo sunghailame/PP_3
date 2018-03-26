@@ -1,18 +1,3 @@
-#courses{
-	display:inline-block;
-	align:left;
-	margin-left:25%;
-	border: 1px;
-	color:#4682B4;
-}
-
-#classes{
-	display:inline-block;
-	align:right;
-	margin-left:25%;
-	border: 1px;
-	color:#4682B4;
-}
 
 table, th, td {
     border: 1px solid black;
@@ -27,12 +12,6 @@ table, th, td {
 h1 {
 	margin-left:25%;
 	color: #4682B4;
-}
-
-h2 {
-	margin-left:20%;
-	color: #4682B4;
-	margin-top:1px;
 }
 
 #subBack {
