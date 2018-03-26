@@ -50,8 +50,12 @@ public class ProfController {
 	private int glob_profId;
 	private String glob_courseCode;
 	private String glob_lecTitle;
+	private String glob_attendLec;
+	private Date glob_Date;
+	private String glob_Details;
+	private String glob_Link;
 	
-	private static SessionFactory factory; 
+	//private static SessionFactory factory; 
 	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
@@ -101,6 +105,12 @@ public class ProfController {
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
      			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
      			 lectures.add(l);
+     			 if(l.attendance == true) {
+     				 this.glob_lecTitle = l.title;
+     				 this.glob_Date = l.date;
+     				this.glob_Details = l.details;
+     				this.glob_Link = l.link;
+     			 }
      		 }
      	 }
      	 
@@ -113,6 +123,7 @@ public class ProfController {
      
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
+    	 
     	 System.out.println("post on course_page");
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
@@ -135,6 +146,7 @@ public class ProfController {
     	 System.out.println(retLec.toString());
     	 
  		return "redirect:/prof/view_lecture";
+  
  	}
      
      @GetMapping("/prof/new_lecture")
