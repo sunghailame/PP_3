@@ -12,16 +12,31 @@
 </head>
 <body>
 
-
-<form action="#" th:action="@{/student/view_lecture}" th:object="${lecture}" method="post">
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="student_home">WhiteBoard</a></li>
+  		<li id="logout"><a href="../../whiteboard">logout</a></li>
+	</ul>
+	</div>
 	
+	<h1>Lecture details</h1>
 	
 	<p th:text="''+${message}"/>
-	<h1>Lecture details</h1>
-    	<p th:text="${lecture.title}"/>
-    	<p th:text="${lecture.details}"/>
-    	<p th:text="${link}"/>
+<form action="#" th:action="@{/student/view_lecture}" th:object="${lecture}" method="post">
 	
+	<table align="center">
+	<tr>
+	<th>Title</th>
+	<th>Details</th>
+	<th>Link</th>
+	</tr>
+	
+	<tr>
+    	<td th:text="${lecture.title}"/>
+    	<td th:text="${lecture.details}"/>
+    	<td th:text="${link}"/>
+	</tr>
+	</table>
 	<div th:if="${lecture.attendance} == true">
 		<p>Attendance: </p>
 		<input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" />
