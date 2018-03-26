@@ -2,12 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Student home</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <link rel="stylesheet" media="all"  
-      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/prof_home.css"></link>
 </head>
 <body>
 
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="student_home">WhiteBoard</a></li>
+  		<li id="logout"><a href="../../whiteboard">logout</a></li>
+	</ul>
+	</div>
+	
 	<p th:text="''+${message}"/>
 	<h1>Courses</h1>
 	<form action="#" th:action="@{/student/student_home}" th:object="${courses}" method="post">
@@ -22,8 +33,7 @@
         </tr>
 	
 	</table>
-	<input type="submit" value="Submit" />
+	<button id="subBack" type="submit" class="btn btn-primary btn-lg" >Submit</button>
     </form>
-    <a href="../whiteboard">Logout</a>
 </body>
 </html>

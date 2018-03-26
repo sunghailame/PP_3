@@ -34,7 +34,7 @@
 	<tr th:each="course : ${userList.courses}">
         <td th:text="${course.courseName}"></td>
         <td th:text="${course.courseCode}"></td>
-        <td><input type="radio" th:name="c_enrolled" th:value="${course}" /></td>
+        <td><input id="courseRadio" type="radio" th:name="c_enrolled" th:value="${course}" /></td>
         </tr>
 	
 	</table>
@@ -49,7 +49,7 @@
 	<tr th:each="user : ${userList.users}">
         <td th:text="${user.username}"></td>
         <td th:text="${user.id}"></td>
-        <td><input type="checkbox" th:name="enrolled" th:value="${user}" /></td>
+        <td><input id="ProfCheckBox" type="checkbox" th:name="enrolled" th:value="${user}" /></td>
         </tr>
 	
 	</table>

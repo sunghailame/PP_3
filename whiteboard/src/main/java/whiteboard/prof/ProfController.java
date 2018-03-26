@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -145,32 +144,19 @@ public class ProfController {
      	 return "prof/new_lecture";
      }
      @PostMapping("/prof/new_lecture")
-     public String new_lecture_post(@ModelAttribute Lecture lecture, BindingResult result, Model model) {
-     	try {
-			if(lecture.title == "") {
-				model.addAttribute("message", "Error. Try again.");
-				return "prof/new_lecture";
-			} else {
-				lecture.id = 0;
-		     	 lecture.profId = this.glob_profId;
-		     	 lecture.courseCode = this.glob_courseCode;
-		     	 java.util.Date getCur = new java.util.Date();
-		     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
-//		     	 lecture.date = new java.sql.Date(getCur.getTime());
-		     	 lecture.attendance = false;
+     public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture, Model model) {
+    	 lecture.id = 0;
+     	 lecture.profId = this.glob_profId;
+     	 lecture.courseCode = this.glob_courseCode;
+     	 java.util.Date getCur = new java.util.Date();
+     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
+//     	 lecture.date = new java.sql.Date(getCur.getTime());
+     	 lecture.attendance = false;
 
-		     	 this.lectureRepository.save(lecture);
-		    	 model.addAttribute("message", "");
-		     	 return "redirect:/prof/course_page";
-			}
-		} catch(Exception e) {
-			model.addAttribute("message", "Error. Try again.");
-			return "prof/new_lecture";
-		}
      	 
-     	 
-     	 
-     	 
+     	 this.lectureRepository.save(lecture);
+    	 model.addAttribute("message", "");
+     	 return "redirect:/prof/course_page";
      }
      
      @GetMapping("/prof/view_lecture")
@@ -199,12 +185,19 @@ public class ProfController {
     			 model.addAttribute("lecture",lecture);
     		 }
     	 }
-    	 Attendance temp_attend = new Attendance();
     	 while(a_cur.hasNext()) {
-    		 temp_attend = a_cur.next();
+    		 Attendance temp_attend = a_cur.next();
     		 //show list of attendees
     		 if(temp_attend.CourseCode.equals(this.glob_courseCode) && temp_attend.profId == this.glob_profId && temp_attend.lecture.equals(this.glob_lecTitle)) {
-    			 attendees.add(temp_attend);
+    			 Attendance attendance = new Attendance();
+    			 attendance.CourseCode = temp_attend.CourseCode;
+    			 attendance.date = temp_attend.date;
+    			 attendance.ID = temp_attend.ID;
+    			 attendance.SectionNo = temp_attend.SectionNo;
+    			 attendance.lecture = temp_attend.lecture;
+    			 attendance.studId = temp_attend.studId;
+    			 attendance.profId = temp_attend.profId;
+    			 attendees.add(attendance);
     		 }
     			 
     	 }
