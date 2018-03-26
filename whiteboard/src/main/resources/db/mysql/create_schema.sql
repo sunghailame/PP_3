@@ -13,13 +13,6 @@ CREATE TABLE IF NOT EXISTS person (
     )
     ;
 
-CREATE TABLE IF NOT EXISTS Admin (
-  `ID` BIGINT PRIMARY KEY auto_increment,
-  FOREIGN KEY (ID) REFERENCES person(ID)
-  )
-  ;
-
-
 CREATE TABLE IF NOT EXISTS Course (
   `CourseCode` VARCHAR(45) PRIMARY KEY, 
   `CourseName` VARCHAR(45),
@@ -27,31 +20,47 @@ CREATE TABLE IF NOT EXISTS Course (
   )
   ;
   
-CREATE TABLE IF NOT EXISTS Professor (
-  `ID` BIGINT auto_increment,
-  `CourseCode` VARCHAR(45), 
-  FOREIGN KEY (ID) REFERENCES person(ID),
-  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
-  CONSTRAINT UC_Professor UNIQUE (ID, CourseCode)
-  )
-  ;
-  
-CREATE TABLE IF NOT EXISTS Student (
-  `ID` BIGINT PRIMARY KEY auto_increment,
-  FOREIGN KEY (ID) REFERENCES person(ID)
-  )
-  ;
-  
-  
 CREATE TABLE IF NOT EXISTS Enrollment (
-  `ID` BIGINT,
+  `ID` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `PersonID` BIGINT NOT NULL,
+  `CourseCode` VARCHAR(45) NOT NULL, 
+  `SectionNo` VARCHAR(45) NOT NULL,
+  `Role` VARCHAR(45) NOT NULL,
+  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
+  FOREIGN KEY (PersonID) REFERENCES person(ID),
+  CONSTRAINT UC_Enrollment UNIQUE (PersonID, CourseCode,SectionNo, Role) 
+  )
+  ;
+
+CREATE TABLE IF NOT EXISTS Lecture (
+  `ProfID` BIGINT,
+   `lecDate` date,
+   `Title` VARCHAR(45),
+  `CourseCode` VARCHAR(45), 
+  `Link` VARCHAR(45),
+  `Details` VARCHAR(45),
+  `ID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Attendance` TINYINT(1),
+  FOREIGN KEY (ProfID) REFERENCES person(ID),
+  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode)
+)
+;
+
+CREATE TABLE IF NOT EXISTS Attendance (
+  `attendID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `CourseCode` VARCHAR(45), 
   `SectionNo` VARCHAR(45),
-  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
-  FOREIGN KEY (ID) REFERENCES Student(ID),
-  CONSTRAINT UC_Enrollment UNIQUE (ID, CourseCode,SectionNo)
+  `Date` date,
+  `SectioNo` VARCHAR(45),
+  `LectureTitle` VARCHAR(45),
+  `ProfId` INT,
+  `StudId` INT,
+  FOREIGN KEY (CourseCode) REFERENCES Lecture(CourseCode),
+  FOREIGN KEY (ProfId) REFERENCES Lecture(ProfID),
+  FOREIGN KEY (StuId) REFERENCES Enrollment(PersonID)
   )
   ;
+
 
   
 

@@ -4,8 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.hibernate.HibernateException; 
-import org.hibernate.Session; 
-import org.hibernate.Transaction;
-//import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
+
 
 import whiteboard.course.Course;
 import whiteboard.enrollment.Enrollment;
@@ -54,8 +49,6 @@ public class ProfController {
 	private Date glob_Date;
 	private String glob_Details;
 	private String glob_Link;
-	
-	//private static SessionFactory factory; 
 	
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
@@ -162,8 +155,9 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
+     	
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
-//     	 lecture.date = new java.sql.Date(getCur.getTime());
+
      	 lecture.attendance = false;
 
      	 
