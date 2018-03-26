@@ -185,7 +185,7 @@ public class AdminController {
 		//Add the list to the view
 		model.addAttribute("userList", userList);
 		model.addAttribute("message","");
-		return "admin/enroll_student";
+		return "admin/enroll_prof";
 	}
 	
 	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?

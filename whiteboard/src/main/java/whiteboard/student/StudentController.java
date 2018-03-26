@@ -32,8 +32,6 @@ public class StudentController {
 	@Autowired
 	private LectureRepository lectureRepository;
 	@Autowired
-	private PersonRepository personRepository;
-	@Autowired
 	private AttendanceRepository attendanceRepository;
 	
 	private int glob_profId;
@@ -85,7 +83,7 @@ public class StudentController {
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.date, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
      			 lectures.add(l);
      		 }
      	 }
@@ -95,20 +93,19 @@ public class StudentController {
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
      	 return "student/course_page";
+
      }
      
      @PostMapping("/student/course_page")
-     public String course_page_post(@ModelAttribute Person person, @ModelAttribute TakeAttendance attendance, @RequestParam("view_lecture") String view_lecture, Model model) {
+
+     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
-    	 //check if student marked attendance and if they did, send their attendance record to sql
-    	 String marked = retLec.parseStringData(view_lecture.split("===="));
-    	 if(marked.equals("attendance")) {
-    		 this.attendanceRepository.save(attendance);
-    	 }
+
  		return "redirect:/student/view_lecture";
+
  	}
     
      @GetMapping("/student/view_lecture")
@@ -118,25 +115,39 @@ public class StudentController {
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
     	 while(l_cur.hasNext()) {
     		 Lecture temp_lec = l_cur.next();
+
     		 if(temp_lec.courseCode.equals(this.glob_courseCode) && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
     			 lecture.title = temp_lec.title;
-    			 lecture.date = temp_lec.date;
+    			 lecture.lecDate = temp_lec.lecDate;
     			 lecture.courseCode = temp_lec.courseCode;
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
     			 lecture.id = 0;
+    			 lecture.attendance = temp_lec.attendance;
     		 }
     	 }
     	 
-    	 model.addAttribute("lecture",lecture);
+    	 model.addAttribute("lecture", lecture);
     	 model.addAttribute("message","");
      	 return "student/view_lecture";
+
      }
      @PostMapping("/student/view_lecture")
-     public String view_lecture_post(@ModelAttribute Person person, Model model) {
-     	 model.addAttribute("message", "");
-     	 return "student/student_home";
+     public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
+     	System.out.println(attendance);
+    	 Lecture retLec = new Lecture();
+     	retLec.parseStringData(attendance.split("===="));
+     	
+    	 if(retLec.attendance) {
+    		 java.util.Date getCur = new java.util.Date();
+         	 
+    		 this.attendanceRepository.save(new Attendance(0, glob_courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, glob_studId, retLec.title));
+    	 }
+    	 
+    	 model.addAttribute("message", "");
+     	 return "redirect:/student/course_page";
+
      }
 }

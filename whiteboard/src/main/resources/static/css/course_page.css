@@ -1,26 +1,44 @@
-#headingForm{
-	margin-left:34%;
+#courses{
+	display:inline-block;
+	align:left;
+	margin-left:25%;
+	border: 1px;
+	color:#4682B4;
+}
+
+#classes{
+	display:inline-block;
+	align:right;
+	margin-left:25%;
+	border: 1px;
+	color:#4682B4;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    margin-left:20%;
+    text-align: left;
+    color:#4682B4;
+    width:60%;
+}
+
+h1 {
+	margin-left:25%;
 	color: #4682B4;
+	padding-bottom:1%;
+}
+
+h2 {
+	margin-left:20%;
+	color: #4682B4;
+	margin-top:1px;
 }
 
 #subBack {
 	margin-left:70%;
-	padding-top:1%
-}
-input[type=text] {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-}
-h1 {
-	padding-bottom:2%;
-}
-p{
-	margin-left:34%;
-	width:70%;
-	color:#4682B4;
-	padding-bottom:1%
+	padding-top:2%
 }
 ul {
     list-style-type: none;
@@ -36,7 +54,6 @@ ul {
 #logout {
     display: block;
     color: black;
-    padding-bottom:2%;
     background-color: white;
     padding: 8px 16px;
     text-decoration: none;
@@ -45,33 +62,7 @@ ul {
 
 
 }
-
-#addStudent {
-    display: block;
-    color: black;
-    padding-bottom:2%;
-    background-color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-bottom: 1px solid #555;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-
-
-}
-
-#addInstructor {
-    display: block;
-    color: black;
-    background-color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-bottom: 1px solid #555;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-
-
-}
-
-#people {
+#addLecture {
     display: block;
     color: black;
     background-color: white;

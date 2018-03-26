@@ -1,9 +1,15 @@
 package whiteboard.student;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.ArrayList;
 
-public interface AttendanceRepository extends CrudRepository<TakeAttendance, Long>{
+import org.springframework.data.repository.Repository;
 
+import whiteboard.lecture.Lecture;
+
+public interface AttendanceRepository extends Repository<Attendance, Long>{
+
+	ArrayList<Attendance> findAll();
+	void save(Attendance a);
 }
 
 

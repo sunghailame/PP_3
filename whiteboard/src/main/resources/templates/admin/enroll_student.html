@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../../css/enroll_student.css"></link>
+<link rel="stylesheet" href="../../css/enroll.css"></link>
       
 <title>Enroll Student</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,9 +16,9 @@
 	<div id="sidebar">
 	<ul id="contents">
 		<li id="logo"><a href="admin_home">WhiteBoard</a></li>
-  		<li id="people"><a href="../admin/show_users">View People</a></li>
-  		<li id="addInstructor"><a href="../whiteboard">Add Instructor</a></li>
-  		<li id="addCourse"><a href="../admin/create_course">Add New Course</a></li>
+  		<li id="people"><a href="show_users">View People</a></li>
+  		<li id="addStudent"><a href="enroll_student">Add Student</a></li>
+  		<li id="addInstructor"><a href="enroll_prof">Add Instructor</a></li>
   		<li id="logout"><a href="../whiteboard">logout</a></li>
 	</ul>
 	</div>
@@ -58,25 +58,6 @@
     	<a href="admin/admin_home">Back</a>
     </p>
     </form>
-	
-	<script>
 
-		var c = document.getElementById("courseSelected").checked;
-
-		
-		function radioFunction(){
-		
-			
-			if(document.getElementById("studentChecked").checked) 
-			{
-				if(document.getElementById("courseSelected").checked)
-				{
-					document.getElementById("sub").disabled = false;
-					console.log("here1");
-				}
-				
-			}
-			};
-	</script>
 </body>
 </html>

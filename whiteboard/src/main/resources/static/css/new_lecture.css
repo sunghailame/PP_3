@@ -1,19 +1,22 @@
-#headingForm{
-	margin-left:34%;
+#myForm{
+	margin-right:40%;
 	color: #4682B4;
+	text-align: right;
 }
 
 #subBack {
-	margin-left:70%;
+	margin-left:35%;
 	padding-top:1%
 }
 input[type=text] {
-    width: 50%;
+    width: 80%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
 }
+
 h1 {
+	margin-left:25%;
 	padding-bottom:2%;
 }
 p{
@@ -37,43 +40,6 @@ ul {
     display: block;
     color: black;
     padding-bottom:2%;
-    background-color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-bottom: 1px solid #555;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-
-
-}
-
-#addStudent {
-    display: block;
-    color: black;
-    padding-bottom:2%;
-    background-color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-bottom: 1px solid #555;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-
-
-}
-
-#addInstructor {
-    display: block;
-    color: black;
-    background-color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-bottom: 1px solid #555;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-
-
-}
-
-#people {
-    display: block;
-    color: black;
     background-color: white;
     padding: 8px 16px;
     text-decoration: none;

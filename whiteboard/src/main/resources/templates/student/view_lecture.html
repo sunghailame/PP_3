@@ -1,21 +1,57 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Course home</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <link rel="stylesheet" media="all"  
-      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+    <title>Student- View Lecture</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/view.css"></link>
+    
 </head>
 <body>
 
-	<p th:text="''+${message}"/>
-	<h1>Lecture details</h1>
-    	<p th:text="${lecture.title}"/>
-    	<p th:text="${lecture.details}"/>
-    	<p th:text="${link}"/>
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="student_home">WhiteBoard</a></li>
+  		<li id="logout"><a href="../../whiteboard">logout</a></li>
+	</ul>
+	</div>
 	
-	<h1>Attendance</h1>
-    <a href="../whiteboard">Logout</a>
-    <a href="course_page">Back</a>
+	<h1>Lecture details</h1>
+	
+	<p th:text="''+${message}"/>
+<form action="#" th:action="@{/student/view_lecture}" th:object="${lecture}" method="post">
+	
+	<table align="center">
+	<tr>
+	<th>Title</th>
+	<th>Details</th>
+	<th>Link</th>
+	</tr>
+	
+	<tr>
+    	<td th:text="${lecture.title}"/>
+    	<td th:text="${lecture.details}"/>
+    	<td th:text="${lecture.link}"/>
+	</tr>
+	</table>
+	
+	<div id="lecT" th:if="${lecture.attendance} == true">
+		<p> Attendance: <input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" /></p>
+	</div>
+	<div id="lecF" th:unless="${lecture.attendance} == false">
+		<p></p>
+	</div>
+	
+    <p id="subBack">
+    	<button type="submit" class="btn btn-primary">Submit</button>
+    	<a href="student_home">Back</a>
+    </p>
+
+</form>
+
 </body>
 </html>

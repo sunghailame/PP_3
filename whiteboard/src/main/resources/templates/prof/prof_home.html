@@ -1,14 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Prof home</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <link rel="stylesheet" media="all"  
-      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+    <title>Prof Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/home.css"></link>
 </head>
 <body>
 
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
+  		<li id="logout"><a href="../../whiteboard">logout</a></li>
+	</ul>
+	</div>
+	
+	<div>
 	<p th:text="''+${message}"/>
+	<h2 th:text=" 'Welcome Professor, ' +${message}"/>
 	<h1>Courses</h1>
 	<form action="#" th:action="@{/prof/prof_home}" th:object="${courses}" method="post">
 	<table id="courses" align="center">
@@ -20,10 +33,9 @@
         <td th:text="${course.courseCode}"></td>
         <td><input type="checkbox" th:name="c_enrolled" th:value="${course}" /></td>
         </tr>
-	
 	</table>
-	<input type="submit" value="Submit" />
+	<button id="subBack" type="submit" class="btn btn-primary btn-lg" >Submit</button>
     </form>
-    <a href="../whiteboard">Logout</a>
+    </div>
 </body>
 </html>

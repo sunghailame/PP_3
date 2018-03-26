@@ -1,21 +1,58 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Course home</title>
+    <title>Prof- View Lecture</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <link rel="stylesheet" media="all"  
-      href="../../css/user_pages.css" th:href="@{/css/user_pages.css}" />
+    <meta charset="utf-8"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../css/view.css"></link>
+    
 </head>
 <body>
 
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
+  		<li id="logout"><a href="../../whiteboard">logout</a></li>
+	</ul>
+	</div>
 	<p th:text="''+${message}"/>
 	<h1>Lecture details</h1>
-    	<p th:text="${lecture.title}"/>
-    	<p th:text="${lecture.details}"/>
-    	<p th:text="${lecture.link}"/>
 	
-	<h1>Attendance</h1>
-    <a href="../whiteboard">Logout</a>
-    <a href="course_page">Back</a>
+	<table style="margin: 0 auto;">
+	<tr>
+	<th>Title</th>
+	<th>Details</th>
+	<th>Link</th>
+	</tr>
+	<tr>
+    	<td th:text="${lecture.title}"></td>
+    	<td th:text="${lecture.details}"></td>
+    	<td th:text="${lecture.link}"></td>
+    	</tr>
+    	</table>
+	
+	<h3>Attendance</h3>
+  	<form action="#" th:action="@{/prof/course_page}" th:object="${attendance}" method="post">
+	<div>
+	<table style="margin: 0 auto;">
+	<tr>
+	<th>Date</th>
+	<th>Student ID</th>
+	<th>Lecture</th>
+	<th>Section</th>
+	</tr>
+	<tr th:each="people : ${attendance}">
+        <td th:text="${people?.date}"></td>
+		<td th:text="${people.studId}"></td>
+        <td th:text="${people.lecture}"></td>
+        <td th:text="${people.SectionNo}"></td>
+        </tr>
+        </table>
+    </div>
+</form>
 </body>
 </html>

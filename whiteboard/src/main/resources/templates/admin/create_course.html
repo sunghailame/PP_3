@@ -16,9 +16,9 @@
 	<div id="sidebar">
 	<ul id="contents">
 		<li id="logo"><a href="admin_home">WhiteBoard</a></li>
-  		<li id="people"><a href="../admin/show_users">View People</a></li>
-  		<li id="addStudent"><a href="../enroll_student">Add Student</a></li>
-  		<li id="addInstructor"><a href="../admin/enroll_prof">Add Instructor</a></li>
+  		<li id="people"><a href="show_users">View People</a></li>
+  		<li id="addStudent"><a href="enroll_student">Add Student</a></li>
+  		<li id="addInstructor"><a href="enroll_prof">Add Instructor</a></li>
   		<li id="logout"><a href="../whiteboard">logout</a></li>
 	</ul>
 	</div>
@@ -29,7 +29,7 @@
             <p>Enter Course Code: <input id="course_code" type="text" th:field="*{course_code}" /></p>
 			<p>Enter Course Name: <input id="course_name" type="text" th:field="*{course_name}" /></p>
 
-        <p>
+        <p id="subBack">
             	<button id="sub" type="submit" class="btn btn-primary btn-lg" >Submit</button>
             	<a href="admin_home">Back</a></p>
     </form>

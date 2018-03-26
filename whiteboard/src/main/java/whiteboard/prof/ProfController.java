@@ -26,6 +26,8 @@ import whiteboard.login.Person;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
+import whiteboard.student.Attendance;
+import whiteboard.student.AttendanceRepository;
 
 @Controller
 public class ProfController {
@@ -37,6 +39,8 @@ public class ProfController {
 
 	@Autowired
 	private PersonRepository personRepository;
+	@Autowired
+	private AttendanceRepository attendanceRepository;
 	
 	private int glob_profId;
 	private String glob_courseCode;
@@ -63,9 +67,11 @@ public class ProfController {
 		}
 		
 		//Add objects to view
-		model.addAttribute("message", "");
+		model.addAttribute("message", prof.name);
 		model.addAttribute("courses", courses);
+		//model.addAttribute("link", "prof/course_page");
 		model.addAttribute("person", person);
+		model.addAttribute("linkToCourse", "prof/course_page");
 		
         return "prof/prof_home";
     }
@@ -106,16 +112,19 @@ public class ProfController {
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 
-    	 String attendance = retLec.parseStringData(view_lecture.split("===="));
+    	 //If attendance == "attendance", mark that, otherwise == "na" for view
+    	 retLec.parseStringData(view_lecture.split("===="));
+
     	 this.glob_lecTitle = retLec.title;
-    	 //Session session = factory.openSession();
-    	 if(attendance.equals("attendance")) {
+    	 if(retLec.attendance || view_lecture.contains("attendance")) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 lec.setAttendance(true);
+    		 if(lec.attendance == false) {
+    			 lec.setAttendance(true);
+    		 } else {
+    			 lec.setAttendance(false);
+    		 }
     		 lectureRepository.save(lec);
-    		 //lectureRepository.setAttendance(true, retLec.title, retLec.date, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 return "redirect:/prof/course_page";
-    		 //TODO: Update this lecture's attendance column in MySQL
+    		 return "redirect:/prof/view_lecture";
     	 }
     	 
     	 System.out.println(retLec.toString());
@@ -136,7 +145,7 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
-
+     	
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
 
      	 lecture.attendance = false;
@@ -152,10 +161,16 @@ public class ProfController {
     	 Lecture lecture = new Lecture();
     	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
+    	 ArrayList<Attendance> temp_attendance = attendanceRepository.findAll();
+    	 ArrayList<Attendance> attendees = new ArrayList<>();
+    	 Iterator<Attendance> a_cur = temp_attendance.iterator();
+    	 
     	 while(l_cur.hasNext()) {
     		 Lecture temp_lec = l_cur.next();
+    		 //show the list of lectures
     		 if(temp_lec.courseCode.equals(this.glob_courseCode) && temp_lec.profId == this.glob_profId && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
+    			 System.out.println("Matching lecture?");
     			 lecture.title = temp_lec.title;
     			 lecture.lecDate = temp_lec.lecDate;
     			 lecture.courseCode = temp_lec.courseCode;
@@ -164,10 +179,34 @@ public class ProfController {
     			 lecture.profId = temp_lec.profId;
     			 lecture.id = 0;
     			 lecture.attendance = temp_lec.attendance;
+    			 model.addAttribute("lecture",lecture);
+    			 this.glob_courseCode = lecture.courseCode;
+    			 this.glob_lecTitle = lecture.title;
+    			 this.glob_profId = lecture.profId;
     		 }
     	 }
+    	 while(a_cur.hasNext()) {
+    		 Attendance temp_attend = a_cur.next();
+    		 //show list of attendees
+    		 if(temp_attend.CourseCode.equals(this.glob_courseCode) && temp_attend.profId == this.glob_profId && temp_attend.lecture.equals(this.glob_lecTitle)) {
+    			 Attendance attendance = new Attendance();
+    			 attendance.CourseCode = temp_attend.CourseCode;
+    			 attendance.date = temp_attend.date;
+    			 attendance.ID = temp_attend.ID;
+    			 attendance.SectionNo = temp_attend.SectionNo;
+    			 attendance.lecture = temp_attend.lecture;
+    			 attendance.studId = temp_attend.studId;
+    			 attendance.profId = temp_attend.profId;
+    			 attendees.add(attendance);
+    		 }
+    			 
+    	 }
+    	 model.addAttribute("attendance", attendees);
+
+    	 //arraylist of attendance/people
+    	 //model.add(arrayList)
     	 
-    	 model.addAttribute("lecture",lecture);
+
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
@@ -177,14 +216,7 @@ public class ProfController {
      	 return "prof/prof_home";
      }
      
-//     @GetMapping("/prof/attendance_page")
-//     public String view_student_get(@ModelAttribute Person person, Model model) {
-////    	 if(person.role.toUpperCase().contains("STUDENT")) {
-////    	 Iterable<Person> students = (Iterable<Person>) personRepository.findByRole(person.role);
-////    	 }
-//    	 
-//    	 return "prof/attendance_page";
-//     }
+
      
      
 }
