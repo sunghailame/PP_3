@@ -180,6 +180,9 @@ public class ProfController {
     			 lecture.id = 0;
     			 lecture.attendance = temp_lec.attendance;
     			 model.addAttribute("lecture",lecture);
+    			 this.glob_courseCode = lecture.courseCode;
+    			 this.glob_lecTitle = lecture.title;
+    			 this.glob_profId = lecture.profId;
     		 }
     	 }
     	 while(a_cur.hasNext()) {
