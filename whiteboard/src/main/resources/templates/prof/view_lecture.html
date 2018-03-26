@@ -21,10 +21,18 @@
 	<p th:text="''+${message}"/>
 	<h1>Lecture details</h1>
 	
-	
-    	<!-- <td th:text="${lecture.title}"/>
-    	<td th:text="${lecture.details}"/>
-    	<td th:text="${lecture.link}"/>-->
+	<table style="margin: 0 auto;">
+	<tr>
+	<th>Title</th>
+	<th>Details</th>
+	<th>Link</th>
+	</tr>
+	<tr>
+    	<td th:text="${lecture.title}"></td>
+    	<td th:text="${lecture.details}"></td>
+    	<td th:text="${lecture.link}"></td>
+    	</tr>
+    	</table>
 	
 	<h3>Attendance</h3>
   	<form action="#" th:action="@{/prof/course_page}" th:object="${attendance}" method="post">
