@@ -21,7 +21,11 @@
 	<p th:text="''+${message}"/>
 	<h1>Lecture details</h1>
 	
-
+	
+    	<td th:text="${lecture.title}"/>
+    	<td th:text="${lecture.details}"/>
+    	<td th:text="${lecture.link}"/>
+	
 	<h3>Attendance</h3>
   	<form action="#" th:action="@{/prof/course_page}" th:object="${attendance}" method="post">
 	<div>
@@ -40,7 +44,6 @@
         <td th:text="${people.SectionNo}"></td>
         </tr>
         </table>
-    <a href="../whiteboard">Logout</a>
     <a href="course_page">Back</a>
     </div>
 </form>
