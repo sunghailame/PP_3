@@ -19,7 +19,7 @@ public interface LectureRepository extends Repository<Lecture, Long> {
 		
 	Lecture findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(String title, Date date, String courseCode, String details, String link, int profId);	
 		
-	//AndCourseCodeAndDetailsAndLinkAndProfIdIs
+	
 	
 	void save(Lecture e);
 
