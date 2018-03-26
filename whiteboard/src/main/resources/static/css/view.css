@@ -17,6 +17,13 @@ h1 {
 	color: #4682B4;
 	padding-bottom:2%;
 }
+#lecT, #lecF {
+    position:fixed;
+    top: 25%;
+    left: 20%;
+    width:30px;
+    height:18px;
+}
 
 h3 {
 	margin-left:20%;
