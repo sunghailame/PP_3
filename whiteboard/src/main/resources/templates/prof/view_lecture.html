@@ -46,8 +46,7 @@
 	</tr>
 	<tr th:each="people : ${attendance}">
         <td th:text="${people?.date}"></td>
-       <!-- <td th:text="${attendance?.time}"></td>-->
-        <td th:text="${people.studId}"></td>
+		<td th:text="${people.studId}"></td>
         <td th:text="${people.lecture}"></td>
         <td th:text="${people.SectionNo}"></td>
         </tr>
