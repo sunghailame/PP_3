@@ -21,6 +21,7 @@ public interface LectureRepository extends Repository<Lecture, Long> {
 		
 	
 	
+	
 	void save(Lecture e);
 
 		ArrayList<Lecture> findAll();

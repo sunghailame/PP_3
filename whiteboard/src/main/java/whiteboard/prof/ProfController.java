@@ -96,7 +96,7 @@ public class ProfController {
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.openAttendance);
      			 lectures.add(l);
      			 if(l.attendance == true) {
      				 this.glob_lecTitle = l.title;
@@ -125,9 +125,9 @@ public class ProfController {
     	 retLec.parseStringData(view_lecture.split("===="));
 
     	 this.glob_lecTitle = retLec.title;
-    	 if(retLec.attendance || view_lecture.contains("attendance")) {
+    	 if(retLec.openAttendance || view_lecture.contains("attendance")) {
     		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 if(lec.attendance == false) {
+    		 if(lec.openAttendance == false) {
     			 lec.setAttendance(true);
     		 } else {
     			 lec.setAttendance(false);
@@ -151,14 +151,14 @@ public class ProfController {
      }
      @PostMapping("/prof/new_lecture")
      public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture, Model model) {
-    	 lecture.id = 0;
+    	 lecture.lectureId = 0;
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 java.util.Date getCur = new java.util.Date();
      	
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
 
-     	 lecture.attendance = false;
+     	 lecture.openAttendance = false;
 
      	 
      	 this.lectureRepository.save(lecture);
@@ -187,8 +187,8 @@ public class ProfController {
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
-    			 lecture.id = 0;
-    			 lecture.attendance = temp_lec.attendance;
+    			 lecture.lectureId = 0;
+    			 lecture.openAttendance = temp_lec.openAttendance;
     			 model.addAttribute("lecture",lecture);
     			 this.glob_courseCode = lecture.courseCode;
     			 this.glob_lecTitle = lecture.title;
