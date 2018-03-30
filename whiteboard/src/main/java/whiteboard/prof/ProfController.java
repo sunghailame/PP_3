@@ -98,12 +98,7 @@ public class ProfController {
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
      			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
      			 lectures.add(l);
-     			 if(l.attendance == true) {
-     				 this.glob_lecTitle = l.title;
-     				 this.glob_Date = l.date;
-     				this.glob_Details = l.details;
-     				this.glob_Link = l.link;
-     			 }
+     			
      		 }
      	 }
      	 
