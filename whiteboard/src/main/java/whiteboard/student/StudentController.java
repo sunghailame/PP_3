@@ -83,7 +83,7 @@ public class StudentController {
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.attendance);
+     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.openAttendance);
      			 lectures.add(l);
      		 }
      	 }
@@ -124,8 +124,8 @@ public class StudentController {
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
-    			 lecture.id = 0;
-    			 lecture.attendance = temp_lec.attendance;
+    			 lecture.lectureId = 0;
+    			 lecture.openAttendance = temp_lec.openAttendance;
     		 }
     	 }
     	 
@@ -140,7 +140,7 @@ public class StudentController {
     	 Lecture retLec = new Lecture();
      	retLec.parseStringData(attendance.split("===="));
      	
-    	 if(retLec.attendance) {
+    	 if(retLec.openAttendance) {
     		 java.util.Date getCur = new java.util.Date();
          	 
     		 this.attendanceRepository.save(new Attendance(0, glob_courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, glob_studId, retLec.title));

@@ -18,32 +18,24 @@ import javax.validation.constraints.NotNull;
 public class Attendance {
 
 	@NotNull
-	@Column(name = "attendID")
+	@Column(name = "ID")
 	@Id
 	public int ID;
-	@Column(name = "CourseCode")
-	public String CourseCode;
-	@Column(name = "SectionNo")
-	public String SectionNo;
-
-	@Column(name = "Date")
-	public Date date;
-	@Column(name = "LectureTitle")
-	public String lecture;
-	@Column(name = "ProfId")
-	public int profId;
+	
+	@Column(name = "LectureID")
+	public int lectureId;
+	
 	@Column(name = "StudId")
 	public int studId;
 	
-	public Attendance(int ID, String CourseCode, String SectionNo, Date date, int profId, int studId, String lecture) {
+	@Column(name = "Time")
+	public Time time;
+	
+	public Attendance(int ID, int studId, int lectureId) {
 		super();
 		this.ID = ID;
-		this.CourseCode = CourseCode;
-		this.SectionNo = SectionNo;
-		this.date = date;
-		this.profId = profId;
 		this.studId = studId;
-		this.lecture = lecture;
+		this.lectureId = lectureId;
 	}
 	public Attendance() {
 		
@@ -53,46 +45,6 @@ public class Attendance {
 		return ID;
 	}
 	
-	public void setCourseCode(String CourseCode) {
-		this.CourseCode = CourseCode;
-	}
-	
-	public String getCourseCode() {
-		return CourseCode;
-	}
-	
-	public void setSection(String SectionNo) {
-		this.SectionNo = SectionNo;
-	}
-	
-	public String getSection() {
-		return SectionNo;
-	}
-	
-	
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	
-	public Date getDate() {
-		return date;
-	}
-	
-	public void setLecture(String lecture) {
-		this.lecture = lecture;
-	}
-	
-	public String getLecture() {
-		return lecture;
-	}
-	
-	public void setProfId(int profId) {
-		this.profId = profId;
-	}
-	
-	public int getProfId() {
-		return profId;
-	}
 	
 	public void setStudId(int studId) {
 		this.studId = studId;
@@ -102,24 +54,37 @@ public class Attendance {
 		return studId;
 	}
 	
+	public void setLectureId(int lectureId) {
+		this.lectureId = lectureId;
+	}
+	
+	public int getLectureId() {
+		return lectureId;
+	}
+	
+	public void setTime(Time time) {
+		this.time = time;
+	}
+	
+	public Time getTime() {
+		return this.time;
+	}
+	
 	
 	
 	
 	
 	@Override
 	public String toString() {
-		return this.ID+"===="+this.CourseCode+"===="+this.SectionNo+"===="+this.lecture+"===="+this.date+"===="+this.profId+"===="+this.studId;
+		return this.ID+"===="+this.studId+"===="+this.lectureId;
 	}
 	
 	public String parseStringData(String[] attendance) {
 		this.ID = Integer.parseInt(attendance[0]);
-		this.CourseCode = attendance[1];
-		this.SectionNo = attendance[2];
-		this.lecture =attendance[3];
-		this.date = Date.valueOf(attendance[4]);
-		this.profId = Integer.parseInt(attendance[5]);
-		this.studId = Integer.parseInt(attendance[6]);
+		this.studId = Integer.parseInt(attendance[1]);
+		this.lectureId = Integer.parseInt(attendance[2]);
 		
-		return attendance[7];
+		
+		return attendance[3];
 	}
 }
