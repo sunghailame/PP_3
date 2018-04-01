@@ -15,4 +15,6 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 		void save(Enrollment e);
 
 		ArrayList<Enrollment> findAll();
+
+		Enrollment findByCourseCodeAndPersonIdAndRole(String course_code, int id, String role);
 }

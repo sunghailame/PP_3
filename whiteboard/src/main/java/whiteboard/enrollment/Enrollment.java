@@ -23,11 +23,11 @@ public class Enrollment {
 	public int id;
 	@NotNull
 	@Column(name = "PersonID") 
-	public int person_id;
+	public int personId;
 	@Column(name = "CourseCode")
-	public String course_code;
+	public String courseCode;
 	@Column(name = "SectionNo")
-	public String section_no;
+	public String sectionNo;
 	@Column(name = "Role")
 	public String role;
 
@@ -35,9 +35,9 @@ public class Enrollment {
 	public Enrollment(int id, int person_id, String course_code, String section_no, String role) {
 		super();
 		this.id = id;
-		this.person_id = person_id;
-		this.course_code = course_code;
-		this.section_no = section_no;
+		this.personId = person_id;
+		this.courseCode = course_code;
+		this.sectionNo = section_no;
 		this.role = role;
 	}
 	
@@ -54,29 +54,29 @@ public class Enrollment {
 	}
 	
 	public int getPersonId() {
-		return person_id;
+		return personId;
 	}
 
 	public void setPersonId(int person_id) {
-		this.person_id = person_id;
+		this.personId = person_id;
 	}
 	
 	
 
 	public String getCourseCode() {
-		return course_code;
+		return courseCode;
 	}
 
 	public void setCourseCode(String CourseCode) {
-		this.course_code = CourseCode;
+		this.courseCode = CourseCode;
 	}
 
 	public String getSectionNo() {
-		return section_no;
+		return sectionNo;
 	}
 
 	public void setSectionNo(String SectionNo) {
-		this.section_no = SectionNo;
+		this.sectionNo = SectionNo;
 	}
 	
 	public String getRole() {
@@ -89,17 +89,17 @@ public class Enrollment {
 	
 	@Override
 	public String toString() {
-		return this.person_id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
+		return this.personId+"===="+this.courseCode+"===="+this.sectionNo+"===="+this.role;
 	}
 	
 	public String toStringData() {
-		return this.person_id+"===="+this.course_code+"===="+this.section_no+"===="+this.role;
+		return this.personId+"===="+this.courseCode+"===="+this.sectionNo+"===="+this.role;
 	}
 	
 	public void parseStringData(String[] dataSplit) {
-		this.person_id = Integer.parseInt(dataSplit[0]);
-		this.course_code = dataSplit[1];
-		this.section_no = dataSplit[2];
+		this.personId = Integer.parseInt(dataSplit[0]);
+		this.courseCode = dataSplit[1];
+		this.sectionNo = dataSplit[2];
 		this.role = dataSplit[3];
 		this.id = 0;
 	}
