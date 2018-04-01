@@ -143,7 +143,7 @@ public class StudentController {
     	 if(retLec.openAttendance) {
     		 java.util.Date getCur = new java.util.Date();
          	 
-    		 this.attendanceRepository.save(new Attendance(0, glob_courseCode, "1", new java.sql.Date(getCur.getTime()), retLec.profId, glob_studId, retLec.title));
+    		 this.attendanceRepository.save(new Attendance(0, glob_studId, retLec.lectureId));
     	 }
     	 
     	 model.addAttribute("message", "");

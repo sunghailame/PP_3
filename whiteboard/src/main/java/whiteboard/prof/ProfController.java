@@ -43,6 +43,7 @@ public class ProfController {
 	private AttendanceRepository attendanceRepository;
 	
 	private int glob_profId;
+	private int glob_lectureId;
 	private String glob_courseCode;
 	private String glob_lecTitle;
 	private String glob_attendLec;
@@ -198,15 +199,15 @@ public class ProfController {
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
     		 //show list of attendees
-    		 if(temp_attend.CourseCode.equals(this.glob_courseCode) && temp_attend.profId == this.glob_profId && temp_attend.lecture.equals(this.glob_lecTitle)) {
+    		 if(temp_attend.lectureId == this.glob_lectureId) {
     			 Attendance attendance = new Attendance();
-    			 attendance.CourseCode = temp_attend.CourseCode;
-    			 attendance.date = temp_attend.date;
+    			// attendance.CourseCode = temp_attend.CourseCode;
+    			// attendance.date = temp_attend.date;
     			 attendance.ID = temp_attend.ID;
-    			 attendance.SectionNo = temp_attend.SectionNo;
-    			 attendance.lecture = temp_attend.lecture;
+    			// attendance.SectionNo = temp_attend.SectionNo;
+    			// attendance.lecture = temp_attend.lecture;
     			 attendance.studId = temp_attend.studId;
-    			 attendance.profId = temp_attend.profId;
+    			 attendance.lectureId = temp_attend.lectureId;
     			 attendees.add(attendance);
     		 }
     			 
