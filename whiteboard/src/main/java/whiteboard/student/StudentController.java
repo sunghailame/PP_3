@@ -78,19 +78,18 @@ public class StudentController {
      public String course_page_get(Model model) {
     	//Get list of lectures by courseCode and profId
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
-     	 ArrayList<ViewLecture> lectures = new ArrayList<>();
+     	 ArrayList<Lecture> lectures = new ArrayList<>();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.openAttendance);
-     			 lectures.add(l);
+     			 lectures.add(lecture);
      		 }
      	 }
      	 
      	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
-     	 //lectureList.setLectures(lectures);
+     	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
      	 return "student/course_page";
 

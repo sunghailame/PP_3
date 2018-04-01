@@ -25,11 +25,8 @@ public class Attendance {
 	@Column(name = "LectureID")
 	public int lectureId;
 	
-	@Column(name = "StudId")
+	@Column(name = "StuId")
 	public int studId;
-	
-	@Column(name = "Time")
-	public Time time;
 	
 	public Attendance(int ID, int studId, int lectureId) {
 		super();
@@ -62,17 +59,6 @@ public class Attendance {
 		return lectureId;
 	}
 	
-	public void setTime(Time time) {
-		this.time = time;
-	}
-	
-	public Time getTime() {
-		return this.time;
-	}
-	
-	
-	
-	
 	
 	@Override
 	public String toString() {
@@ -83,8 +69,7 @@ public class Attendance {
 		this.ID = Integer.parseInt(attendance[0]);
 		this.studId = Integer.parseInt(attendance[1]);
 		this.lectureId = Integer.parseInt(attendance[2]);
-		
-		
+	
 		return attendance[3];
 	}
 }
