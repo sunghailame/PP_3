@@ -4,11 +4,12 @@
     <title>Student- View Lecture</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8"></meta>
-  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../../css/view.css"></link>
+    
 </head>
 <body>
 
@@ -34,20 +35,26 @@
 	<tr>
     	<td th:text="${lecture.title}"/>
     	<td th:text="${lecture.details}"/>
-    	<td th:text="${link}"/>
+    	<td th:text="${lecture.link}"/>
 	</tr>
 	</table>
+<<<<<<< HEAD
 	<div th:if="${lecture.attendance} == true">
 		<p>Attendance: </p>
 		<input id="attendance" type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" onclick="takeAttendance()" />
+=======
+	
+	<div id="lecT" th:if="${lecture.attendance} == true">
+		<p> Attendance: <input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" /></p>
+>>>>>>> 6bb433deac290ca6e9e7180929a306333cb43438
 	</div>
-	<div th:unless="${lecture.attendance} == false">
+	<div id="lecF" th:unless="${lecture.attendance} == false">
 		<p></p>
 	</div>
 	
     <p id="subBack">
     	<button type="submit" class="btn btn-primary">Submit</button>
-    	<a href="admin/admin_home">Back</a>
+    	<a href="student_home">Back</a>
     </p>
 
 </form>

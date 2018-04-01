@@ -15,10 +15,10 @@ import javax.validation.constraints.NotNull;
 public class Lecture {
 	
 	@NotNull
-	@Column(name = "ID")
+	@Column(name = "LectureID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int id;
+	public int lectureId;
 	
 		@Column(name = "Title")
 		public String title;
@@ -32,10 +32,10 @@ public class Lecture {
 		public String link;
 		@Column(name = "ProfId")
 		public int profId;
-		@Column(name = "Attendance")
-		public boolean attendance;
+		@Column(name = "OpenAttendance")
+		public boolean openAttendance;
 		
-		public Lecture(String title, Date lecDate, String courseCode, String details, String link, int profId, int id, boolean attendance) {
+		public Lecture(String title, Date lecDate, String courseCode, String details, String link, int profId, int id, boolean openAttendance) {
 			super();
 			this.title = title;
 			this.lecDate = lecDate;
@@ -43,8 +43,8 @@ public class Lecture {
 			this.details = details;
 			this.link = link;
 			this.profId = profId;
-			this.id = id;
-			this.attendance = attendance;
+			this.lectureId = id;
+			this.openAttendance = openAttendance;
 		}
 
 		public Lecture() {
@@ -98,26 +98,26 @@ public class Lecture {
 			return profId;
 		}
 		
-		public void setId(int id) {
-			this.id = id;
+		public void setId(int lectureId) {
+			this.lectureId = lectureId;
 		}
 		
 		public int getId() {
-			return id;
+			return lectureId;
 		}
 		
 		public boolean isAttendance() {
-			return attendance;
+			return openAttendance;
 		}
 
 		public void setAttendance(boolean attendance) {
-			this.attendance = attendance;
+			this.openAttendance = attendance;
 		}
 
 		@Override
 		public String toString() {
 			return this.title+"===="+this.lecDate+"===="+this.courseCode+"===="+this.details+
-					"===="+this.link+"===="+this.profId+"===="+this.attendance;
+					"===="+this.link+"===="+this.profId+"===="+this.lectureId+"===="+this.openAttendance;
 		}
 		
 		public String parseStringData(String[] dataSplit) {
@@ -127,12 +127,12 @@ public class Lecture {
 			this.details =dataSplit[3];
 			this.link = dataSplit[4];
 			this.profId = Integer.parseInt(dataSplit[5]);
-			if("true".equals(dataSplit[6])) {
-				this.attendance = true;
+			this.lectureId = Integer.parseInt(dataSplit[6]);
+			if(dataSplit[8].contains("attendance")) {
+				this.openAttendance = true;
 			}else {
-				this.attendance = false;
+				this.openAttendance = false;
 			}
-			
 			return "";
 		}
 	}

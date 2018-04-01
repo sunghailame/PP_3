@@ -28,12 +28,22 @@
 	<th>Lecture</th>
 	<th>Date</th>
 	<th>Open Attendance</th>
+	<th>Close Attendance</th>
 	<th>View</th>
 	</tr>
 	<tr th:each="lecture : ${lectures.lectures}">
         <td th:text="${lecture?.title}"></td>
         <td th:text="${lecture?.date}"></td>
-        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture}+'====attendance'" th:checked="${lecture.attendance}"/></td>
+        <div th:if="${lecture.attendance} == true">
+        <td><input type="radio" th:name="view_lecture" th:value="${lecture}+'====attendance'" checked = "true"/></td>
+        <td><input type="radio" th:name="view_lecture" th:value="${lecture}+'====close'" /></td>
+        </div>
+        <div th:if="${lecture.attendance} == false">
+        <td><input type="radio" th:name="view_lecture" th:value="${lecture}+'====attendance'"/></td>
+        <td><input type="radio" th:name="view_lecture" th:value="${lecture}+'====close'" checked="true"/></td>
+        </div>
+        
+        
         <td><input type="checkbox" th:name="view_lecture" th:value="${lecture}+'====na'" /></td>
         </tr>
 	</table>

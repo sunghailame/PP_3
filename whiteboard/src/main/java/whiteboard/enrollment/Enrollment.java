@@ -20,20 +20,14 @@ public class Enrollment {
 	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
 	public int id;
-	
 	@NotNull
 	@Column(name = "PersonID") 
 	public int person_id;
-	
-
 	@Column(name = "CourseCode")
 	public String course_code;
-
 	@Column(name = "SectionNo")
 	public String section_no;
-	
 	@Column(name = "Role")
 	public String role;
 

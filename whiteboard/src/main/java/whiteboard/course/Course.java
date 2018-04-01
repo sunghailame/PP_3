@@ -18,11 +18,18 @@ public class Course {
 	@Id
 	@Column(name = "CourseCode")
 	public String course_code;
-	
 	@Column(name = "CourseName")
 	public String course_name;
+	
+	public Course(String course_code, String course_name) {
+		super();
+		this.course_code = course_code;
+		this.course_name = course_name;
+	}
 
-
+	public Course() {
+		
+	}
 	
 	public String getCourse_code() {
 		return course_code;
@@ -40,15 +47,6 @@ public class Course {
 		this.course_name = course_name;
 	}
 
-	public Course(String course_code, String course_name) {
-		super();
-		this.course_code = course_code;
-		this.course_name = course_name;
-	}
-
-	public Course() {
-		
-	}
 
 	@Override
 	public String toString() {

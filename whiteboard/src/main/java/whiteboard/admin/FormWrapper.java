@@ -14,7 +14,7 @@ public class FormWrapper{
 	
 	public ArrayList<EnrollCourse> courses;
 	
-	public ArrayList<ViewLecture> lectures;
+	public ArrayList<Lecture> lectures;
 	
 	public ArrayList<Lecture> lecture;
 	
@@ -34,11 +34,11 @@ public class FormWrapper{
 		this.courses = courses;
 	}
 	
-	public ArrayList<ViewLecture> getLectures(){
+	public ArrayList<Lecture> getLectures(){
 		return lectures;
 	}
 	
-	public void setLectures(ArrayList<ViewLecture> lectures) {
+	public void setLectures(ArrayList<Lecture> lectures) {
 		this.lectures = lectures;
 	}
 	
