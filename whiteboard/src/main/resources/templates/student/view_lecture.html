@@ -39,7 +39,7 @@
 	</table>
 	<div th:if="${lecture.attendance} == true">
 		<p>Attendance: </p>
-		<input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" />
+		<input id="attendance" type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" onclick="takeAttendance()" />
 	</div>
 	<div th:unless="${lecture.attendance} == false">
 		<p></p>
@@ -51,6 +51,6 @@
     </p>
 
 </form>
-
+	<script type="text/javascript" src="../js/attendance.js"></script>
 </body>
 </html>
