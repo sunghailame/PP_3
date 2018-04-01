@@ -41,11 +41,9 @@
 	<table style="margin: 0 auto;">
 	<tr>
 	<th>Student ID</th>
-	<th>Lecture</th>
 	</tr>
 	<tr th:each="people : ${attendance}">
 		<td th:text="${people.studId}"></td>
-        <td th:text="${people.lecture}"></td>
         </tr>
         </table>
     </div>
