@@ -123,7 +123,7 @@ public class StudentController {
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
-    			 lecture.lectureId = 0;
+    			 lecture.lectureId = temp_lec.lectureId;
     			 lecture.openAttendance = temp_lec.openAttendance;
     		 }
     	 }
