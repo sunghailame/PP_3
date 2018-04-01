@@ -139,10 +139,14 @@ public class StudentController {
     	Lecture retLec = new Lecture();
      	retLec.parseStringData(attendance.split("===="));
      	
+     	Attendance checkDouble = attendanceRepository.findByLectureIdAndStudId(retLec.lectureId, glob_studId);
+     	
+     	if(checkDouble == null) {
     	if(retLec.openAttendance) {
     		int lecId = retLec.lectureId;
     		this.attendanceRepository.save(new Attendance(0, glob_studId, lecId));
     	}
+     	}
     	 
     	 model.addAttribute("message", "");
      	 return "redirect:/student/course_page";
