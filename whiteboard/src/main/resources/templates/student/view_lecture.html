@@ -37,16 +37,10 @@
     	<td th:text="${lecture.details}"/>
     	<td th:text="${lecture.link}"/>
 	</tr>
-	</table>
-<<<<<<< HEAD
-	<div th:if="${lecture.attendance} == true">
-		<p>Attendance: </p>
-		<input id="attendance" type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" onclick="takeAttendance()" />
-=======
-	
+	</table>	
 	<div id="lecT" th:if="${lecture.attendance} == true">
-		<p> Attendance: <input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" /></p>
->>>>>>> 6bb433deac290ca6e9e7180929a306333cb43438
+		<p> Attendance: <input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" onclick="takeAttendance()"  /></p>
+
 	</div>
 	<div id="lecF" th:unless="${lecture.attendance} == false">
 		<p></p>
