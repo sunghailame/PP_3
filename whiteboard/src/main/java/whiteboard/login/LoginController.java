@@ -18,7 +18,7 @@ public class LoginController {
 	@Autowired
 
 	private PersonRepository PersonRepository;
-
+	
 	@GetMapping("/whiteboard")
 	public String login_get(@ModelAttribute Person user, Model model) {
 		model.addAttribute("message","");

@@ -58,7 +58,7 @@ public class ProfController {
 		Iterator<Enrollment> e_cur = enrolled.iterator();
 		while(e_cur.hasNext()) {
 			Enrollment temp_prof = e_cur.next();
-			if(prof.id == temp_prof.person_id) {
+			if(prof.id == temp_prof.personId) {
 				courses.add(temp_prof);
 			}
 		}
@@ -78,7 +78,7 @@ public class ProfController {
     	//Get selected course from post 
     	Enrollment course = new Enrollment();
     	course.parseStringData(enroll_course.split("===="));
-    	this.glob_courseCode = course.course_code;
+    	this.glob_courseCode = course.courseCode;
      	return "redirect:/prof/course_page";
     }   
  

@@ -139,9 +139,6 @@ public class AdminController {
 			while(u_cur.hasNext()) {
 				
 				String[] splitUser = u_cur.next().split("====");
-				System.out.println(splitUser[0]);
-				System.out.println(courseCode);
-				System.out.println(splitUser[3]);
 				this.enrollmentRepository.save(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
 			}
 			
@@ -190,7 +187,7 @@ public class AdminController {
 	
 	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?
 	@PostMapping("/admin/enroll_prof")
-	public String enroll_prof_post(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
+	public String enroll_prof_post(@RequestParam("enrolled") String enroll_user, @RequestParam("c_enrolled") String enroll_course, Model model) {
 		String courseCode;
 		try {
 			//Parse the string data send back from the view
@@ -198,11 +195,11 @@ public class AdminController {
 			String[] splitCourse = enroll_course.split("====");
 			courseCode = splitCourse[0];
 			
-			Iterator<String> u_cur = enroll_users.iterator();
-			while(u_cur.hasNext()) {
+				String[] splitUser = enroll_user.split("====");
+				Enrollment checkEnroll = enrollmentRepository.findByCourseCodeAndPersonIdAndRole(courseCode, Integer.parseInt(splitUser[0]), splitUser[3]);
 				
-				String[] splitUser = u_cur.next().split("====");
-				this.enrollmentRepository.save(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
+				if(checkEnroll == null) {
+					this.enrollmentRepository.save(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
 			}
 			
 			model.addAttribute("message", "Enrolled Students!");

@@ -52,7 +52,7 @@ public class StudentController {
 		Iterator<Enrollment> e_cur = enrolled.iterator();
 		while(e_cur.hasNext()) {
 			Enrollment temp_prof = e_cur.next();
-			if(stud.id == temp_prof.person_id) {
+			if(stud.id == temp_prof.personId) {
 				courses.add(temp_prof);
 			}
 		}
@@ -69,7 +69,7 @@ public class StudentController {
     	//Get selected course from post 
     	Enrollment course = new Enrollment();
     	course.parseStringData(enroll_course.split("===="));
-    	this.glob_courseCode = course.course_code;
+    	this.glob_courseCode = course.courseCode;
      	return "redirect:/student/course_page";
     }
      
@@ -123,7 +123,7 @@ public class StudentController {
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
-    			 lecture.lectureId = 0;
+    			 lecture.lectureId = temp_lec.lectureId;
     			 lecture.openAttendance = temp_lec.openAttendance;
     		 }
     	 }
@@ -136,14 +136,17 @@ public class StudentController {
      @PostMapping("/student/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
      	System.out.println(attendance);
-    	 Lecture retLec = new Lecture();
+    	Lecture retLec = new Lecture();
      	retLec.parseStringData(attendance.split("===="));
      	
-    	 if(retLec.openAttendance) {
-    		 java.util.Date getCur = new java.util.Date();
-         	 
-    		 this.attendanceRepository.save(new Attendance(0, glob_studId, retLec.lectureId));
-    	 }
+     	Attendance checkDouble = attendanceRepository.findByLectureIdAndStudId(retLec.lectureId, glob_studId);
+     	
+     	if(checkDouble == null) {
+    	if(retLec.openAttendance) {
+    		int lecId = retLec.lectureId;
+    		this.attendanceRepository.save(new Attendance(0, glob_studId, lecId));
+    	}
+     	}
     	 
     	 model.addAttribute("message", "");
      	 return "redirect:/student/course_page";

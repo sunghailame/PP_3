@@ -10,6 +10,7 @@ public interface AttendanceRepository extends Repository<Attendance, Long>{
 
 	ArrayList<Attendance> findAll();
 	void save(Attendance a);
+	Attendance findByLectureIdAndStudId(int lectureId, int studId);
 }
 
 
