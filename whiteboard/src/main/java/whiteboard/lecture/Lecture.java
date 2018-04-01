@@ -117,7 +117,7 @@ public class Lecture {
 		@Override
 		public String toString() {
 			return this.title+"===="+this.lecDate+"===="+this.courseCode+"===="+this.details+
-					"===="+this.link+"===="+this.profId+"===="+this.openAttendance;
+					"===="+this.link+"===="+this.profId+"===="+this.lectureId+"===="+this.openAttendance;
 		}
 		
 		public String parseStringData(String[] dataSplit) {
@@ -127,12 +127,12 @@ public class Lecture {
 			this.details =dataSplit[3];
 			this.link = dataSplit[4];
 			this.profId = Integer.parseInt(dataSplit[5]);
-			if("true".equals(dataSplit[6])) {
+			this.lectureId = Integer.parseInt(dataSplit[6]);
+			if(dataSplit[8].contains("attendance")) {
 				this.openAttendance = true;
 			}else {
 				this.openAttendance = false;
 			}
-			
 			return "";
 		}
 	}

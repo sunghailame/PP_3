@@ -3,8 +3,6 @@ package whiteboard.prof;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
-
-
 import whiteboard.course.Course;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
@@ -78,6 +72,7 @@ public class ProfController {
 		
         return "prof/prof_home";
     }
+    
     @PostMapping("/prof/prof_home")
     public String prof_home_post(@ModelAttribute Person person, @RequestParam("c_enrolled") String enroll_course, Model model) {
     	//Get selected course from post 
@@ -92,17 +87,14 @@ public class ProfController {
      public String course_page_get(Model model) {
     	//Get list of lectures by courseCode and profId
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
-     	 ArrayList<ViewLecture> lectures = new ArrayList<>();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
+     	 ArrayList<Lecture> lectures = new ArrayList<>();
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
-     			 ViewLecture l = new ViewLecture(lecture.title, lecture.lecDate, lecture.courseCode, false, lecture.profId, lecture.link, lecture.details, lecture.openAttendance);
-     			 lectures.add(l);
-     			
+     			 lectures.add(lecture);
      		 }
      	 }
-     	 
      	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
@@ -112,27 +104,18 @@ public class ProfController {
      
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
-    	 
-    	 System.out.println("post on course_page");
     	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 
-    	 //If attendance == "attendance", mark that, otherwise == "na" for view
     	 retLec.parseStringData(view_lecture.split("===="));
 
     	 this.glob_lecTitle = retLec.title;
-    	 if(retLec.isAttendance() || view_lecture.contains("attendance")) {
-    		 Lecture lec = lectureRepository.findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(retLec.title, retLec.lecDate, retLec.courseCode, retLec.details, retLec.link, retLec.profId);
-    		 if(lec.isAttendance() == false) {
-    			 lec.setAttendance(true);
-    		 } else {
-    			 lec.setAttendance(false);
-    		 }
+    	 if(view_lecture.contains("attendance") || view_lecture.contains("close")) {
+    		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
+    		 lec.setAttendance(retLec.openAttendance);
     		 lectureRepository.save(lec);
-    		 return "redirect:/prof/view_lecture";
+    		 return "redirect:/prof/course_page";
     	 }
-    	 
-    	 System.out.println(retLec.toString());
     	 
  		return "redirect:/prof/view_lecture";
   

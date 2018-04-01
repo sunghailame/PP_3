@@ -17,12 +17,11 @@ public interface LectureRepository extends Repository<Lecture, Long> {
 		//@Query("UPDATE Lecture lec set lec.attendance = :attendance WHERE lec.title = :title, lec.date = :date, lec.courseCode = :coursecode, lec.details = :details, lec.link = :link, lec.profId = :profId")
 	//	int setAttendance(@Param("attendance") boolean attendance, @Param("title") String title, @Param("date") Date date, @Param("coursecode") String coursecode, @Param("details") String details, @Param("link") String link, @Param("profId") int profId);
 		
-	Lecture findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(String title, Date date, String courseCode, String details, String link, int profId);	
+	//Lecture findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(String title, Date date, String courseCode, String details, String link, int profId);	
 		
-	
-	
-	
 	void save(Lecture e);
 
-		ArrayList<Lecture> findAll();
+	ArrayList<Lecture> findAll();
+
+	Lecture findByLectureId(int lectureId);
 }

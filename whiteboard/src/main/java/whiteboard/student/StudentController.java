@@ -90,7 +90,7 @@ public class StudentController {
      	 
      	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
-     	 lectureList.setLectures(lectures);
+     	 //lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
      	 return "student/course_page";
 
