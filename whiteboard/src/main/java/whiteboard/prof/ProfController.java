@@ -114,7 +114,7 @@ public class ProfController {
     		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
     		 lec.setAttendance(retLec.openAttendance);
     		 lectureRepository.save(lec);
-    		 return "redirect:/prof/course_page";
+    		 return "redirect:/prof/view_lecture";
     	 }
     	 
  		return "redirect:/prof/view_lecture";
