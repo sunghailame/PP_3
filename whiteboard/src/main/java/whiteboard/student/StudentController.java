@@ -136,14 +136,13 @@ public class StudentController {
      @PostMapping("/student/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
      	System.out.println(attendance);
-    	 Lecture retLec = new Lecture();
+    	Lecture retLec = new Lecture();
      	retLec.parseStringData(attendance.split("===="));
      	
-    	 if(retLec.openAttendance) {
-    		 java.util.Date getCur = new java.util.Date();
-         	 
-    		 this.attendanceRepository.save(new Attendance(0, glob_studId, retLec.lectureId));
-    	 }
+    	if(retLec.openAttendance) {
+    		int lecId = retLec.lectureId;
+    		this.attendanceRepository.save(new Attendance(0, glob_studId, lecId));
+    	}
     	 
     	 model.addAttribute("message", "");
      	 return "redirect:/student/course_page";
