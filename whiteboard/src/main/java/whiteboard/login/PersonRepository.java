@@ -21,5 +21,6 @@ public interface PersonRepository extends Repository<Person, Long> {
 	Person findByRole(String role);
 	
 	void save(Person p);
+	Person findById(int studId);
 
 }
