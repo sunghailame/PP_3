@@ -44,7 +44,8 @@
 	<th>Student Name</th>
 	</tr>
 	<tr th:each="people : ${attendance}">
-		<td th:text="${people.studId}"></td>
+        <td th:text="${people?.studId}"></td>
+		<td th:text="${people.studName}"></td>
         </tr>
         </table>
     </div>

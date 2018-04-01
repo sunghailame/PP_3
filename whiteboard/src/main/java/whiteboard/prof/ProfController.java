@@ -1,6 +1,7 @@
 package whiteboard.prof;
 
 import java.sql.Date;
+import whiteboard.student.ViewAttendance;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +111,7 @@ public class ProfController {
     	 retLec.parseStringData(view_lecture.split("===="));
 
     	 this.glob_lecTitle = retLec.title;
+    	 this.glob_lectureId = retLec.lectureId;
     	 if(view_lecture.contains("attendance") || view_lecture.contains("close")) {
     		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
     		 lec.setAttendance(retLec.openAttendance);
@@ -133,9 +135,6 @@ public class ProfController {
     	 lecture.lectureId = 0;
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
-     	 java.util.Date getCur = new java.util.Date();
-     	
-     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
 
      	 lecture.openAttendance = false;
 
@@ -151,7 +150,7 @@ public class ProfController {
     	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
     	 ArrayList<Attendance> temp_attendance = attendanceRepository.findAll();
-    	 ArrayList<Attendance> attendees = new ArrayList<>();
+    	 System.out.println(temp_attendance.toString());
     	 Iterator<Attendance> a_cur = temp_attendance.iterator();
     	 
     	 while(l_cur.hasNext()) {
@@ -159,7 +158,6 @@ public class ProfController {
     		 //show the list of lectures
     		 if(temp_lec.courseCode.equals(this.glob_courseCode) && temp_lec.profId == this.glob_profId && 
     				 temp_lec.title.equals(this.glob_lecTitle)) {
-    			 System.out.println("Matching lecture?");
     			 lecture.title = temp_lec.title;
     			 lecture.lecDate = temp_lec.lecDate;
     			 lecture.courseCode = temp_lec.courseCode;
@@ -174,27 +172,18 @@ public class ProfController {
     			 this.glob_profId = lecture.profId;
     		 }
     	 }
+    	 ArrayList<ViewAttendance> attendees = new ArrayList<>();
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
     		 //show list of attendees
     		 if(temp_attend.lectureId == this.glob_lectureId) {
-    			 Attendance attendance = new Attendance();
-    			// attendance.CourseCode = temp_attend.CourseCode;
-    			// attendance.date = temp_attend.date;
-    			 attendance.ID = temp_attend.ID;
-    			// attendance.SectionNo = temp_attend.SectionNo;
-    			// attendance.lecture = temp_attend.lecture;
-    			 attendance.studId = temp_attend.studId;
-    			 attendance.lectureId = temp_attend.lectureId;
-    			 attendees.add(attendance);
+    			 Person stud = this.personRepository.findById(temp_attend.studId);
+    			 attendees.add(new ViewAttendance(stud.id, stud.name));
     		 }
-    			 
     	 }
-    	 model.addAttribute("attendance", attendees);
 
-    	 //arraylist of attendance/people
-    	 //model.add(arrayList)
-    	 
+		 System.out.println("ATTENDANCE: "+attendees.toString());
+    	 model.addAttribute("attendance", attendees);
 
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
