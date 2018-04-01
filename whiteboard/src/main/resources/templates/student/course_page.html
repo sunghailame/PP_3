@@ -30,7 +30,7 @@
 	<tr th:each="lecture : ${lectures.lectures}">
         <td th:text="${lecture?.title}"></td>
         <td th:text="${lecture?.date}"></td>
-        <td><input type="checkbox" th:name="view_lecture" th:value="${lecture}+'====na'" /></td>
+        <td><input type="radio" th:name="view_lecture" th:value="${lecture}+'====na'" /></td>
         </tr>
 	</table>
    <p id="subBack">
