@@ -17,5 +17,8 @@ if(attendanceBox.checked == true){
 
 });
 }
+else{
+alert("wapi");
+}
 
 }
