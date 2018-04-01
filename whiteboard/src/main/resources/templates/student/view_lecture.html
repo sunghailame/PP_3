@@ -39,7 +39,7 @@
 	</tr>
 	</table>	
 	<div id="lecT" th:if="${lecture.attendance} == true">
-		<p> Attendance: <input type="checkbox" th:name="attendance" th:value="${lecture}+'====attendance'" onclick="takeAttendance()"  /></p>
+		<p> Attendance: <input type="radio" th:name="attendance" th:value="${lecture}+'====attendance'" /></p>
 
 	</div>
 	<div id="lecF" th:unless="${lecture.attendance} == false">
