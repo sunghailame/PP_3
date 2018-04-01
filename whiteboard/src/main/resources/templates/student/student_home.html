@@ -29,7 +29,7 @@
 	</tr>
 	<tr th:each="course : ${courses}">
         <td th:text="${course.courseCode}"></td>
-        <td><input type="checkbox" th:name="c_enrolled" th:value="${course}" /></td>
+        <td><input type="radio" th:name="c_enrolled" th:value="${course}" /></td>
         </tr>
 	
 	</table>
