@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../css/new_lecture.css"></link>
+	<!--<link rel="stylesheet" href="../css/new_lecture.css"></link>-->
 </head>
 <body>
 	
@@ -33,7 +33,7 @@
 			Link: <input id="link" type="text" th:field="*{link}" />
 		</p>
 		
-		<table class = "studList">
+		<table id="studList">
 			<tr>
 				<th>Students</th>
 			</tr>
@@ -42,171 +42,29 @@
 			</tr>
 		</table>
 		
-		<table class = "seatingChart" th:object="${seating}" >
+		<table id="seatingChart" th:object="${seating}" >
 			<tr>
 				<th>1</th>
 				<th>2</th>
 				<th>3</th>
-				<th>4</th>
-				<th>5</th>
 			</tr>
 			<tr>
 				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'1,1:'+${stud}" th:text="${stud.studName}"></option>
+					<select th:name="seating_table">
+					<option>Select student</option>
+						<option th:each="stud : ${seating.seatingList}" th:value="'1,1:'+${stud}" th:text="${stud.studName}"></option>
 					</select>
 				</td>
 				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'1,2:'+${stud}" th:text="${stud.studName}"></option>
+					<select th:name="seating_table">
+						<option>Select student</option>
+						<option th:each="stud : ${seating.seatingList}" th:value="'1,2:'+${stud}" th:text="${stud.studName}"></option>
 					</select>
 				</td>
 				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'1,3:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'1,4:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'1,5:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'2,1:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'2,2:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'2,3:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'2,4:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'2,5:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'3,1:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'3,2:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'3,3:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'3,4:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'3,5:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'4,1:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'4,2:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'4,3:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'4,4:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'4,5:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'5,1:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'5,2:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'5,3:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'5,4:'+${stud}" th:text="${stud.studName}"></option>
-					</select>
-				</td>
-				<td align="center">
-					<select th:each="stud : ${seating.seatingList}">
-						
-						<option th:name="seating_table" th:value="'5,5:'+${stud}" th:text="${stud.studName}"></option>
+					<select th:name="seating_table">
+						<option>Select student</option>
+						<option th:each="stud : ${seating.seatingList}" th:value="'1,3:'+${stud}" th:text="${stud.studName}"></option>
 					</select>
 				</td>
 			</tr>

@@ -153,6 +153,7 @@ public class ProfController {
      	 this.lectureRepository.save(lecture);
      	 Lecture findId = this.lectureRepository.findByTitleAndLecDateAndProfId(lecture.title, lecture.lecDate, lecture.profId);
      	 SeatingGenerator seating = new SeatingGenerator();
+     	 
      	 seating.assign(seatingTable, findId.lectureId);
      	 System.out.println(seating.seatingList.toString());
      	 this.seatingRepository.save(seating.seatingList);

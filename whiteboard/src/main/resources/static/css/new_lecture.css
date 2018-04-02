@@ -15,6 +15,12 @@ input[type=text] {
     box-sizing: border-box;
 }
 
+#studList,#seatingChart {
+	margin-right:40%;
+	color: #4682B4;
+	text-align: right;
+}
+
 h1 {
 	margin-left:25%;
 	padding-bottom:2%;
