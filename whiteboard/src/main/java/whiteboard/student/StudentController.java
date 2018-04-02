@@ -19,6 +19,8 @@ import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
 import whiteboard.login.Person;
+import whiteboard.SeatingChart.SeatingChartRepository;
+import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
@@ -34,9 +36,13 @@ public class StudentController {
 	@Autowired
 	private AttendanceRepository attendanceRepository;
 	
+	@Autowired
+	private SeatingChartRepository seatingRepository;
+	
 	private int glob_profId;
 	private String glob_courseCode;
 	private String glob_lecTitle;
+	private int glob_lecId;
 	private int glob_studId;
 	
     @GetMapping("/student/student_home")
@@ -98,10 +104,10 @@ public class StudentController {
      @PostMapping("/student/course_page")
 
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
-    	 System.out.println(view_lecture);
     	 Lecture retLec = new Lecture();
     	 retLec.parseStringData(view_lecture.split("===="));
     	 this.glob_lecTitle = retLec.title;
+    	 this.glob_lecId = retLec.lectureId;
 
  		return "redirect:/student/view_lecture";
 
@@ -110,23 +116,15 @@ public class StudentController {
      @GetMapping("/student/view_lecture")
      public String view_lecture_get(Model model) {
     	 Lecture lecture = new Lecture();
-    	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
-    	 Iterator<Lecture> l_cur = temp_lecture.iterator();
-    	 while(l_cur.hasNext()) {
-    		 Lecture temp_lec = l_cur.next();
-
-    		 if(temp_lec.courseCode.equals(this.glob_courseCode) && 
-    				 temp_lec.title.equals(this.glob_lecTitle)) {
-    			 lecture.title = temp_lec.title;
-    			 lecture.lecDate = temp_lec.lecDate;
-    			 lecture.courseCode = temp_lec.courseCode;
-    			 lecture.details = temp_lec.details;
-    			 lecture.link = temp_lec.link;
-    			 lecture.profId = temp_lec.profId;
-    			 lecture.lectureId = temp_lec.lectureId;
-    			 lecture.openAttendance = temp_lec.openAttendance;
-    		 }
-    	 }
+    	 int lecId;
+    	 
+    	 lecture = this.lectureRepository.findByLectureId(this.glob_lecId);
+    	
+    	 
+    	 SeatingGenerator formatSeats = new SeatingGenerator();
+    	 formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lecId);
+    	 formatSeats.displaySeats();
+    	 model.addAttribute("seatingChart", formatSeats);
     	 
     	 model.addAttribute("lecture", lecture);
     	 model.addAttribute("message","");

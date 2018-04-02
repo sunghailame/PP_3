@@ -46,6 +46,45 @@
 		<p></p>
 	</div>
 	
+	<h3>Seating Chart</h3>
+    <table id="chart" align="center" class="fixed" th:object="${seatingChart}">
+    	<tr>
+    		<th>1</th>
+    		<th>2</th>
+    		<th>3</th>
+    		<th>4</th>
+    		<th>5</th>
+    	</tr>
+    	<tr>
+    		<td th:text="${seatingChart.row_one[0].studName}"></td>
+    		<td th:text="${seatingChart.row_one[1].studName}"></td>
+    		<td th:text="${seatingChart.row_one[2].studName}"></td>
+    		<td th:text="${seatingChart.row_one[3].studName}"></td>
+    		<td th:text="${seatingChart.row_one[4].studName}"></td>
+    	</tr>
+    	<tr>
+    		<td th:text="${seatingChart.row_two[0].studName}"></td>
+    		<td th:text="${seatingChart.row_two[1].studName}"></td>
+    		<td th:text="${seatingChart.row_two[2].studName}"></td>
+    		<td th:text="${seatingChart.row_two[3].studName}"></td>
+    		<td th:text="${seatingChart.row_two[4].studName}"></td>
+    	</tr>
+    	<tr>
+    		<td th:text="${seatingChart.row_three[0].studName}"></td>
+    		<td th:text="${seatingChart.row_three[1].studName}"></td>
+    		<td th:text="${seatingChart.row_three[2].studName}"></td>
+    		<td th:text="${seatingChart.row_three[3].studName}"></td>
+    		<td th:text="${seatingChart.row_three[4].studName}"></td>
+    	</tr>
+    	<tr>
+    		<td th:text="${seatingChart.row_four[0].studName}"></td>
+    		<td th:text="${seatingChart.row_four[1].studName}"></td>
+    		<td th:text="${seatingChart.row_four[2].studName}"></td>
+    		<td th:text="${seatingChart.row_four[3].studName}"></td>
+    		<td th:text="${seatingChart.row_four[4].studName}"></td>    		
+    	</tr>
+    </table>
+	
     <p id="subBack">
     	<button type="submit" class="btn btn-primary">Submit</button>
     	<a href="student_home">Back</a>
