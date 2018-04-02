@@ -8,6 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
+import whiteboard.SeatingChart.SeatingChart;
+
 
 public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 		//Enrollment findByID(String id);
@@ -17,4 +19,6 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 		ArrayList<Enrollment> findAll();
 
 		Enrollment findByCourseCodeAndPersonIdAndRole(String course_code, int id, String role);
+
+		ArrayList<Enrollment> findByCourseCodeAndRole(String course_code, String role);
 }

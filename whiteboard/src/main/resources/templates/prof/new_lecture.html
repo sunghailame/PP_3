@@ -31,7 +31,188 @@
 		</p>
 		<p>
 			Link: <input id="link" type="text" th:field="*{link}" />
-		</p>	
+		</p>
+		
+		<table class = "studList">
+			<tr>
+				<th>Students</th>
+			</tr>
+			<tr th:each="stud : ${seating.seatingList}">
+				<td th:text="${stud.studName}+' - '+${stud.studId}"></td>
+			</tr>
+		</table>
+		
+		<table class = "seatingChart" th:object="${seating}" >
+			<tr>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+				<th>4</th>
+				<th>5</th>
+			</tr>
+			<tr>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'1,1:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'1,2:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'1,3:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'1,4:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'1,5:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'2,1:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'2,2:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'2,3:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'2,4:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'2,5:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'3,1:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'3,2:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'3,3:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'3,4:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'3,5:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'4,1:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'4,2:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'4,3:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'4,4:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'4,5:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'5,1:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'5,2:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'5,3:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'5,4:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+				<td align="center">
+					<select th:each="stud : ${seating.seatingList}">
+						
+						<option th:name="seating_table" th:value="'5,5:'+${stud}" th:text="${stud.studName}"></option>
+					</select>
+				</td>
+			</tr>
+			
+		</table>
+			
 			 <p id="subBack">
             	<button id="submit" type="submit" class="btn btn-primary btn-lg" >Submit</button>
             	<a href="prof_home">Back</a></p>

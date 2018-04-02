@@ -4,6 +4,8 @@ import java.sql.Date;
 import whiteboard.student.ViewAttendance;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
 import whiteboard.login.Person;
+import whiteboard.SeatingChart.SeatingChartRepository;
+import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
@@ -36,6 +40,9 @@ public class ProfController {
 	private PersonRepository personRepository;
 	@Autowired
 	private AttendanceRepository attendanceRepository;
+	
+	@Autowired
+	private SeatingChartRepository seatingRepository;
 	
 	private int glob_profId;
 	private int glob_lectureId;
@@ -126,20 +133,30 @@ public class ProfController {
      @GetMapping("/prof/new_lecture")
      public String new_lecture_get(Model model) {
      	 Lecture new_lecture = new Lecture();
+     	 SeatingGenerator seating = new SeatingGenerator();
+     	 ArrayList<Enrollment> students = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,"student");
+     	 ArrayList<Person> lookup = this.personRepository.findAll();
+     	 seating.setView(students, lookup, 0);
+     	 model.addAttribute("seating", seating);
      	 model.addAttribute("lecture", new_lecture);
     	 model.addAttribute("message", "");
      	 return "prof/new_lecture";
      }
+     
      @PostMapping("/prof/new_lecture")
-     public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture, Model model) {
+     public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture,  @RequestParam("seating_table") List<String> seatingTable, Model model) {
     	 lecture.lectureId = 0;
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
-
      	 lecture.openAttendance = false;
-
      	 
      	 this.lectureRepository.save(lecture);
+     	 Lecture findId = this.lectureRepository.findByTitleAndLecDateAndProfId(lecture.title, lecture.lecDate, lecture.profId);
+     	 SeatingGenerator seating = new SeatingGenerator();
+     	 seating.assign(seatingTable, findId.lectureId);
+     	 System.out.println(seating.seatingList.toString());
+     	 this.seatingRepository.save(seating.seatingList);
+     	 
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";
      }

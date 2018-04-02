@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/*@Entity
+@Entity
 @Table(name="SeatingChart")
 public class SeatingChart {
 	
@@ -26,22 +26,34 @@ public class SeatingChart {
 		public int lectureId;
 		@Column(name = "StudId")
 		public int studId;
+		@Column(name = "StudName")
+		public String studName;
+
 		@Column(name = "X")
 		public int x;
 		@Column(name = "Y")
 		public int y;
 		
-		public SeatingChart(int chartId, int lectureId, int studId, int x, int y) {
+		public SeatingChart(int chartId, int lectureId, int studId, String studName, int x, int y) {
 			super();
 			this.chartId = chartId;
 			this.lectureId = lectureId;
 			this.studId = studId;
+			this.studName = studName;
 			this.x = x;
 			this.y = y;
 		}
 
 		public SeatingChart() {
 			
+		}
+		
+		public String getStudName() {
+			return studName;
+		}
+
+		public void setStudName(String studName) {
+			this.studName = studName;
 		}
 		
 		public void setChartId(int chartId) {
@@ -80,30 +92,20 @@ public class SeatingChart {
 			this.y = y;
 		}
 		
-		
-		
-		
 		@Override
 		public String toString() {
-			return this.chartId+"===="+this.lectureId+"===="+this.studId+"===="+this.x+"===="+this.y;
+			return this.chartId+"===="+this.lectureId+"===="+this.studId+"===="+this.studName+"===="+this.x+"===="+this.y;
 		}
 		
-		public String parseStringData(String[] dataSplit) {
-			this.chartId = 
-			
-			this.title = dataSplit[0];
-			this.lecDate = Date.valueOf(dataSplit[1]);
-			this.courseCode = dataSplit[2];
-			this.details =dataSplit[3];
-			this.link = dataSplit[4];
-			this.profId = Integer.parseInt(dataSplit[5]);
-			this.lectureId = Integer.parseInt(dataSplit[6]);
-			if(dataSplit[8].contains("attendance")) {
-				this.openAttendance = true;
-			}else {
-				this.openAttendance = false;
-			}
+		public String parseStringData(String data) {
+			String[] dataSplit = data.split("====");
+			this.x = Integer.parseInt(dataSplit[0].substring(0,1));
+			this.y = Integer.parseInt(dataSplit[0].substring(2,3));
+			this.chartId = Integer.parseInt(dataSplit[0].substring(4, dataSplit[0].length()));
+			this.lectureId = Integer.parseInt(dataSplit[1]);
+			this.studId = Integer.parseInt(dataSplit[2]);
+			this.studName = dataSplit[3];
 			return "";
 		}
 	}
-	*/
+	

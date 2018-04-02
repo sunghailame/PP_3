@@ -22,5 +22,6 @@ public interface PersonRepository extends Repository<Person, Long> {
 	
 	void save(Person p);
 	Person findById(int studId);
+	ArrayList<Person> findAll();
 
 }

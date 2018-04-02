@@ -24,4 +24,6 @@ public interface LectureRepository extends Repository<Lecture, Long> {
 	ArrayList<Lecture> findAll();
 
 	Lecture findByLectureId(int lectureId);
+
+	Lecture findByTitleAndLecDateAndProfId(String title, Date lecDate, int profId);
 }

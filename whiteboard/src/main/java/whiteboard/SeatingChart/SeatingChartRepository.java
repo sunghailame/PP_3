@@ -11,7 +11,7 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 
-//public interface SeatingChartRepository extends Repository<SeatingChart, Long> {
+public interface SeatingChartRepository extends Repository<SeatingChart, Long> {
 		
 	//	@Modifying
 		//@Query("UPDATE Lecture lec set lec.attendance = :attendance WHERE lec.title = :title, lec.date = :date, lec.courseCode = :coursecode, lec.details = :details, lec.link = :link, lec.profId = :profId")
@@ -19,9 +19,9 @@ import org.springframework.data.repository.query.Param;
 		
 	//Lecture findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(String title, Date date, String courseCode, String details, String link, int profId);	
 		
-	//void save(SeatingChart e);
+	void save(ArrayList<SeatingChart> seatingList);
 
-//	ArrayList<SeatingChart> findAll();
+	ArrayList<SeatingChart> findAll();
 
-	//SeatingChart findByLectureId(int lectureId);
-//}
+	SeatingChart findByLectureId(int lectureId);
+}
