@@ -28,10 +28,10 @@ public class SeatingChart {
 		@Column(name = "StudName")
 		public String studName;
 
-		@Column(name = "X")
-		public int x;
-		@Column(name = "Y")
-		public int y;
+		@Column(name = "XRow")
+		public int row;
+		@Column(name = "YColumn")
+		public int column;
 		
 		public SeatingChart(int chartId, int lectureId, int studId, String studName, int x, int y) {
 			super();
@@ -39,8 +39,8 @@ public class SeatingChart {
 			this.lectureId = lectureId;
 			this.studId = studId;
 			this.studName = studName;
-			this.x = x;
-			this.y = y;
+			this.row = x;
+			this.column = y;
 		}
 
 		public SeatingChart() {
@@ -76,30 +76,30 @@ public class SeatingChart {
 		}
 
 		public int getX() {
-			return x;
+			return row;
 		}
 
 		public void setX(int x) {
-			this.x = x;
+			this.row = x;
 		}
 
 		public int getY() {
-			return y;
+			return column;
 		}
 
 		public void setY(int y) {
-			this.y = y;
+			this.column = y;
 		}
 		
 		@Override
 		public String toString() {
-			return this.chartId+"===="+this.lectureId+"===="+this.studId+"===="+this.studName+"===="+this.x+"===="+this.y;
+			return this.chartId+"===="+this.lectureId+"===="+this.studId+"===="+this.studName+"===="+this.row+"===="+this.column;
 		}
 		
 		public String parseStringData(String data) {
 			String[] dataSplit = data.split("====");
-			this.x = Integer.parseInt(dataSplit[0].substring(0,1));
-			this.y = Integer.parseInt(dataSplit[0].substring(2,3));
+			this.row = Integer.parseInt(dataSplit[0].substring(0,1));
+			this.column = Integer.parseInt(dataSplit[0].substring(2,3));
 			this.chartId = Integer.parseInt(dataSplit[0].substring(4, dataSplit[0].length()));
 			this.lectureId = Integer.parseInt(dataSplit[1]);
 			this.studId = Integer.parseInt(dataSplit[2]);

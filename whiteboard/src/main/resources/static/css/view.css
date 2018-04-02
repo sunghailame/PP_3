@@ -1,4 +1,4 @@
-table, th, td {
+table, th{
     border: 1px solid black;
     border-collapse: collapse;
     padding: 5px;
@@ -7,6 +7,30 @@ table, th, td {
     color:#4682B4;
     width:60%;
 }
+
+td {
+	border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    margin-right:20%;
+    text-align: left;
+    color:#4682B4;
+    table-layout: fixed;
+    width:100px;
+}
+
+.chart {
+	empty-cells: show;
+	table-layout: fixed;
+	width: 500px;
+	border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    margin-right:20%;
+    text-align: left;
+    color:#4682B4;
+}
+
 #subBack {
 	padding-top:1%;
 	margin-left:70%;

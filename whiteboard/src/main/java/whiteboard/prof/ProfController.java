@@ -155,6 +155,7 @@ public class ProfController {
 
      	 
      	 this.lectureRepository.save(lecture);
+     	 
      	 Lecture findId = this.lectureRepository.findByTitleAndLecDateAndProfId(lecture.title, lecture.lecDate, lecture.profId);
      	 SeatingGenerator seating = new SeatingGenerator();
      	 
@@ -175,7 +176,6 @@ public class ProfController {
     	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
     	 ArrayList<Attendance> temp_attendance = attendanceRepository.findAll();
-    	 System.out.println(temp_attendance.toString());
     	 Iterator<Attendance> a_cur = temp_attendance.iterator();
     	 
     	 while(l_cur.hasNext()) {
@@ -206,8 +206,10 @@ public class ProfController {
     			 attendees.add(new ViewAttendance(stud.id, stud.name));
     		 }
     	 }
-
-		 System.out.println("ATTENDANCE: "+attendees.toString());
+    	 SeatingGenerator formatSeats = new SeatingGenerator();
+    	 formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lectureId);
+    	 formatSeats.displaySeats();
+    	 model.addAttribute("seatingChart", formatSeats);
     	 model.addAttribute("attendance", attendees);
 
     	 model.addAttribute("message","");
