@@ -15,7 +15,7 @@ public class SeatingGenerator{
 	
 	public ArrayList<SeatingChart> seatingList;
 	public List<String> stringList;
-	
+		
 	public SeatingGenerator() {
 		seatingList = new ArrayList<>();
 	}
@@ -48,8 +48,5 @@ public class SeatingGenerator{
 			}
 		}
 	}
-	
-	
-	
 	
 }
