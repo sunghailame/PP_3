@@ -150,6 +150,9 @@ public class ProfController {
      	 lecture.profId = this.glob_profId;
      	 lecture.courseCode = this.glob_courseCode;
      	 lecture.openAttendance = false;
+     	 java.util.Date getCur = new java.util.Date();
+     	 lecture.lecDate = new java.sql.Date(getCur.getTime());
+
      	 
      	 this.lectureRepository.save(lecture);
      	 Lecture findId = this.lectureRepository.findByTitleAndLecDateAndProfId(lecture.title, lecture.lecDate, lecture.profId);
