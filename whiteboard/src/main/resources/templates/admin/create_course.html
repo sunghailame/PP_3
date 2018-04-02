@@ -24,10 +24,19 @@
 	</div>
     <div>
     <p th:text="''+${message}"/>
-    <form id="courseForm" action="#" th:action="@{/admin/create_course}" th:object="${course}" method="post">
+    <form id="courseForm" action="#" th:action="@{/admin/create_course}" th:object="${course}"  method="post">
             <h1 id="headingForm">Add Course</h1>
             <p>Enter Course Code: <input id="course_code" type="text" th:field="*{course_code}" /></p>
 			<p>Enter Course Name: <input id="course_name" type="text" th:field="*{course_name}" /></p>
+
+			<div id="location" th:object="${locations}">
+			<select th:name="location_select">
+			<option value="default">Choose location</option>
+				<option th:each="location : ${locations}" th:value="${location.toStringData()}" th:text="${location}"></option>
+			</select>
+			</div>
+
+
 
         <p id="subBack">
             	<button id="sub" type="submit" class="btn btn-primary btn-lg" >Submit</button>

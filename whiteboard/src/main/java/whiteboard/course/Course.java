@@ -20,17 +20,28 @@ public class Course {
 	public String course_code;
 	@Column(name = "CourseName")
 	public String course_name;
+	@Column(name = "BuildingId")
+	public int buildingId;
 	
-	public Course(String course_code, String course_name) {
+	public Course(String course_code, String course_name, int buildingId) {
 		super();
 		this.course_code = course_code;
 		this.course_name = course_name;
+		this.buildingId = buildingId;
 	}
 
 	public Course() {
 		
 	}
 	
+	public int getBuildingId() {
+		return buildingId;
+	}
+
+	public void setBuildingId(int buildingId) {
+		this.buildingId = buildingId;
+	}
+
 	public String getCourse_code() {
 		return course_code;
 	}
@@ -54,7 +65,7 @@ public class Course {
 	}
 	
 	public String toStringData() {
-		return this.course_code+"===="+this.course_name;
+		return this.course_code+"===="+this.course_name+"===="+this.buildingId;
 	}
 }
 

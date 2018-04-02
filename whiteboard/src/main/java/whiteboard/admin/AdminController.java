@@ -4,6 +4,9 @@ import whiteboard.course.Course;
 import whiteboard.course.CourseRepository;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
+import whiteboard.location.Location;
+import whiteboard.location.LocationGenerator;
+import whiteboard.location.LocationRepository;
 import whiteboard.login.Person;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +31,8 @@ public class AdminController {
 	private CourseRepository courseRepository;
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
+	@Autowired
+	private LocationRepository locationRepository;
 
 	@GetMapping("/admin/admin_home")
 	public String admin_home_get(@CookieValue("person") String person, Model model) {
@@ -52,22 +57,33 @@ public class AdminController {
 	@GetMapping("/admin/create_course")
 	public String create_course_get(Model model) {
 		Course course = new Course();
+		LocationGenerator locationList = new LocationGenerator();
+		locationList.locations = this.locationRepository.findAll();
+		
+		model.addAttribute("locations", locationList.locations);
 		model.addAttribute("course", course);
 		model.addAttribute("message","");
 		return "admin/create_course";
 	}
 	
 	@PostMapping("/admin/create_course")
-	public String create_course_post(@ModelAttribute Course course, BindingResult result, Model model) {
+	public String create_course_post(@ModelAttribute Course course, @RequestParam("location_select")String location, BindingResult result, Model model) {
 		
 		try {
 			if(course.course_name == "") {
 				model.addAttribute("message", "Error. Try again.");
 				return "admin/create_course";
 			} else {
-				this.courseRepository.save(course);
-				model.addAttribute("message", "Created course!");
-				return "admin/admin_home";
+				if(!location.contains("default")) {
+					Location set_building = new Location();
+					set_building.parseStringData(location.split("===="));
+					course.setBuildingId(set_building.locationId);
+					this.courseRepository.save(course);
+					model.addAttribute("message", "Created course!");
+					return "admin/admin_home";
+				} else {
+					return "admin/create_course";
+				}
 			}
 		} catch(Exception e) {
 			model.addAttribute("message", "Error. Try again.");
