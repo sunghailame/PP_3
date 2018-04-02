@@ -20,6 +20,7 @@ import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
 import whiteboard.login.Person;
+import whiteboard.SeatingChart.SeatingChart;
 import whiteboard.SeatingChart.SeatingChartRepository;
 import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
@@ -155,8 +156,11 @@ public class ProfController {
      	 SeatingGenerator seating = new SeatingGenerator();
      	 
      	 seating.assign(seatingTable, findId.lectureId);
-     	 System.out.println(seating.seatingList.toString());
-     	 this.seatingRepository.save(seating.seatingList);
+     	 Iterator<SeatingChart> cur_seat = seating.seatingList.iterator();
+     	 while(cur_seat.hasNext()) {
+     		 SeatingChart add = cur_seat.next();
+     		 this.seatingRepository.save(add);
+     	 }
      	 
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";

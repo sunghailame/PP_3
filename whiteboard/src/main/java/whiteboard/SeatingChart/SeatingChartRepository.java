@@ -19,7 +19,7 @@ public interface SeatingChartRepository extends Repository<SeatingChart, Long> {
 		
 	//Lecture findByTitleAndLecDateAndCourseCodeAndDetailsAndLinkAndProfId(String title, Date date, String courseCode, String details, String link, int profId);	
 		
-	void save(ArrayList<SeatingChart> seatingList);
+	void save(SeatingChart add);
 
 	ArrayList<SeatingChart> findAll();
 
