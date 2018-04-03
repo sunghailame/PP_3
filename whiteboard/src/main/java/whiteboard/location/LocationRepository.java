@@ -16,4 +16,6 @@ public interface LocationRepository extends Repository<Location, Long> {
 	void save(Location e);
 
 	ArrayList<Location> findAll();
+
+	Location findByLocationId(int buildingId);
 }

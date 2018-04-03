@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import whiteboard.course.Course;
+import whiteboard.course.CourseRepository;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
+import whiteboard.location.Location;
+import whiteboard.location.LocationGenerator;
 import whiteboard.location.LocationRepository;
 import whiteboard.login.Person;
 import whiteboard.SeatingChart.SeatingChart;
@@ -48,6 +51,9 @@ public class ProfController {
 	
 	@Autowired
 	private LocationRepository locationRepository;
+	
+	@Autowired
+	private CourseRepository courseRepository;
 	
 	private int glob_profId;
 	private int glob_lectureId;
@@ -137,8 +143,11 @@ public class ProfController {
      
      @GetMapping("/prof/view_location")
      public String view_location_get(Model model){
-    	 
-    	 
+    	 Course findId = this.courseRepository.findByCourseCode(this.glob_courseCode);
+    	 Location building = this.locationRepository.findByLocationId(findId.buildingId);
+    	 LocationGenerator gen = new LocationGenerator();
+    	 String mapView = gen.embedLink(building.latitude, building.longitude);
+    	 model.addAttribute("link", mapView);
     	 return "prof/view_location";
      }
      

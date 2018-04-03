@@ -9,6 +9,7 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 import whiteboard.SeatingChart.SeatingChart;
+import whiteboard.login.Person;
 
 
 public interface EnrollmentRepository extends Repository<Enrollment, Long> {
@@ -21,4 +22,6 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 		Enrollment findByCourseCodeAndPersonIdAndRole(String course_code, int id, String role);
 
 		ArrayList<Enrollment> findByCourseCodeAndRole(String course_code, String role);
+
+		ArrayList<Person> findByRole(String string);
 }

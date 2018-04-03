@@ -78,6 +78,7 @@ public class AdminController {
 					Location set_building = new Location();
 					set_building.parseStringData(location.split("===="));
 					course.setBuildingId(set_building.locationId);
+					System.out.println(course);
 					this.courseRepository.save(course);
 					model.addAttribute("message", "Created course!");
 					return "admin/admin_home";
@@ -126,7 +127,7 @@ public class AdminController {
 		Iterator<Course> c_cur = course_temp.iterator();
 		while(c_cur.hasNext()) {
 			Course course = c_cur.next();
-			EnrollCourse m = new EnrollCourse(course.course_code, course.course_name, false);
+			EnrollCourse m = new EnrollCourse(course.courseCode, course.course_name, false, course.buildingId);
 			courses.add(m);
 		}
 		
@@ -169,24 +170,23 @@ public class AdminController {
 	public String enroll_prof_get(Model model) {
 		
 		//Get list of all students, save to list of EnrollPerson type for form
-		Iterable<Person> users_temp = adminRepository.findAll();
+		ArrayList<Person> users_temp = this.enrollmentRepository.findByRole("prof");
 		ArrayList<EnrollPerson> users = new ArrayList<>();
 		Iterator<Person> u_cur = users_temp.iterator();
 		while(u_cur.hasNext()) {
 			Person user = (Person) u_cur.next();
-			if(user.role.toUpperCase().contains("PROF")) {
-				EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
-				users.add(p);
-			}
+			EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
+			users.add(p);
 		}
 		
+		
 		//Get list of all courses, save to list of EnrollCourse type for form
-		Iterable<Course> course_temp = courseRepository.findAll();
+		Iterable<Course> course_temp = this.courseRepository.findAll();
 		ArrayList<EnrollCourse> courses = new ArrayList<>();
 		Iterator<Course> c_cur = course_temp.iterator();
 		while(c_cur.hasNext()) {
 			Course course = c_cur.next();
-			EnrollCourse m = new EnrollCourse(course.course_code, course.course_name, false);
+			EnrollCourse m = new EnrollCourse(course.courseCode, course.course_name, false, course.buildingId);
 			courses.add(m);
 		}
 		

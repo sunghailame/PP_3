@@ -7,6 +7,8 @@ import whiteboard.login.*;
 
 public interface AdminRepository extends CrudRepository<Person, Long>{
 
+	Iterable<Person> findByRole(String string);
+
 //	void save (Person a);
 	//Course deleteByNameIn(String names);
 

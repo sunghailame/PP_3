@@ -15,19 +15,29 @@ public class EnrollCourse {
 	
 	public String courseCode;
 	public String courseName;
+	public int buildingId;
 	public boolean enrolled;
 	
 	public EnrollCourse() {
 		
 	}
-	
-	public EnrollCourse(String courseCode, String courseName, boolean enrolled) {
+
+	public EnrollCourse(String courseCode, String courseName, boolean enrolled, int buildingId) {
 
 		super();
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.enrolled = enrolled;
+		this.buildingId = buildingId;
 	}
+	public int getBuildingId() {
+		return buildingId;
+	}
+
+	public void setBuildingId(int buildingId) {
+		this.buildingId = buildingId;
+	}
+	
 	public String getCourseName() {
 		return courseName;
 	}
@@ -53,6 +63,6 @@ public class EnrollCourse {
 	
 	@Override
 	public String toString() {
-		return ""+this.courseCode+"===="+this.courseCode+"===="+this.enrolled;
+		return ""+this.courseCode+"===="+this.courseCode+"===="+this.enrolled+"===="+this.buildingId;
 	}
 }

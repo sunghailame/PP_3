@@ -11,6 +11,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface CourseRepository extends CrudRepository<Course, Long> {
 
+	Course findByCourseCode(String courseCode);
+
+
 	//Iterable<Course> findAll();
 	//void save(Course c);
 	
