@@ -19,6 +19,10 @@ td {
     width:100px;
 }
 
+.map {
+	float:middle;
+}
+
 .chart {
 	empty-cells: show;
 	table-layout: fixed;
