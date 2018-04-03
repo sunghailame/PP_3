@@ -19,6 +19,7 @@ import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
+import whiteboard.location.LocationRepository;
 import whiteboard.login.Person;
 import whiteboard.SeatingChart.SeatingChart;
 import whiteboard.SeatingChart.SeatingChartRepository;
@@ -44,6 +45,9 @@ public class ProfController {
 	
 	@Autowired
 	private SeatingChartRepository seatingRepository;
+	
+	@Autowired
+	private LocationRepository locationRepository;
 	
 	private int glob_profId;
 	private int glob_lectureId;
@@ -130,6 +134,14 @@ public class ProfController {
  		return "redirect:/prof/view_lecture";
   
  	}
+     
+     @GetMapping("/prof/view_location")
+     public String view_location_get(Model model){
+    	 
+    	 
+    	 return "prof/view_location";
+     }
+     
      
      @GetMapping("/prof/new_lecture")
      public String new_lecture_get(Model model) {
