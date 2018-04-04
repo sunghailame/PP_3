@@ -62,7 +62,7 @@ ul {
 
 
 }
-#addLecture {
+#addLecture, #viewLecture {
     display: block;
     color: black;
     background-color: white;
