@@ -8,26 +8,27 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!--  <link rel="stylesheet" href="../../css/view.css"></link>-->
+	<link rel="stylesheet" href="../../css/view_location.css"></link>
     
 </head>
 <body>
 
 	<div id="sidebar">
 	<ul id="contents">
-		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
+		<li id="logo"><a href="student_home">WhiteBoard</a></li>
   		<li id="logout"><a href="../../whiteboard">logout</a></li>
 	</ul>
 	</div>
 	<p th:text="''+${message}"/>
 	<h1>Building Location</h1>
-	
-    <iframe id="map"
-    	align="middle"
+	<h2 th:text="${building}"></h2>
+	<div id="map">
+    <iframe
   		width="600"
  	 	height="450"
   		 style="border:0"
   		th:src="${link}">
 	</iframe>
+	</div>
 </body>
 </html>

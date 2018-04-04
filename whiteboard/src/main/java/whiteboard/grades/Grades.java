@@ -2,12 +2,19 @@ package whiteboard.grades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 //Commented because of entityManager exceptions
 @Entity
 @Table(name="Grades")
 public class Grades {
+
+	@Id
+	@NotNull
+	@Column(name="gradeId")
+	public int gradeId;
 
 	@Column(name = "CourseCode")
 	public String courseCode;
@@ -28,6 +35,14 @@ public class Grades {
 	
 	public Grades() {
 		
+	}
+	
+	public int getGradeId() {
+		return gradeId;
+	}
+
+	public void setGradeId(int gradeId) {
+		this.gradeId = gradeId;
 	}
 	
 	public String getCourseCode() {

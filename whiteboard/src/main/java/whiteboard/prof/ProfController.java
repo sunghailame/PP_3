@@ -148,6 +148,7 @@ public class ProfController {
     	 LocationGenerator gen = new LocationGenerator();
     	 String mapView = gen.embedLink(building.latitude, building.longitude);
     	 model.addAttribute("link", mapView);
+    	 model.addAttribute("building", building.building);
     	 return "prof/view_location";
      }
      
@@ -196,8 +197,6 @@ public class ProfController {
     	 Lecture lecture = new Lecture();
     	 ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
     	 Iterator<Lecture> l_cur = temp_lecture.iterator();
-    	 ArrayList<Attendance> temp_attendance = attendanceRepository.findAll();
-    	 Iterator<Attendance> a_cur = temp_attendance.iterator();
     	 
     	 while(l_cur.hasNext()) {
     		 Lecture temp_lec = l_cur.next();
@@ -219,14 +218,14 @@ public class ProfController {
     		 }
     	 }
     	 ArrayList<ViewAttendance> attendees = new ArrayList<>();
+    	 ArrayList<Attendance> findUsers = this.attendanceRepository.findByLectureId(this.glob_lectureId);
+    	 Iterator<Attendance> a_cur = findUsers.iterator();
     	 while(a_cur.hasNext()) {
     		 Attendance temp_attend = a_cur.next();
-    		 //show list of attendees
-    		 if(temp_attend.lectureId == this.glob_lectureId) {
-    			 Person stud = this.personRepository.findById(temp_attend.studId);
-    			 attendees.add(new ViewAttendance(stud.id, stud.name));
-    		 }
+    		 Person findName = this.personRepository.findById(temp_attend.studId);
+    		 attendees.add(new ViewAttendance(temp_attend.studId, findName.username));
     	 }
+    	 
     	 SeatingGenerator formatSeats = new SeatingGenerator();
     	 formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lectureId);
     	 formatSeats.displaySeats();
