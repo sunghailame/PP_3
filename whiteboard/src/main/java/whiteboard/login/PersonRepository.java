@@ -18,7 +18,7 @@ public interface PersonRepository extends Repository<Person, Long> {
 //	@Query("SELECT person FROM Person person left join fetch person.username WHERE person.id =:id")
 //	Person findById(@Param("id")int id);
 	Person findByUsername(String username);
-	Person findByRole(String role);
+	ArrayList<Person> findByRole(String role);
 	
 	void save(Person p);
 	Person findById(int studId);

@@ -23,5 +23,5 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 
 		ArrayList<Enrollment> findByCourseCodeAndRole(String course_code, String role);
 
-		ArrayList<Person> findByRole(String string);
+		ArrayList<Enrollment> findByRole(String string);
 }

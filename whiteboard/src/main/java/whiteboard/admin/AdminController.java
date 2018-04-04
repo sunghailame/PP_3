@@ -8,6 +8,8 @@ import whiteboard.location.Location;
 import whiteboard.location.LocationGenerator;
 import whiteboard.location.LocationRepository;
 import whiteboard.login.Person;
+import whiteboard.login.PersonRepository;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +36,9 @@ public class AdminController {
 	@Autowired
 	private LocationRepository locationRepository;
 
+	@Autowired
+	private PersonRepository personRepository;
+	
 	@GetMapping("/admin/admin_home")
 	public String admin_home_get(@CookieValue("person") String person, Model model) {
 		Person admin = new Person();
@@ -108,17 +113,13 @@ public class AdminController {
 	
 	@GetMapping("/admin/enroll_student")
 	public String enroll_student_get(Model model) {
-		
-		//Get list of all students, save to list of EnrollPerson type for form
-		Iterable<Person> users_temp = adminRepository.findAll();
+		ArrayList<Person> prof_users = this.personRepository.findByRole("student");
 		ArrayList<EnrollPerson> users = new ArrayList<>();
-		Iterator<Person> u_cur = users_temp.iterator();
+		Iterator<Person> u_cur = prof_users.iterator();
 		while(u_cur.hasNext()) {
-			Person user = (Person) u_cur.next();
-			if(user.role.toUpperCase().contains("STUDENT")) {
-				EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
-				users.add(p);
-			}
+			Person user = u_cur.next();
+			EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
+			users.add(p);
 		}
 		
 		//Get list of all courses, save to list of EnrollCourse type for form
@@ -168,13 +169,11 @@ public class AdminController {
 	
 	@GetMapping("/admin/enroll_prof")
 	public String enroll_prof_get(Model model) {
-		
-		//Get list of all students, save to list of EnrollPerson type for form
-		ArrayList<Person> users_temp = this.enrollmentRepository.findByRole("prof");
+		ArrayList<Person> prof_users = this.personRepository.findByRole("prof");
 		ArrayList<EnrollPerson> users = new ArrayList<>();
-		Iterator<Person> u_cur = users_temp.iterator();
+		Iterator<Person> u_cur = prof_users.iterator();
 		while(u_cur.hasNext()) {
-			Person user = (Person) u_cur.next();
+			Person user = u_cur.next();
 			EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
 			users.add(p);
 		}
