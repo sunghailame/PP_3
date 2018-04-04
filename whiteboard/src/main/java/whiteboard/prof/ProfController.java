@@ -122,20 +122,20 @@ public class ProfController {
      }
      
      @PostMapping("/prof/course_page")
-     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
-    	 System.out.println(view_lecture);
-    	 Lecture retLec = new Lecture();
+     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model) {
+    	
     	 
-    	 retLec.parseStringData(view_lecture.split("===="));
-
-    	 this.glob_lecTitle = retLec.title;
-    	 this.glob_lectureId = retLec.lectureId;
-    	 if(view_lecture.contains("attendance") || view_lecture.contains("close")) {
-    		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
-    		 lec.setAttendance(retLec.openAttendance);
-    		 lectureRepository.save(lec);
-    		 return "redirect:/prof/view_lecture";
-    	 }
+    	 for(int x=0; x < view_lecture.length; x++) {
+    		 Lecture retLec = new Lecture();
+    		 retLec.parseStringData(view_lecture[x].split("===="));
+    		 this.glob_lecTitle = retLec.title;
+        	 this.glob_lectureId = retLec.lectureId;
+        	 if(view_lecture[x].contains("attendance") || view_lecture[x].contains("close")) {
+        		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
+        		 lec.setAttendance(retLec.openAttendance);
+        		 lectureRepository.save(lec);
+        	 } 
+       }
     	 
  		return "redirect:/prof/view_lecture";
   

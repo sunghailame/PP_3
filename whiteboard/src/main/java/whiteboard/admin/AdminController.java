@@ -54,7 +54,7 @@ public class AdminController {
 
 	@GetMapping("/admin/show_users")
 	public String show_users_get(Person person, Model model) {
-		Iterable<Person> users = adminRepository.findAll();
+		ArrayList<Person> users = this.personRepository.findAll();
 		model.addAttribute("users", users);
 		return "admin/show_users";
 	}
