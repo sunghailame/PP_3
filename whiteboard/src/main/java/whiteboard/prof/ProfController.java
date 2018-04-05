@@ -128,8 +128,10 @@ public class ProfController {
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
     		 retLec.parseStringData(view_lecture[x].split("===="));
-    		 this.glob_lecTitle = retLec.title;
-        	 this.glob_lectureId = retLec.lectureId;
+    		 if(view_lecture[x].contains("====viewThisOne")) {
+    			 this.glob_lecTitle = retLec.title;
+            	 this.glob_lectureId = retLec.lectureId;
+    		 }
         	 if(view_lecture[x].contains("attendance") || view_lecture[x].contains("close")) {
         		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
         		 lec.setAttendance(retLec.openAttendance);
@@ -221,9 +223,10 @@ public class ProfController {
     	 ArrayList<Attendance> findUsers = this.attendanceRepository.findByLectureId(this.glob_lectureId);
     	 Iterator<Attendance> a_cur = findUsers.iterator();
     	 while(a_cur.hasNext()) {
-    		 Attendance temp_attend = a_cur.next();
-    		 Person findName = this.personRepository.findById(temp_attend.studId);
-    		 attendees.add(new ViewAttendance(temp_attend.studId, findName.username));
+    		Attendance temp_attend = a_cur.next();
+    		Person findName = this.personRepository.findById(temp_attend.studId);
+    		attendees.add(new ViewAttendance(temp_attend.studId, findName.username));
+    		 
     	 }
     	 
     	 SeatingGenerator formatSeats = new SeatingGenerator();
