@@ -1,21 +1,34 @@
 package whiteboard.prof;
 
+import java.io.IOException;
 import java.sql.Date;
 import whiteboard.student.ViewAttendance;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import whiteboard.course.Course;
 import whiteboard.course.CourseRepository;
+import whiteboard.document.Document;
+import whiteboard.document.DocumentRepository;
+import whiteboard.document.FileBucket;
+import whiteboard.document.FileValidator;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.lecture.Lecture;
@@ -32,6 +45,8 @@ import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
 import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
+import org.springframework.context.MessageSource;
+
 
 @Controller
 public class ProfController {
@@ -54,6 +69,20 @@ public class ProfController {
 	
 	@Autowired
 	private CourseRepository courseRepository;
+	
+	@Autowired
+	private DocumentRepository documentRepository;
+	
+	@Autowired
+	MessageSource messageSource;
+	
+	@Autowired
+	FileValidator fileValidator;
+	
+	@InitBinder("fileBucket")
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(fileValidator);
+	}
 	
 	private int glob_profId;
 	private int glob_lectureId;
@@ -211,7 +240,7 @@ public class ProfController {
     			 lecture.details = temp_lec.details;
     			 lecture.link = temp_lec.link;
     			 lecture.profId = temp_lec.profId;
-    			 lecture.lectureId = 0;
+    			 lecture.lectureId = temp_lec.lectureId;
     			 lecture.openAttendance = temp_lec.openAttendance;
     			 model.addAttribute("lecture",lecture);
     			 this.glob_courseCode = lecture.courseCode;
@@ -234,15 +263,59 @@ public class ProfController {
     	 formatSeats.displaySeats();
     	 model.addAttribute("seatingChart", formatSeats);
     	 model.addAttribute("attendance", attendees);
-
+    	 
+    	// FileBucket fileModel = new FileBucket();
+    	// model.addAttribute("fileBucket", fileModel);
+    	 List<Document> documents = documentRepository.findAllByLectureId(lecture.lectureId);
+    	 for (Document d : documents) {
+    		 System.out.println(d.getName());
+    		 
+    	 }
+    	 
+    	 model.addAttribute("documents", documents);
+    	 
+    	 
+    	 
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
      @PostMapping("/prof/view_lecture")
-     public String view_lecture_post(@ModelAttribute Person person, Model model) {
-     	 model.addAttribute("message", "");
+     public String view_lecture_post(@Valid FileBucket fileBucket, BindingResult result, @PathVariable Lecture lecture, @ModelAttribute Person person, Model model) throws IOException {
+     	 if (result.hasErrors()) {
+     		 System.out.println("validation errors");
+     		 List<Document> documents = documentRepository.findAllByLectureId(lecture.lectureId);
+     		 model.addAttribute("documents", documents);
+     		 
+     		
+     		 
+     	 } else {
+     		 System.out.println("Fetching file");
+     		 
+     		 lecture = lectureRepository.findByLectureId(lecture.lectureId);
+     		 model.addAttribute("lecture", lecture);
+     		 saveDocument(fileBucket, lecture);
+     	 }
+    	 
+    	 model.addAttribute("message", "");
+     	 
      	 return "prof/prof_home";
      }
+     
+     private void saveDocument(FileBucket fileBucket, Lecture lecture) throws IOException{
+         
+         Document document = new Document();
+          
+         MultipartFile multipartFile = fileBucket.getFile();
+          
+         document.setName(multipartFile.getOriginalFilename());
+         document.setDescription(fileBucket.getDescription());
+         document.setType(multipartFile.getContentType());
+         document.setContent(multipartFile.getBytes());
+         document.setLectureId(lecture.lectureId);
+         documentRepository.save(document);
+     }
+     
+     
      
 
      
