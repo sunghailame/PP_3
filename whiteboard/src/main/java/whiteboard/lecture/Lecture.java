@@ -1,6 +1,8 @@
 package whiteboard.lecture;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import whiteboard.document.Document;
 
 @Entity
 @Table(name="Lecture")
@@ -34,6 +42,9 @@ public class Lecture {
 		public int profId;
 		@Column(name = "OpenAttendance")
 		public boolean openAttendance;
+		
+	//	@OneToMany(mappedBy= "lecture", cascade = CascadeType.ALL)
+	//	private Set<Document> lectureDocuments = new HashSet<Document>();
 		
 		public Lecture(String title, Date lecDate, String courseCode, String details, String link, int profId, int id, boolean openAttendance) {
 			super();
@@ -113,6 +124,10 @@ public class Lecture {
 		public void setAttendance(boolean attendance) {
 			this.openAttendance = attendance;
 		}
+		
+//		public Set<Document> geLectureDocuments() {
+//			return lectureDocuments;
+//		}
 
 		@Override
 		public String toString() {

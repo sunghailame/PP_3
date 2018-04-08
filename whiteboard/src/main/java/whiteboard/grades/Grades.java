@@ -2,64 +2,69 @@ package whiteboard.grades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.persistence.Id;
 
-//Commented because of entityManager exceptions
+
 @Entity
 @Table(name="Grades")
 public class Grades {
 
-	@Column(name = "CourseCode")
-	public String courseCode;
-	@Column(name = "Assignments")
-	public int assignments;
-	@Column(name = "Attendance")
-	public int attendance;
-	@Column(name = "Exams")
-	public int exams;
+	@NotNull
+	@Column(name = "GradeId")
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public int gradeId;
 	
-	public Grades(String courseCode, int assignments, int attendance, int exams) {
+	@Column(name = "StudentId")
+	public String studentId;
+	@Column(name = "Grade")
+	public int grade;
+	@Column(name = "ID")
+	public int assId;
+	
+	public Grades(int gradeId, String studentId, int grade, int assId) {
+
 		super();
-		this.courseCode = courseCode;
-		this.assignments = assignments;
-		this.attendance = attendance;
-		this.exams = exams;
+		this.gradeId = gradeId;
+		this.studentId = studentId;
+		this.grade = grade;
+		this.assId = assId;
 	}
 	
 	public Grades() {
 		
 	}
 	
-	public String getCourseCode() {
-		return courseCode;
+
+	public String getStudentId() {
+		return studentId;
+	}
+	public int getGradeId() {
+		return gradeId;
+	}
+
+	public void setGradeId(int gradeId) {
+		this.gradeId = gradeId;
 	}
 	
-	public void setAssignments(int assignments) {
-		this.assignments = assignments;
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 	
-	public int getAssignments() {
-		return assignments;
+	public int getGrade() {
+		return grade;
 	}
 	
-	public void setAttendance(int attendance) {
-		this.attendance = attendance;
-	}
-	
-	public int getAttendance() {
-		return attendance;
-	}
-	
-	public void setExams(int exams) {
-		this.exams = exams;
-	}
-	
-	public int getExams() {
-		return exams;
+	public int getAssId(int assId) {
+		return assId;
 	}
 	
 	@Override
 	public String toString() {
-		return this.courseCode+"===="+this.assignments+"===="+this.attendance+"===="+this.exams;
+		return this.studentId+"===="+this.grade+"===="+this.assId;
 	}
 }
