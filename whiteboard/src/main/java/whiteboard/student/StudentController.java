@@ -168,6 +168,7 @@ public class StudentController {
     	 LocationGenerator gen = new LocationGenerator();
     	 String mapView = gen.embedLink(building.latitude, building.longitude);
     	 model.addAttribute("link", mapView);
+    	 model.addAttribute("building", building.building);
     	 return "student/view_location";
      }
 }

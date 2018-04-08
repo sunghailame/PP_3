@@ -62,7 +62,7 @@ ul {
 
 
 }
-#addLecture, #viewLecture {
+#addLecture {
     display: block;
     color: black;
     background-color: white;
@@ -70,8 +70,26 @@ ul {
     text-decoration: none;
     border-bottom: 1px solid #555;
     font-family: "Comic Sans MS", cursive, sans-serif;
+}
 
+#viewLecture {
+    display: block;
+    color: black;
+    background-color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #555;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
 
+#viewLocation {
+    display: block;
+    color: black;
+    background-color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #555;
+    font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 #logo {

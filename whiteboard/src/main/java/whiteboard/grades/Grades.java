@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.persistence.Id;
 
+
 @Entity
 @Table(name="Grades")
 public class Grades {
@@ -26,6 +27,7 @@ public class Grades {
 	public int assId;
 	
 	public Grades(int gradeId, String studentId, int grade, int assId) {
+
 		super();
 		this.gradeId = gradeId;
 		this.studentId = studentId;
@@ -37,8 +39,16 @@ public class Grades {
 		
 	}
 	
+
 	public String getStudentId() {
 		return studentId;
+	}
+	public int getGradeId() {
+		return gradeId;
+	}
+
+	public void setGradeId(int gradeId) {
+		this.gradeId = gradeId;
 	}
 	
 	public void setGrade(int grade) {
