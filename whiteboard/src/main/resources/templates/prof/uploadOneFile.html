@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
  
-   <head>
-      <meta charset="UTF-8">
-      <title>Upload One File</title>
-   </head>
+  <head>
+    <title>Upload File</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/upload_form.css"></link>
+</head>
    
    <body>
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
+  		<li id="logout"><a href="../../whiteboard">logout</a></li>
+	</ul>
+	</div>
+
       <th:block th:include="/_menu"></th:block>
        
-      <h3>Upload One File:</h3>
+      <h1>Upload One File:</h1>
        
       <!-- MyUploadForm -->
        
-      <form th:object="${myUploadForm}" method="POST"
+      <form id="myForm" th:object="${myUploadForm}" method="POST"
          action="" enctype="multipart/form-data">
-         Description:
-         <br>
-         <input th:field="*{description}" style="width:300px;"/>                
-         <br/><br/>  
-         File to upload: <input th:field="*{fileDatas}" type="file"/>
-         <br />  
-         <input type="submit" value="Upload">
+		<p>
+			Description:
+         <input th:field="*{description}" style="width:300px;"/>   
+		</p>              
+		<p id="Upload">
+			<input th:field="*{fileDatas}" type="file"/>
+		</p>
+        <p id="subBack">
+            	<button id="submit" type="submit" class="btn btn-primary btn-lg" >Submit</button>
+            	<a href="prof_home">Back</a></p>
       </form>
        
    </body>
