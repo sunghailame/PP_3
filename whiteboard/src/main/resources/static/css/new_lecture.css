@@ -6,7 +6,7 @@
 
 #subBack {
 	margin-left:35%;
-	padding-top:1%
+	padding-top:4%
 }
 input[type=text] {
     width: 80%;
@@ -16,11 +16,24 @@ input[type=text] {
 }
 
 #studList,#seatingChart {
-	margin-right:40%;
+	margin-left:45%;
 	color: #4682B4;
-	text-align: right;
+    width: 100%;
+	text-align: center;
+	height:100%;
+	padding-bottom:50%;
 }
-
+table{
+	border: 1px solid black;
+    border-collapse: collapse;
+    padding-bottom:50%;
+}
+th{
+	text-align:center;
+}
+td {
+    height: 50px;
+}
 h1 {
 	margin-left:25%;
 	padding-bottom:2%;
@@ -51,8 +64,16 @@ ul {
     text-decoration: none;
     border-bottom: 1px solid #555;
     font-family: "Comic Sans MS", cursive, sans-serif;
-
-
+}
+#addFile {
+    display: block;
+    color: black;
+    padding-bottom:2%;
+    background-color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #555;
+    font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 #logo {

@@ -1,24 +1,4 @@
-takeAttendance();
 FillChart();
-function takeAttendance(){
-
-var attendanceBox = document.getElementById("attendance");
-
-if(attendanceBox){
-
-attendanceBox.addEventListener("click", function(){
-
-if(attendanceBox.checked == true){
-
-	alert("checked!");
-
-	
-}
-
-});
-}
-
-}
 
 function FillChart(){
 
@@ -55,5 +35,4 @@ if(a.value.length == 0 || b.value.length ==0 || c.value.length == 0 || d.value.l
 
 });
 }
-
 
