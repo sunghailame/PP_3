@@ -31,6 +31,9 @@ import whiteboard.document.FileBucket;
 import whiteboard.document.FileValidator;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
+import whiteboard.grades.Assignment;
+import whiteboard.grades.AssignmentRepository;
+import whiteboard.grades.Grades;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
 import whiteboard.location.Location;
@@ -74,10 +77,15 @@ public class ProfController {
 	private DocumentRepository documentRepository;
 	
 	@Autowired
+	private AssignmentRepository assignmentRepository;
+	
+	@Autowired
 	MessageSource messageSource;
 	
 	@Autowired
 	FileValidator fileValidator;
+	
+	
 	
 	@InitBinder("fileBucket")
 	protected void initBinder(WebDataBinder binder) {
@@ -299,6 +307,31 @@ public class ProfController {
     	 model.addAttribute("message", "");
      	 
      	 return "prof/prof_home";
+     }
+     
+     @GetMapping("/prof/add_assignments")
+     public String add_assignments(Model model) {
+    	 Assignment assignment= new Assignment();
+    	 model.addAttribute("assignment", assignment);
+    	 model.addAttribute("message","");
+    	 return "prof/assignment";
+     }
+     
+     @PostMapping("/prof/add_assignments")
+     public String post_assignments(@ModelAttribute Assignment assignment, @ModelAttribute Person person) {
+    	 this.assignmentRepository.save(assignment);
+    	 
+    	 return "prof/assignment";
+     }
+     
+     @GetMapping("/prof/add_grades")
+     public String add_grades(Model model) {
+    	 return "prof/grades";
+     }
+     
+     @PostMapping("/prof/add_grades")
+     public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
+    	 return "prof/grades";
      }
      
      private void saveDocument(FileBucket fileBucket, Lecture lecture) throws IOException{
