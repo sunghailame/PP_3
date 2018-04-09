@@ -106,7 +106,12 @@
                             <th width="100"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tr th:each="doc : ${documents}">
+        				<td th:text="${doc.name}"></td>
+        				<td th:text="${doc.type}"></td>
+        				<td th:text="${doc.description}"></td>
+                    </tr>
+                    <!--<tbody>
                     <c:forEach items="${documents}" var="doc" varStatus="counter">
                     	<tr>
                     		<td>${counter.index+1}</td>
@@ -116,7 +121,7 @@
                     		
                     	</tr>
                     </c:forEach>
-                   </tbody>
+                   </tbody> -->
                   </table>
                   </div>
                   </div>

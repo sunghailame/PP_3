@@ -230,6 +230,19 @@ public class ProfController {
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";
      }
+    
+
+     @GetMapping("/prof/uploadOneFile")
+     public String uploadOneFile_get(Model model) {
+    	 
+    	 return "prof/uploadOneFile";
+     }
+     
+     @PostMapping("/prof/uploadOneFile")
+     public String uploadOneFile_post(Model model) {
+    	 
+    	 return "redirect:/prof/course_page";
+     }
      
      @GetMapping("/prof/view_lecture")
      public String view_lecture_get(Model model) {
@@ -279,11 +292,7 @@ public class ProfController {
     		 System.out.println(d.getName());
     		 
     	 }
-    	 
     	 model.addAttribute("documents", documents);
-    	 
-    	 
-    	 
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
