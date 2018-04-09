@@ -10,7 +10,7 @@ public interface AdminRepository extends CrudRepository<Person, Long>{
 	Iterable<Person> findByRole(String string);
 
 //	void save (Person a);
-	//Course deleteByNameIn(String names);
+	//Person deleteByNameIn(int id);
 
 	//void delete(Course course);
 }
