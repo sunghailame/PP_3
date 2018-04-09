@@ -34,7 +34,7 @@ public class FileUploadConfiguration extends WebMvcConfigurerAdapter {
 	        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 	        viewResolver.setViewClass(JstlView.class);
 	        viewResolver.setPrefix("/WEB-INF/views/");
-	        viewResolver.setSuffix(".jsp");
+	        viewResolver.setSuffix(".jsp"); //I think this needs to be html. We're not using .jsp format
 	        registry.viewResolver(viewResolver);
 	    }
 	     
