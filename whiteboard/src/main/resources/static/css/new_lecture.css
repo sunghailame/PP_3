@@ -15,18 +15,31 @@ input[type=text] {
     box-sizing: border-box;
 }
 
-#studList,#seatingChart {
+#seatingChart {
 	margin-left:45%;
 	color: #4682B4;
     width: 100%;
 	text-align: center;
 	height:100%;
-	padding-bottom:50%;
+	padding-top:2%;
+	border-collapse:separate;
+	border-spacing:10px;
+}
+
+#studList{
+	margin-left:45%;
+	color: #4682B4;
+    width: 100%;
+	text-align: center;
+	height:100%;
+	padding-top:2%;
+	border-collapse:separate;
+
 }
 table{
 	border: 1px solid black;
-    border-collapse: collapse;
-    padding-bottom:50%;
+	border-collapse:separate;
+    padding-bottom:2%;
 }
 th{
 	text-align:center;
