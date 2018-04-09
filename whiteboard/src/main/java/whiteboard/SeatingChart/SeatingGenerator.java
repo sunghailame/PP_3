@@ -52,7 +52,7 @@ public class SeatingGenerator{
 			} else {
 				int row = Integer.parseInt(val.substring(0,1));
 				int column = Integer.parseInt(val.substring(2,3));
-				SeatingChart stud = new SeatingChart(0, lectureId, 0, "", row, column);
+				SeatingChart stud = new SeatingChart(0, lectureId, 0, "Empty Seat", row, column);
 				seatingList.add(stud);
 			}
 		}
