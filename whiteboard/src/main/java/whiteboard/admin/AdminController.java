@@ -14,24 +14,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+/**
+ * This class controls the data and views for the admin role's pages.
+ */
 @Controller
 public class AdminController {
-
-	@Autowired
-	private AdminRepository adminRepository;
+	
 	@Autowired
 	private CourseRepository courseRepository;
 	@Autowired
@@ -42,6 +39,12 @@ public class AdminController {
 	@Autowired
 	private PersonRepository personRepository;
 	
+	/**
+	 * Homepage for the administrator; routed from LoginController, contigent on user's role = admin
+	 * @param person
+	 * @param model
+	 * @return admin_home.html
+	 */
 	@GetMapping("/admin/admin_home")
 	public String admin_home_get(@CookieValue("person") String person, Model model) {
 		Person admin = new Person();
@@ -50,11 +53,12 @@ public class AdminController {
 		return "admin/admin_home";
 	}
 
-	@PostMapping("/admin/admin_home")
-	public String admin_home_post(@ModelAttribute Person admin) {
-		return "login/greeting";
-	}
-
+	/**
+	 * Gets the list of all users from the DB and adds them to the model for viewing.
+	 * @param person
+	 * @param model
+	 * @return show_users.html
+	 */
 	@GetMapping("/admin/show_users")
 	public String show_users_get(Person person, Model model) {
 		ArrayList<Person> users = this.personRepository.findAll();
@@ -62,6 +66,12 @@ public class AdminController {
 		return "admin/show_users";
 	}
 
+	/**
+	 * Sets up the data to show the create course prompt and loads a drop down list of possible locations.
+	 * Add this info to the model for viewing.
+	 * @param model
+	 * @return create_course.html
+	 */
 	@GetMapping("/admin/create_course")
 	public String create_course_get(Model model) {
 		Course course = new Course();
@@ -74,8 +84,16 @@ public class AdminController {
 		return "admin/create_course";
 	}
 	
+	/**
+	 * Gets the course information entered by the user in the post submission.
+	 * Saves the new course (if entered correctly) into the DB.
+	 * @param course
+	 * @param location
+	 * @param model
+	 * @return admin_home.html (or create_course.html if incorrect data/exception)
+	 */
 	@PostMapping("/admin/create_course")
-	public String create_course_post(@ModelAttribute Course course, @RequestParam("location_select")String location, BindingResult result, Model model) {
+	public String create_course_post(@ModelAttribute Course course, @RequestParam("location_select")String location, Model model) {
 		
 		try {
 			if(course.course_name == "") {
@@ -113,9 +131,15 @@ public class AdminController {
 //		return ResponseEntity.ok().build();
 //	}
 	
-	
+	/**
+	 * Gets the list of all possible courses and students and adds them to the wrapper class.
+	 * Adds this object to the model for viewing.
+	 * @param model
+	 * @return enroll_student.html
+	 */
 	@GetMapping("/admin/enroll_student")
 	public String enroll_student_get(Model model) {
+		//Get list of all students, save to EnrollPerson object
 		ArrayList<Person> prof_users = this.personRepository.findByRole("student");
 		ArrayList<EnrollPerson> users = new ArrayList<>();
 		Iterator<Person> u_cur = prof_users.iterator();
@@ -125,7 +149,7 @@ public class AdminController {
 			users.add(p);
 		}
 		
-		//Get list of all courses, save to list of EnrollCourse type for form
+		//Get list of all courses, save to list of EnrollCourse object
 		Iterable<Course> course_temp = courseRepository.findAll();
 		ArrayList<EnrollCourse> courses = new ArrayList<>();
 		Iterator<Course> c_cur = course_temp.iterator();
@@ -146,7 +170,13 @@ public class AdminController {
 		return "admin/enroll_student";
 	}
 	
-	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?
+	/**
+	 * Gets the list of students/course from the post submission and saves the information to the DB.
+	 * @param enroll_users
+	 * @param enroll_course
+	 * @param model
+	 * @return admin_home.html
+	 */
 	@PostMapping("/admin/enroll_student")
 	public String enroll_student_post(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
 		String courseCode;
@@ -170,8 +200,15 @@ public class AdminController {
 		return "admin/admin_home";
 	}
 	
+	/**
+	 * Gets the list of all courses/professors and saves it the wrapper class.
+	 * Attaches the object to the model for viewing.
+	 * @param model
+	 * @return enroll_prof.html
+	 */
 	@GetMapping("/admin/enroll_prof")
 	public String enroll_prof_get(Model model) {
+		//Get list of prof users
 		ArrayList<Person> prof_users = this.personRepository.findByRole("prof");
 		ArrayList<EnrollPerson> users = new ArrayList<>();
 		Iterator<Person> u_cur = prof_users.iterator();
@@ -180,7 +217,6 @@ public class AdminController {
 			EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
 			users.add(p);
 		}
-		
 		
 		//Get list of all courses, save to list of EnrollCourse type for form
 		Iterable<Course> course_temp = this.courseRepository.findAll();
@@ -203,7 +239,13 @@ public class AdminController {
 		return "admin/enroll_prof";
 	}
 	
-	//TODO: Add checking for if a user is already enrolled in a course - un-enroll them?
+	/**
+	 * Gets the list of professors/course enrolled and saves to the DB.
+	 * @param enroll_user
+	 * @param enroll_course
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/admin/enroll_prof")
 	public String enroll_prof_post(@RequestParam("enrolled") String enroll_user, @RequestParam("c_enrolled") String enroll_course, Model model) {
 		String courseCode;

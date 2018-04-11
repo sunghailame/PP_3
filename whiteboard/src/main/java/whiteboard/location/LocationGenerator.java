@@ -11,10 +11,19 @@ public class LocationGenerator{
 	
 	public ArrayList<Location> locations;
 	
+	/**
+	 * Constructor
+	 */
 	public LocationGenerator() {
 		locations = new ArrayList<>();
 	}
 	
+	/**
+	 * Constructs the link for embedding the map into the html
+	 * @param latitude
+	 * @param longitude
+	 * @return link
+	 */
 	public String embedLink(String latitude, String longitude) {
 		return google_embed+api_key+place_start+latitude+','+longitude;
 	}
