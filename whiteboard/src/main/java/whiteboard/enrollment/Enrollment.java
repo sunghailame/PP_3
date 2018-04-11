@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Entity
 @Table(name = "Enrollment")
-
 public class Enrollment {
 	
-	
 	@NotNull
-	@Column(name = "ID")
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public int id;
 	@NotNull
 	@Column(name = "PersonID") 

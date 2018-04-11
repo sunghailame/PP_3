@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import whiteboard.lecture.Lecture;
-import whiteboard.prof.ViewLecture;
 
 @SessionAttributes
 public class FormWrapper{

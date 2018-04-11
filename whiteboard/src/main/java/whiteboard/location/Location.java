@@ -10,18 +10,14 @@ import javax.validation.constraints.NotNull;
 @Table(name="Location")
 public class Location {
 	
-	@NotNull
-	@Column(name = "LocationId")
-	@Id
-	public int locationId;
-	
+		@NotNull
+		@Id
+		@Column(name = "LocationId")
+		public int locationId;
 		@Column(name = "Building")
 		public String building;
-		
-	
 		@Column(name = "Latitude")
 		public String latitude;
-		
 		@Column(name = "Longitude")
 		public String longitude;
 		
