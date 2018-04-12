@@ -229,7 +229,7 @@ public class ProfController {
     	 return "prof/view_location";
      }
      
-     
+    /* 
     @GetMapping("prof/chat")
     @SendTo("/topic/public")
  	public String index_get_mapping(@Payload Message message, SimpMessageHeaderAccessor headerAccessor, Model model) {
@@ -243,7 +243,7 @@ public class ProfController {
      public Message sendMessage(@Payload Message message) {
          return message;
      }
-     
+     */
      
      
      /**
