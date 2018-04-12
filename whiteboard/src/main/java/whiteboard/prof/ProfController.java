@@ -50,7 +50,11 @@ import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
 import org.springframework.context.MessageSource;
 
-
+/**
+ * A controller for professors. Professor normally has control over upload/viewing lecture, take/viewing attendance, view the courses that he is enrolled in, and post and grade assignments.
+ * @author Sung Yealim
+ *
+ */
 @Controller
 public class ProfController {
 	
@@ -86,7 +90,10 @@ public class ProfController {
 	FileValidator fileValidator;
 	
 	
-	
+	/**
+	 * Function that binds the web data created.
+	 * @param binder
+	 */
 	@InitBinder("fileBucket")
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(fileValidator);
@@ -100,7 +107,12 @@ public class ProfController {
 	private Date glob_Date;
 	private String glob_Details;
 	private String glob_Link;
-	
+	/**
+	 * This function gets mapping from professor home. It shows the courses that the professor is currently enrolled in. 
+	 * @param person: person object
+	 * @param model: to add attributes to view
+	 * @return prof/prof_home
+	 */
     @GetMapping("/prof/prof_home")
     public String prof_home_get(@CookieValue("person") String person, Model model) {
     	//Parse Cookie into correct Person object
@@ -128,7 +140,13 @@ public class ProfController {
 		
         return "prof/prof_home";
     }
-    
+    /**
+     * This function posts mapping to professor home. It will request parameter from professor's enrolled course to let the professor click on the course page he/she would want to view.
+     * @param person: object
+     * @param enroll_course: selected course
+     * @param model
+     * @return prof/course_page
+     */
     @PostMapping("/prof/prof_home")
     public String prof_home_post(@ModelAttribute Person person, @RequestParam("c_enrolled") String enroll_course, Model model) {
     	//Get selected course from post 
@@ -138,7 +156,11 @@ public class ProfController {
      	return "redirect:/prof/course_page";
     }   
  
-     
+     /**
+      * This function gets mapping from course page. It gets the list of lectures by using the professor id and the course code that he/she is enrolled in. Then it will attach the lecture list to the view.
+      * @param model
+      * @return prof/course_page
+      */
      @GetMapping("/prof/course_page")
      public String course_page_get(Model model) {
     	//Get list of lectures by courseCode and profId
@@ -157,7 +179,13 @@ public class ProfController {
      	 model.addAttribute("lectures", lectureList);
      	 return "prof/course_page";
      }
-     
+     /**
+      * This function posts mapping from course page. If the professor clicks on one of the course code that he/she would like to view, it will prompt him/her to the lecture page where they can view seating chart, attendance, and the grades.
+      * @param person
+      * @param view_lecture
+      * @param model
+      * @return prof/view_lecture
+      */
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model) {
     	
@@ -179,7 +207,11 @@ public class ProfController {
  		return "redirect:/prof/view_lecture";
   
  	}
-     
+     /**
+      * This function gets mapping from view location. It will find the course and locate the building assigned to it. 
+      * @param model
+      * @return prof/view_location
+      */
      @GetMapping("/prof/view_location")
      public String view_location_get(Model model){
     	 Course findId = this.courseRepository.findByCourseCode(this.glob_courseCode);
@@ -191,7 +223,11 @@ public class ProfController {
     	 return "prof/view_location";
      }
      
-     
+     /**
+      * This function gets mapping from new lecture. It will look for all the students who are enrolled to the according course and generate a seating chart for that lecture.
+      * @param model
+      * @return prof/new_lecture
+      */
      @GetMapping("/prof/new_lecture")
      public String new_lecture_get(Model model) {
      	 Lecture new_lecture = new Lecture();
@@ -204,7 +240,14 @@ public class ProfController {
     	 model.addAttribute("message", "");
      	 return "prof/new_lecture";
      }
-     
+     /**
+      * This function posts mapping to new lecture. Professor would be able to view and assign students to the seating chart for the lecture as he wish.
+      * @param person
+      * @param lecture
+      * @param seatingTable
+      * @param model
+      * @return prof/course_page
+      */
      @PostMapping("/prof/new_lecture")
      public String new_lecture_post(@ModelAttribute Person person, @ModelAttribute Lecture lecture,  @RequestParam("seating_table") List<String> seatingTable, Model model) {
     	 lecture.lectureId = 0;
@@ -230,7 +273,32 @@ public class ProfController {
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";
      }
-     
+    
+     /**
+      * This function gets mapping from uploadOneFile. It will get the file that the professor uploaded.
+      * @param model
+      * @return prof/uploadOneFile
+      */
+     @GetMapping("/prof/uploadOneFile")
+     public String uploadOneFile_get(Model model) {
+    	 
+    	 return "prof/uploadOneFile";
+     }
+     /**
+      * This function posts mapping from uploadOneFile. If the professor would like to upload files for their lecture, it will be posted here.
+      * @param model
+      * @return prof/course_page
+      */
+     @PostMapping("/prof/uploadOneFile")
+     public String uploadOneFile_post(Model model) {
+    	 
+    	 return "redirect:/prof/course_page";
+     }
+     /**
+      * In this function, professor will be able to view the lecture details and attendance for that lecture. It will also get the seating chart and the documents that the professor uploaded.
+      * @param model
+      * @return prof/view_lecture
+      */
      @GetMapping("/prof/view_lecture")
      public String view_lecture_get(Model model) {
     	 Lecture lecture = new Lecture();
@@ -279,14 +347,20 @@ public class ProfController {
     		 System.out.println(d.getName());
     		 
     	 }
-    	 
     	 model.addAttribute("documents", documents);
-    	 
-    	 
-    	 
     	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
+     /**
+      * In this function file will be uploaded to the lecture and be saved.
+      * @param fileBucket
+      * @param result
+      * @param lecture
+      * @param person
+      * @param model
+      * @return prof/prof_home
+      * @throws IOException
+      */
      @PostMapping("/prof/view_lecture")
      public String view_lecture_post(@Valid FileBucket fileBucket, BindingResult result, @PathVariable Lecture lecture, @ModelAttribute Person person, Model model) throws IOException {
      	 if (result.hasErrors()) {
@@ -308,10 +382,19 @@ public class ProfController {
      	 
      	 return "prof/prof_home";
      }
+<<<<<<< HEAD
      
 //     @GetMapping("/prof/uploadOneFile")
 //     public String file_upload(@Valid FileBucket )
      
+=======
+     /**
+      * This function will let the professor to add assignments to according courses. They will select the course code first, then add the assignment name and the percentage of it.
+      * @param person
+      * @param model
+      * @return prof/assignment
+      */
+>>>>>>> 15e2ea86a4c0afaf1027f5513d3ba81725d923d3
      @GetMapping("/prof/add_assignments")
      public String add_assignments(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
@@ -338,25 +421,49 @@ public class ProfController {
     	 model.addAttribute("message","");
     	 return "prof/assignment";
      }
+<<<<<<< HEAD
      
      
+=======
+     /**
+      * This function will allow professor to post the assignment to the according course. It will also save the assignment to the repository.
+      * @param assignment
+      * @param person
+      * @return prof/assignment
+      */
+>>>>>>> 15e2ea86a4c0afaf1027f5513d3ba81725d923d3
      @PostMapping("/prof/add_assignments")
      public String post_assignments(@ModelAttribute Assignment assignment, @ModelAttribute Person person) {
     	 this.assignmentRepository.save(assignment);
     	 
     	 return "prof/assignment";
      }
-     
+     /**
+      * This function will let professor grade the assignments after the students submit them. 
+      * @param model
+      * @return prof/grades
+      */
      @GetMapping("/prof/add_grades")
      public String add_grades(Model model) {
     	 return "prof/grades";
      }
-     
+     /**
+      * This function will post the grades uploaded and calculate the total weightage according to the percentage set earlier.
+      * @param grades
+      * @param assignment
+      * @param person
+      * @return prof/grades
+      */
      @PostMapping("/prof/add_grades")
      public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
     	 return "prof/grades";
      }
-     
+     /**
+      * This function is used to save the documents that was uploaded by the professor.
+      * @param fileBucket
+      * @param lecture
+      * @throws IOException
+      */
      private void saveDocument(FileBucket fileBucket, Lecture lecture) throws IOException{
          
          Document document = new Document();

@@ -15,7 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
+/**
+* This class views attendance for students. Using Student's ID and Name
+* @author Mireille Mwiza Iradukunda
+*
+*/
 public class ViewAttendance {
 
 	public int studId;
