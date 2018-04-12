@@ -309,6 +309,9 @@ public class ProfController {
      	 return "prof/prof_home";
      }
      
+//     @GetMapping("/prof/uploadOneFile")
+//     public String file_upload(@Valid FileBucket )
+     
      @GetMapping("/prof/add_assignments")
      public String add_assignments(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
@@ -335,6 +338,7 @@ public class ProfController {
     	 model.addAttribute("message","");
     	 return "prof/assignment";
      }
+     
      
      @PostMapping("/prof/add_assignments")
      public String post_assignments(@ModelAttribute Assignment assignment, @ModelAttribute Person person) {
