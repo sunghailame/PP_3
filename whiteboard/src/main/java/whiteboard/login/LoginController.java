@@ -25,9 +25,10 @@ public class LoginController {
 
 	private PersonRepository PersonRepository;
 	
-	@GetMapping("/doc/index")
+	
+	@GetMapping("/")
 	public String docs_get(Model model) {
-		return "doc/index";
+		return "index";
 	}
 	
 	
