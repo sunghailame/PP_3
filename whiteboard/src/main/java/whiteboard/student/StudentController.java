@@ -29,7 +29,11 @@ import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
 import whiteboard.prof.ViewLecture;
-
+/**
+ * A controller for students. A student views lectures, they take attendance, view the seating chart and Submit assignment and view grades
+ * @author Mireille Mwiza Iradukunda
+ *
+ */
 @Controller
 public class StudentController {
 	
@@ -55,6 +59,12 @@ public class StudentController {
 	private int glob_lecId;
 	private int glob_studId;
 	
+	/**
+	 * This function gets mapping from student home. It shows the courses that the student is currently enrolled in. 
+	 * @param person: person object
+	 * @param model: to add attributes to view
+	 * @return student/student_home
+	 */
     @GetMapping("/student/student_home")
     public String stud_home_get(@CookieValue("person") String person, Model model) {
     	//Parse Cookie into correct Person object
@@ -80,6 +90,13 @@ public class StudentController {
 		
         return "student/student_home";
     }
+    /**
+     * This function posts mapping to student home. It will request parameter from student's enrolled course to let the student click on the course page he/she would want to view.
+     * @param person: object
+     * @param enroll_course: selected course
+     * @param model
+     * @return student/course_page
+     */
     @PostMapping("/student/student_home")
     public String stud_home_post(@ModelAttribute Person person, @RequestParam("c_enrolled") String enroll_course, Model model) {
     	//Get selected course from post 
@@ -89,7 +106,11 @@ public class StudentController {
      	return "redirect:/student/course_page";
     }
      
-     
+    /**
+     * This function gets mapping from course page. It gets the list of lectures by using the student id and the course code that he/she is enrolled in. Then it will attach the lecture list to the view.
+     * @param model
+     * @return student/course_page
+     */
      @GetMapping("/student/course_page")
      public String course_page_get(Model model) {
     	//Get list of lectures by courseCode and profId
@@ -110,7 +131,13 @@ public class StudentController {
      	 return "student/course_page";
 
      }
-     
+     /**
+      * This function posts mapping to course page. It will request parameter from student's view lecture to let the student click on the lecture page he/she would want to view.
+      * @param person: object
+      * @param view_lecture: view lecture
+      * @param model
+      * @return student/view_lecture
+      */
      @PostMapping("/student/course_page")
 
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
@@ -122,7 +149,12 @@ public class StudentController {
  		return "redirect:/student/view_lecture";
 
  	}
-    
+     /**
+ 	 * This function gets mapping from student view lecture page. it views students seating for the students 
+ 	 * @param person: person object
+ 	 * @param model: to add attributes to view
+ 	 * @return student/view_lecture
+ 	 */
      @GetMapping("/student/view_lecture")
      public String view_lecture_get(Model model) {
     	 Lecture lecture = new Lecture();
@@ -141,6 +173,13 @@ public class StudentController {
      	 return "student/view_lecture";
 
      }
+     /**
+      * This function posts mapping from student view lecture page. If the student clicks on one of the course code that he/she would like to view, it will prompt him/her to the lecture page where they can view seating chart, take attendance, and the grades.
+      * @param person
+      * @param view_lecture
+      * @param model
+      * @return student/view_lecture
+      */
      @PostMapping("/student/view_lecture")
      public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
      	System.out.println(attendance);
@@ -160,7 +199,11 @@ public class StudentController {
      	 return "redirect:/student/course_page";
 
      }
-     
+     /**
+      * This function gets mapping from view location. It will find the course and locate the building assigned to it. 
+      * @param model
+      * @return prof/view_location
+      */
      @GetMapping("/student/view_location")
      public String view_location_get(Model model){
     	 Course findId = this.courseRepository.findByCourseCode(this.glob_courseCode);
