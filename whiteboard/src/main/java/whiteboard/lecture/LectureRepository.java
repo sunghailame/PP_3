@@ -10,7 +10,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
-
+/**
+ * Repository interface for lecture. Includes saving lecture to the Mysql lecture table, finding all the lectures, finding lecture by lecture id, and finding lecture by professor id, date, and lecture title.
+ * @author Sung Yealim
+ *
+ */
 public interface LectureRepository extends Repository<Lecture, Long> {
 		
 	//	@Modifying

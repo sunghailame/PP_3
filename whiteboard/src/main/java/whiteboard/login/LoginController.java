@@ -13,18 +13,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * 
+ * Class that validates user login by comparing user's input with values from database and registers a new user 
+ * @author Sydney Shile Teh
+ *	
+ */
 @Controller
 public class LoginController {
 	@Autowired
 
 	private PersonRepository PersonRepository;
 	
+	/**
+	 * The login page(first page of the website）. It receives the user's login details.  
+	 * @param user - A Person object that contains user's input
+	 * @param model 
+	 * @return whiteboard.html
+	 */
 	@GetMapping("/whiteboard")
 	public String login_get(@ModelAttribute Person user, Model model) {
 		model.addAttribute("message","");
 		return "whiteboard";
 	}
-
+	
+	/**
+	 * Verify user's credential and direct the user to homepage according to user's role.
+	 * Return error messages if user's credential cannot be found, or return link that directs user to adim, prof or student homepage. 
+	 * @param response 
+	 * @param person
+	 * @param model
+	 * @return admin_home.html, prof_home.html, student_homoe.html or whitboard.html 
+	 */
 	@PostMapping("/whiteboard")
 	public String login_post(HttpServletResponse response, @ModelAttribute Person person, Model model) {
 		try {
@@ -54,6 +74,11 @@ public class LoginController {
 		}
 	}
 
+	/**
+	 * A register page for new users to register themselves on the application. 
+	 * @param model
+	 * @return signup.html
+	 */
 	@GetMapping("/login/signup")
 	public String signup_get(Model model) {
 		Person person = new Person();
@@ -62,6 +87,14 @@ public class LoginController {
 		return "login/signup";
 	}
 
+	/**
+	 * Validates the user's input after registration. 
+	 * If valid, user will be added and return to login page. Else, throws error message and stays at the page. 
+	 * @param person
+	 * @param result
+	 * @param model
+	 * @return signup.html or whiteboard.html
+	 */
 	@PostMapping("/login/signup")
 	public String signup_post(@ModelAttribute Person person, BindingResult result, Model model) {
 
