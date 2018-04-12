@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +48,14 @@ import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
+import whiteboard.messaging.Message;
 import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
 import org.springframework.context.MessageSource;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 
 
 @Controller
@@ -137,10 +144,9 @@ public class ProfController {
     	this.glob_courseCode = course.courseCode;
      	return "redirect:/prof/course_page";
     }   
- 
-     
-     @GetMapping("/prof/course_page")
-     public String course_page_get(Model model) {
+    
+    @GetMapping("/prof/course_page")
+    public String course_page_get(Model model) {
     	//Get list of lectures by courseCode and profId
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
@@ -155,13 +161,13 @@ public class ProfController {
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
+     	 
      	 return "prof/course_page";
      }
      
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model) {
     	
-    	 
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
     		 retLec.parseStringData(view_lecture[x].split("===="));
@@ -177,7 +183,6 @@ public class ProfController {
        }
     	 
  		return "redirect:/prof/view_lecture";
-  
  	}
      
      @GetMapping("/prof/view_location")
@@ -190,6 +195,22 @@ public class ProfController {
     	 model.addAttribute("building", building.building);
     	 return "prof/view_location";
      }
+     
+     
+    @GetMapping("prof/chat")
+    @SendTo("/topic/public")
+ 	public String index_get_mapping(@Payload Message message, SimpMessageHeaderAccessor headerAccessor, Model model) {
+    	Person prof = this.personRepository.findById(this.glob_profId);
+        headerAccessor.getSessionAttributes().put("username", prof.username);
+ 		return "prof/chat";
+ 	}
+ 	
+     @MessageMapping("chat.sendMessage")
+     @SendTo("/topic/public")
+     public Message sendMessage(@Payload Message message) {
+         return message;
+     }
+     
      
      
      @GetMapping("/prof/new_lecture")

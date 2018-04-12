@@ -12,21 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MessageController {
 
-	@GetMapping("/index")
+	@GetMapping("prof/chat")
 	public String index_get_mapping() {
-		return "/index";
+		return "prof/chat";
 	}
 	
-    @MessageMapping("/chat.sendMessage")
+    @MessageMapping("prof/chat/chat.sendMessage")
     @SendTo("/topic/public")
     public Message sendMessage(@Payload Message message) {
         return message;
     }
 
-    @MessageMapping("/chat.addUser")
+    @MessageMapping("prof/chat/chat.addUser")
     @SendTo("/topic/public")
     public Message addUser(@Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
+    	
+    	
         headerAccessor.getSessionAttributes().put("username", message.getSender());
         return message;
     }
