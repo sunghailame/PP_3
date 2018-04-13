@@ -25,6 +25,13 @@ public class LoginController {
 
 	private PersonRepository PersonRepository;
 	
+	
+	@GetMapping("/")
+	public String docs_get(Model model) {
+		return "index";
+	}
+	
+	
 	/**
 	 * The login page(first page of the website）. It receives the user's login details.  
 	 * @param user - A Person object that contains user's input

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +48,14 @@ import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
+import whiteboard.messaging.Message;
 import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
 import org.springframework.context.MessageSource;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 
 /**
  * A controller for professors. Professor normally has control over upload/viewing lecture, take/viewing attendance, view the courses that he is enrolled in, and post and grade assignments.
@@ -155,7 +162,7 @@ public class ProfController {
     	this.glob_courseCode = course.courseCode;
      	return "redirect:/prof/course_page";
     }   
- 
+
      /**
       * This function gets mapping from course page. It gets the list of lectures by using the professor id and the course code that he/she is enrolled in. Then it will attach the lecture list to the view.
       * @param model
@@ -177,6 +184,7 @@ public class ProfController {
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
+     	 
      	 return "prof/course_page";
      }
      /**
@@ -189,7 +197,6 @@ public class ProfController {
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model) {
     	
-    	 
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
     		 retLec.parseStringData(view_lecture[x].split("===="));
@@ -205,7 +212,6 @@ public class ProfController {
        }
     	 
  		return "redirect:/prof/view_lecture";
-  
  	}
      /**
       * This function gets mapping from view location. It will find the course and locate the building assigned to it. 
@@ -222,6 +228,23 @@ public class ProfController {
     	 model.addAttribute("building", building.building);
     	 return "prof/view_location";
      }
+     
+    /* 
+    @GetMapping("prof/chat")
+    @SendTo("/topic/public")
+ 	public String index_get_mapping(@Payload Message message, SimpMessageHeaderAccessor headerAccessor, Model model) {
+    	Person prof = this.personRepository.findById(this.glob_profId);
+        headerAccessor.getSessionAttributes().put("username", prof.username);
+ 		return "prof/chat";
+ 	}
+ 	
+     @MessageMapping("chat.sendMessage")
+     @SendTo("/topic/public")
+     public Message sendMessage(@Payload Message message) {
+         return message;
+     }
+     */
+     
      
      /**
       * This function gets mapping from new lecture. It will look for all the students who are enrolled to the according course and generate a seating chart for that lecture.
@@ -362,6 +385,10 @@ public class ProfController {
      	 
      	 return "prof/prof_home";
      }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0deec80d7fce6e2b523f9c31c772721e60c42a4b
      /**
       * This function will let the professor to add assignments to according courses. They will select the course code first, then add the assignment name and the percentage of it.
       * @param person
@@ -393,7 +420,12 @@ public class ProfController {
     	 model.addAttribute("assignment", assignment);
     	 model.addAttribute("message","");
     	 return "prof/assignment";
+<<<<<<< HEAD
      }  
+=======
+     }
+
+>>>>>>> 0deec80d7fce6e2b523f9c31c772721e60c42a4b
      /**
       * This function will allow professor to post the assignment to the according course. It will also save the assignment to the repository.
       * @param assignment
