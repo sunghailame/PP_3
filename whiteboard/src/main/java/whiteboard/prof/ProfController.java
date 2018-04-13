@@ -293,26 +293,7 @@ public class ProfController {
      	 return "redirect:/prof/course_page";
      }
     
-     /**
-      * This function gets mapping from uploadOneFile. It will get the file that the professor uploaded.
-      * @param model
-      * @return prof/uploadOneFile
-      */
-     @GetMapping("/prof/uploadOneFile")
-     public String uploadOneFile_get(Model model) {
-    	 
-    	 return "prof/uploadOneFile";
-     }
-     /**
-      * This function posts mapping from uploadOneFile. If the professor would like to upload files for their lecture, it will be posted here.
-      * @param model
-      * @return prof/course_page
-      */
-     @PostMapping("/prof/uploadOneFile")
-     public String uploadOneFile_post(Model model) {
-    	 
-    	 return "redirect:/prof/course_page";
-     }
+     
      /**
       * In this function, professor will be able to view the lecture details and attendance for that lecture. It will also get the seating chart and the documents that the professor uploaded.
       * @param model
@@ -359,15 +340,14 @@ public class ProfController {
     	 model.addAttribute("seatingChart", formatSeats);
     	 model.addAttribute("attendance", attendees);
     	 
-    	// FileBucket fileModel = new FileBucket();
-    	// model.addAttribute("fileBucket", fileModel);
-    	 List<Document> documents = documentRepository.findAllByLectureId(lecture.lectureId);
-    	 for (Document d : documents) {
-    		 System.out.println(d.getName());
-    		 
-    	 }
-    	 model.addAttribute("documents", documents);
-    	 model.addAttribute("message","");
+    	
+//    	 List<Document> documents = documentRepository.findAllByLectureId(lecture.lectureId);
+//    	 for (Document d : documents) {
+//    		 System.out.println(d.getName());
+//    		 
+//    	 }
+//    	 model.addAttribute("documents", documents);
+//    	 model.addAttribute("message","");
      	 return "prof/view_lecture";
      }
      /**
@@ -401,7 +381,10 @@ public class ProfController {
      	 
      	 return "prof/prof_home";
      }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0deec80d7fce6e2b523f9c31c772721e60c42a4b
      /**
       * This function will let the professor to add assignments to according courses. They will select the course code first, then add the assignment name and the percentage of it.
       * @param person
@@ -433,8 +416,12 @@ public class ProfController {
     	 model.addAttribute("assignment", assignment);
     	 model.addAttribute("message","");
     	 return "prof/assignment";
+<<<<<<< HEAD
+     }  
+=======
      }
 
+>>>>>>> 0deec80d7fce6e2b523f9c31c772721e60c42a4b
      /**
       * This function will allow professor to post the assignment to the according course. It will also save the assignment to the repository.
       * @param assignment
@@ -466,6 +453,41 @@ public class ProfController {
      @PostMapping("/prof/add_grades")
      public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
     	 return "prof/grades";
+     }
+     
+     /**
+      * This function gets mapping from uploadOneFile. It will get the file that the professor uploaded.
+      * @param model
+      * @return prof/uploadOneFile
+      */
+     @GetMapping("/prof/uploadOneFile")
+     public String uploadOneFile_get(Model model) {
+    	 FileBucket fileModel = new FileBucket();
+    	 model.addAttribute("fileBucket", fileModel);
+    	 
+    	 //List Documents here
+    	 return "prof/uploadOneFile";
+     }
+     /**
+      * This function posts mapping from uploadOneFile. If the professor would like to upload files for their lecture, it will be posted here.
+      * @param model
+      * @return prof/course_page
+      */
+     @PostMapping("/prof/uploadOneFile")
+     public String uploadOneFile_post(@Valid FileBucket fileBucket, BindingResult result, Model model, @PathVariable int lectureId) throws IOException {
+    	 if (result.hasErrors()) {
+    		 System.out.println("validation errors");
+    		 Lecture lec = lectureRepository.findByLectureId(lectureId);
+    		 model.addAttribute("lecture", lec);
+    		 
+    		 //List Documents here
+    		 return "/prof/uploadOneFile";
+    	 } else {
+    		 System.out.println("Fetching file");
+    		 Lecture lec = lectureRepository.findByLectureId(lectureId);
+    		 saveDocument(fileBucket, lec);
+    	 }
+    	 return "redirect:/prof/course_page";
      }
      /**
       * This function is used to save the documents that was uploaded by the professor.
