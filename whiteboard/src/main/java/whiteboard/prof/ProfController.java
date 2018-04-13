@@ -381,10 +381,6 @@ public class ProfController {
      	 
      	 return "prof/prof_home";
      }
-<<<<<<< HEAD
-=======
-
->>>>>>> 0deec80d7fce6e2b523f9c31c772721e60c42a4b
      /**
       * This function will let the professor to add assignments to according courses. They will select the course code first, then add the assignment name and the percentage of it.
       * @param person
@@ -416,12 +412,8 @@ public class ProfController {
     	 model.addAttribute("assignment", assignment);
     	 model.addAttribute("message","");
     	 return "prof/assignment";
-<<<<<<< HEAD
-     }  
-=======
-     }
 
->>>>>>> 0deec80d7fce6e2b523f9c31c772721e60c42a4b
+     }
      /**
       * This function will allow professor to post the assignment to the according course. It will also save the assignment to the repository.
       * @param assignment
