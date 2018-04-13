@@ -2,11 +2,14 @@ package whiteboard.prof;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import whiteboard.student.ViewAttendance;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.jms.ObjectMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -48,7 +51,7 @@ import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
-import whiteboard.messaging.Message;
+import whiteboard.Message.Message;
 import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
 import org.springframework.context.MessageSource;
@@ -229,22 +232,17 @@ public class ProfController {
     	 return "prof/view_location";
      }
      
-    /* 
-    @GetMapping("prof/chat")
-    @SendTo("/topic/public")
- 	public String index_get_mapping(@Payload Message message, SimpMessageHeaderAccessor headerAccessor, Model model) {
-    	Person prof = this.personRepository.findById(this.glob_profId);
-        headerAccessor.getSessionAttributes().put("username", prof.username);
- 		return "prof/chat";
- 	}
- 	
-     @MessageMapping("chat.sendMessage")
-     @SendTo("/topic/public")
-     public Message sendMessage(@Payload Message message) {
-         return message;
+     @GetMapping("prof/chat")
+     public String chat_get(Model model) {
+    	 return "prof/chat";
      }
-     */
      
+     @MessageMapping("/hello")
+     @SendTo("/topic/greetings")
+     public Message greeting(Message message) throws Exception {
+         Thread.sleep(1000); // simulated delay
+         return new Message(this.personRepository.findById(this.glob_profId).username,"New user in chat!");
+     }
      
      /**
       * This function gets mapping from new lecture. It will look for all the students who are enrolled to the according course and generate a seating chart for that lecture.
@@ -279,8 +277,6 @@ public class ProfController {
      	 lecture.openAttendance = false;
      	 java.util.Date getCur = new java.util.Date();
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
-
-     	 
      	 this.lectureRepository.save(lecture);
      	 
      	 Lecture findId = this.lectureRepository.findByTitleAndLecDateAndProfId(lecture.title, lecture.lecDate, lecture.profId);

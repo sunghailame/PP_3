@@ -49,10 +49,11 @@ public class SeatingGenerator{
 				stud.parseStringData(val);
 				stud.lectureId = lectureId;
 				seatingList.add(stud);
+				System.out.println("Student ID: "+stud.studId);
 			} else {
 				int row = Integer.parseInt(val.substring(0,1));
 				int column = Integer.parseInt(val.substring(2,3));
-				SeatingChart stud = new SeatingChart(0, lectureId, 0, "Empty Seat", row, column);
+				SeatingChart stud = new SeatingChart(0, lectureId, 3000028, "Empty Seat", row, column);
 				seatingList.add(stud);
 			}
 		}
