@@ -21,7 +21,7 @@ public class SeatingChart {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int chartId;
 	
-		@Column(name = "lectureId")
+		@Column(name = "LectureId")
 		public int lectureId;
 		@Column(name = "StudId")
 		public int studId;

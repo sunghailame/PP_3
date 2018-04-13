@@ -33,33 +33,75 @@ CREATE TABLE IF NOT EXISTS Enrollment (
   ;
 
 CREATE TABLE IF NOT EXISTS Lecture (
+  `LectureID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `ProfID` BIGINT,
    `lecDate` date,
    `Title` VARCHAR(45),
   `CourseCode` VARCHAR(45), 
   `Link` VARCHAR(45),
   `Details` VARCHAR(45),
-  `ID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `Attendance` TINYINT(1),
+  `OpenAttendance` TINYINT(1),
   FOREIGN KEY (ProfID) REFERENCES person(ID),
-  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode)
+  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
+  CONSTRAINT UC_Lecture UNIQUE (ProfID, lecDate, Title, CourseCode)
+  
 )
 ;
 
 CREATE TABLE IF NOT EXISTS Attendance (
-  `attendID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `CourseCode` VARCHAR(45), 
-  `SectionNo` VARCHAR(45),
-  `Date` date,
-  `SectioNo` VARCHAR(45),
-  `LectureTitle` VARCHAR(45),
-  `ProfId` INT,
-  `StudId` INT,
-  FOREIGN KEY (CourseCode) REFERENCES Lecture(CourseCode),
-  FOREIGN KEY (ProfId) REFERENCES Lecture(ProfID),
+  `ID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `LectureID` BIGINT, 
+  `StuId` BIGINT,
+  FOREIGN KEY (LectureID) REFERENCES Lecture(LectureID),
   FOREIGN KEY (StuId) REFERENCES Enrollment(PersonID)
   )
   ;
+  
+CREATE TABLE IF NOT EXISTS Document (
+  `ID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `LectureID` BIGINT NOT NULL, 
+  `name` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(255),
+  `type` VARCHAR(100) NOT NULL,
+  `content` longblob NOT NULL,
+  FOREIGN KEY (LectureId) REFERENCES Lecture(LectureID)
+  )
+  ;
+  
+CREATE TABLE IF NOT EXISTS SeatingChart (
+  `ChartId` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `LectureId` BIGINT NOT NULL, 
+  `StudId` BIGINT,
+  `XRow` int(11),
+  `YColumn` int(11) ,
+  `StudName` varchar(45),
+  FOREIGN KEY (StudId) REFERENCES person(ID),
+  FOREIGN KEY (LectureId) REFERENCES Lecture(LectureID)
+  )
+  ;
+  
+CREATE TABLE IF NOT EXISTS Assignment (
+  `AssID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `CourseCode` VARCHAR(45) NOT NULL, 
+  `AssignmentName` VARCHAR(45),
+  `Percentage` bigint(20),
+  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode)
+  )
+  ;
+  
+CREATE TABLE IF NOT EXISTS Grades (
+  `GradeId` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `StudentId` BIGINT, 
+  `AssId` BIGINT,
+  `Grade` int(11),
+  FOREIGN KEY (AssId) REFERENCES Assignment(AssID),
+  FOREIGN KEY (StudentId) REFERENCES person(ID)
+  )
+  ;
+
+  
+
+  
 
 
   
