@@ -425,9 +425,10 @@ public class ProfController {
  		model.addAttribute("courses", courses);
  		
     	 Assignment assignment= new Assignment();
-    	 model.addAttribute("assignment", assignment);
+    	 model.addAttribute("assignments", assignment);
     	 model.addAttribute("message","");
-    	 return "prof/assignment";
+    	 
+    	 return "prof/add_assignments";
 
      }
      
@@ -438,10 +439,20 @@ public class ProfController {
       * @return prof/assignment
       */
      @PostMapping("/prof/add_assignments")
-     public String post_assignments(@ModelAttribute Assignment assignment, @ModelAttribute Person person) {
-    	 this.assignmentRepository.save(assignment);
+     public String post_assignments(@ModelAttribute Assignment AssignmentName, @ModelAttribute Person person, BindingResult result, Model model) {
+    	 try{
+    		 AssignmentName.courseCode = glob_courseCode;
     	 
-    	 return "prof/assignment";
+    	 System.out.println(AssignmentName.courseCode);
+    	 System.out.println(AssignmentName);
+    	 this.assignmentRepository.save(AssignmentName);
+    	 } catch (Exception e) {
+    		 model.addAttribute("message", "Error");
+    		 return "redirect:prof/course_page";
+    	 }
+    	 
+    	 
+    	 return "redirect:prof/course_page";
      }
      /**
       * This function will let professor grade the assignments after the students submit them. 

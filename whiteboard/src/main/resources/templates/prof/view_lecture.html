@@ -16,6 +16,11 @@
 	<div id="sidebar">
 	<ul id="contents">
 		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
+<<<<<<< HEAD
+		<li id="Files"><a href="uploadOneFile">Files</a></li>
+=======
+        <li id="fileUpload"><a href="../../UploadOneFile">Upload File</a></li>
+>>>>>>> 9c8acfa65d8f22ec9d3d8095938b31dfdc893c6d
   		<li id="logout"><a href="../../whiteboard">logout</a></li>
 	</ul>
 	</div>
@@ -86,79 +91,16 @@
     		<td th:text="${seatingChart.row_four[3].studName}"></td>
     		<td th:text="${seatingChart.row_four[4].studName}"></td>    		
     	</tr>
+    	
     </table>
+    </form>
     
-</form>
 
-	<div class="generic container">
-		<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading"><span class="lead">List of Documents </span></div>
-			   <div class="tablecontainer">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>File Name</th>
-                            <th>Type</th>
-                            <th>Description</th>
-                            <th width="100"></th>
-                            <th width="100"></th>
-                        </tr>
-                    </thead>
-                    <tr th:each="doc : ${documents}">
-        				<td th:text="${doc.name}"></td>
-        				<td th:text="${doc.type}"></td>
-        				<td th:text="${doc.description}"></td>
-                    </tr>
-                    <!--<tbody>
-                    <c:forEach items="${documents}" var="doc" varStatus="counter">
-                    	<tr>
-                    		<td>${counter.index+1}</td>
-                    		<td>${doc.name}</td>
-                    		<td>${doc.type}</td>
-                    		<td>${doc.description}</td>
-                    		
-                    	</tr>
-                    </c:forEach>
-                   </tbody> -->
-                  </table>
-                  </div>
-                  </div>
-                  <div class="panel panel-default">
-             
-            <div class="panel-heading"><span class="lead">Upload New Document</span></div>
-            <div class="uploadcontainer">
-                <form:form method="POST" modelAttribute="fileBucket" enctype="multipart/form-data" class="form-horizontal">
-             
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label class="col-md-3 control-lable" for="file">Upload a document</label>
-                            <div class="col-md-7">
-                                <form:input type="file" path="file" id="file" class="form-control input-sm"/>
-                                <div class="has-error">
-                                    <form:errors path="file" class="help-inline"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label class="col-md-3 control-lable" for="description">Description</label>
-                            <div class="col-md-7">
-                                <form:input type="text" path="description" id="description" class="form-control input-sm"/>
-                            </div>
-                             
-                        </div>
-                    </div>
-             
-                    
-     
-                </form:form>
-                </div>
-        </div>
-        
-    </div>
+<<<<<<< HEAD
+	
+               
+=======
+>>>>>>> 9c8acfa65d8f22ec9d3d8095938b31dfdc893c6d
                    
 	
 </body>
