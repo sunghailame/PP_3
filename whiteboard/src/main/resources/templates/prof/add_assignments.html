@@ -16,19 +16,22 @@
 </head>
 <body>
     <div class="container-fluid">
-    <h1>Add Assignment</h1>
     <p th:text="''+${message}"/>
     <form id="myForm" action="#" th:action="@{/prof/add_assignments}" th:object="${assignments}" method="post">
+        <h1 id="headingForm">Add Assignment</h1>
+            <p>Enter Assignment Name: <input id="assName" type="text" th:field="*{assName}" /></p>
+			<p>Enter Percentage: <input id="percentage" type="number" th:field="*{percentage}" /></p>
+        <!--  
         <div class="form-group">
-        <label for="AssnignmentName">Assignment Name:</label>
-             <input id="name" class="form-control" type="text" placeholder="Enter assignment name" th:field="${assignments.assName}" />
+        <label for="AssignmentName">Assignment Name:</label>
+             <input id="name" class="form-control" type="text" placeholder="Enter assignment name" th:field="*{assName}" />
         </div>
 
         <div class="form-group">
         <label for="Percentage">Percentage:</label> 
-            <input id="percentage" class="form-control" type="number" placeholder="Enter the weightage" th:field="${assignments.percentage}" />
+            <input id="percentage" class="form-control" type="number" placeholder="Enter the weightage" th:field="*{percentage}" />
         </div>
-
+-->
         <p>
             <input id="sub" class="btn btn-primary" type="submit" value="Submit" />
         </p>
