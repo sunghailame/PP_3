@@ -55,6 +55,7 @@ import whiteboard.Message.Message;
 import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
 import org.springframework.context.MessageSource;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -237,11 +238,19 @@ public class ProfController {
     	 return "prof/chat";
      }
      
-     @MessageMapping("/hello")
-     @SendTo("/topic/greetings")
-     public Message greeting(Message message) throws Exception {
-         Thread.sleep(1000); // simulated delay
-         return new Message(this.personRepository.findById(this.glob_profId).username,"New user in chat!");
+     @MessageMapping("/chat.sendMessage")
+     @SendTo("/topic/public")
+     public Message sendMessage(@Payload Message chatMessage) {
+         return chatMessage;
+     }
+
+     @MessageMapping("/chat.addUser")
+     @SendTo("/topic/public")
+     public Message addUser(@Payload Message chatMessage, 
+                                SimpMessageHeaderAccessor headerAccessor) {
+         // Add username in web socket session
+         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+         return chatMessage;
      }
      
      /**
@@ -414,6 +423,7 @@ public class ProfController {
     	 return "prof/assignment";
 
      }
+     
      /**
       * This function will allow professor to post the assignment to the according course. It will also save the assignment to the repository.
       * @param assignment

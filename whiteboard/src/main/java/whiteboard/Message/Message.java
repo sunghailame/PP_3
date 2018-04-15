@@ -1,38 +1,37 @@
 package whiteboard.Message;
 
-public class Message{
-	
-	public String sender;
-	public String content;
-	
-	public Message(String sender, String content){
-		this.sender = sender;
-		this.content = content;
-	}
-	
-	
-	Message(){
-		
-	}
+public class Message {
+    private MessageType type;
+    private String content;
+    private String sender;
 
+    public enum MessageType {
+        CHAT,
+        JOIN,
+        LEAVE
+    }
 
-	public String getSender() {
-		return sender;
-	}
+    public MessageType getType() {
+        return type;
+    }
 
+    public void setType(MessageType type) {
+        this.type = type;
+    }
 
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
+    public String getContent() {
+        return content;
+    }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getSender() {
+        return sender;
+    }
 
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 }
