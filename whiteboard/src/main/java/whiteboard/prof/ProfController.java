@@ -243,24 +243,22 @@ public class ProfController {
      @GetMapping("prof/chat")
      public String chat_get(Model model) {
     	 model.addAttribute("course",this.glob_courseCode);
-    	 //model.addAttribute("username", this.personRepository.findById(this.glob_profId).username);
     	 String username = this.personRepository.findById(this.glob_profId).username;
-    	 //JSONObject usernameJson =usernameJson.fromObject(username);
-    	 //String usernameStringJson = usernameJson.toString();
     	 model.addAttribute("username", username);  
+    	 model.addAttribute("courseCode",this.glob_courseCode);
     	 return "prof/chat";
      }
      
-     @MessageMapping("/chat.sendMessage")
-     @SendTo("/topic/public")
-     public Message sendMessage(@Payload Message chatMessage) {
+     @MessageMapping("/chat.sendMessage/{courseCode}")
+     @SendTo("/topic/public/{courseCode}")
+     public Message sendMessage(@DestinationVariable String courseCode, @Payload Message chatMessage) {
          return chatMessage;
      }
 
      @MessageMapping("/chat.addUser")
      @SendTo("/topic/public")
      public Message addUser(@Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-         // Add username in web socket session
+
          headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
          return chatMessage;
      }
@@ -444,6 +442,7 @@ public class ProfController {
     	 Assignment assignment= new Assignment();
     	 model.addAttribute("assignments", assignment);
     	 model.addAttribute("message","");
+    	 
     	 return "prof/add_assignments";
 
      }
@@ -455,12 +454,20 @@ public class ProfController {
       * @return prof/assignment
       */
      @PostMapping("/prof/add_assignments")
-     public String post_assignments(@ModelAttribute Assignment assignment, @ModelAttribute Person person) {
-    	 assignment.courseCode = glob_courseCode;
-    	 System.out.println(assignment.courseCode);
-    	 this.assignmentRepository.save(assignment);
+     public String post_assignments(@ModelAttribute Assignment AssignmentName, @ModelAttribute Person person, BindingResult result, Model model) {
+    	 try{
+    		 AssignmentName.courseCode = glob_courseCode;
     	 
-    	 return "prof/add_assignments";
+    	 System.out.println(AssignmentName.courseCode);
+    	 System.out.println(AssignmentName);
+    	 this.assignmentRepository.save(AssignmentName);
+    	 } catch (Exception e) {
+    		 model.addAttribute("message", "Error");
+    		 return "redirect:prof/course_page";
+    	 }
+    	 
+    	 
+    	 return "redirect:prof/course_page";
      }
      /**
       * This function will let professor grade the assignments after the students submit them. 

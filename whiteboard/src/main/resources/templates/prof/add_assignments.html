@@ -7,34 +7,35 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/css/login.css"/>
-  <link rel="stylesheet" media="all"  
-      href="../../css/background_theme.css" th:href="@{/css/background_themeSignup.css}" />   
-      
+<link rel="stylesheet" href="../../css/create_course.css"></link>
 <title>Add New Assignment</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="admin_home">WhiteBoard</a></li>
+  		<li id="people"><a href="show_users">View People</a></li>
+  		<li id="addStudent"><a href="enroll_student">Add Student</a></li>
+  		<li id="addInstructor"><a href="enroll_prof">Add Instructor</a></li>
+  		<li id="logout"><a href="../whiteboard">logout</a></li>
+	</ul>
+	</div>
     <div class="container-fluid">
-    <h1>Add Assignment</h1>
+    <p th:text="''+${message}"/>
+    <h3 id="headingForm">Add Assignment</h3>
     <p th:text="''+${message}"/>
     <form id="myForm" action="#" th:action="@{/prof/add_assignments}" th:object="${assignments}" method="post">
-        <div class="form-group">
-        <label for="AssnignmentName">Assignment Name:</label>
-             <input id="name" class="form-control" type="text" placeholder="Enter assignment name" th:field="${assignments.assName}" />
-        </div>
 
-        <div class="form-group">
-        <label for="Percentage">Percentage:</label> 
-            <input id="percentage" class="form-control" type="number" placeholder="Enter the weightage" th:field="${assignments.percentage}" />
-        </div>
+           <p>Assignment Name: <input id="AssignmentName" class="form-control" type="text" placeholder="Enter the weightage" th:field="*{assName}" /></p>
 
+            <p>Percentage: <input id="percentage" class="form-control" type="number" placeholder="Enter the weightage" th:field="*{percentage}" /></p>
         <p>
             <input id="sub" class="btn btn-primary" type="submit" value="Submit" />
         </p>
     </form>
     </div>
 
-    <script type="text/javascript" src="signup.js"></script>
+    <script type="text/javascript" src="../js/add_assignment.js"></script>
 </body>
 </html>
