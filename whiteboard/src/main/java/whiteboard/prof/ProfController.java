@@ -237,10 +237,7 @@ public class ProfController {
      @GetMapping("prof/chat")
      public String chat_get(Model model) {
     	 model.addAttribute("course",this.glob_courseCode);
-    	 //model.addAttribute("username", this.personRepository.findById(this.glob_profId).username);
     	 String username = this.personRepository.findById(this.glob_profId).username;
-    	 //JSONObject usernameJson =usernameJson.fromObject(username);
-    	 //String usernameStringJson = usernameJson.toString();
     	 model.addAttribute("username", username);  
     	 model.addAttribute("courseCode",this.glob_courseCode);
     	 return "prof/chat";

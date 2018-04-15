@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -25,6 +30,7 @@ import whiteboard.location.Location;
 import whiteboard.location.LocationGenerator;
 import whiteboard.location.LocationRepository;
 import whiteboard.login.Person;
+import whiteboard.Message.Message;
 import whiteboard.SeatingChart.SeatingChartRepository;
 import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
@@ -57,6 +63,9 @@ public class StudentController {
 	
 	@Autowired
 	private AssignmentRepository assignmentRepository;
+	
+	@Autowired
+	private PersonRepository personRepository;
 	
 	private int glob_profId;
 	private String glob_courseCode;
@@ -232,5 +241,13 @@ public class StudentController {
     	 return "student/view_location";
      }
      
-   
+     @GetMapping("student/chat")
+     public String chat_get(Model model) {
+    	 model.addAttribute("course",this.glob_courseCode);
+    	 String username = this.personRepository.findById(this.glob_studId).username;
+    	 model.addAttribute("username", username);  
+    	 model.addAttribute("courseCode",this.glob_courseCode);
+    	 return "student/chat";
+     }
+     
 }
