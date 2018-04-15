@@ -237,24 +237,22 @@ public class ProfController {
      @GetMapping("prof/chat")
      public String chat_get(Model model) {
     	 model.addAttribute("course",this.glob_courseCode);
-    	 //model.addAttribute("username", this.personRepository.findById(this.glob_profId).username);
     	 String username = this.personRepository.findById(this.glob_profId).username;
-    	 //JSONObject usernameJson =usernameJson.fromObject(username);
-    	 //String usernameStringJson = usernameJson.toString();
     	 model.addAttribute("username", username);  
+    	 model.addAttribute("courseCode",this.glob_courseCode);
     	 return "prof/chat";
      }
      
-     @MessageMapping("/chat.sendMessage")
-     @SendTo("/topic/public")
-     public Message sendMessage(@Payload Message chatMessage) {
+     @MessageMapping("/chat.sendMessage/{courseCode}")
+     @SendTo("/topic/public/{courseCode}")
+     public Message sendMessage(@DestinationVariable String courseCode, @Payload Message chatMessage) {
          return chatMessage;
      }
 
      @MessageMapping("/chat.addUser")
      @SendTo("/topic/public")
      public Message addUser(@Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-         // Add username in web socket session
+
          headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
          return chatMessage;
      }
