@@ -26,7 +26,7 @@
        
       <!-- MyUploadForm -->
        
-      <form id="myForm" th:object="${myUploadForm}" method="POST" action="" enctype="multipart/form-data">
+      <form id="myForm" th:object="${fileBucket}" method="POST" action="" enctype="multipart/form-data">
 		<p>
 			Description:
          <input th:field="*{description}" style="width:300px;"/>   
