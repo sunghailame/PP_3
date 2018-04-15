@@ -17,6 +17,8 @@ import whiteboard.course.Course;
 import whiteboard.course.CourseRepository;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
+import whiteboard.grades.Assignment;
+import whiteboard.grades.AssignmentRepository;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
 import whiteboard.location.Location;
@@ -53,11 +55,15 @@ public class StudentController {
 	@Autowired
 	private LocationRepository locationRepository;
 	
+	@Autowired
+	private AssignmentRepository assignmentRepository;
+	
 	private int glob_profId;
 	private String glob_courseCode;
 	private String glob_lecTitle;
 	private int glob_lecId;
 	private int glob_studId;
+	private int glob_assId;
 	
 	/**
 	 * This function gets mapping from student home. It shows the courses that the student is currently enrolled in. 
@@ -170,6 +176,15 @@ public class StudentController {
     	 
     	 model.addAttribute("lecture", lecture);
     	 model.addAttribute("message","");
+    	 
+    	 Assignment assignment = new Assignment();
+    	 int assId;
+    	 
+    	 assignment = this.assignmentRepository.findByAssId(this.glob_assId);
+    	 
+    	 model.addAttribute("assignment", assignment);
+    	 model.addAttribute("message", "");
+    	 
      	 return "student/view_lecture";
 
      }
@@ -184,9 +199,11 @@ public class StudentController {
      public String view_lecture_post(@ModelAttribute Person person, @RequestParam("attendance") String attendance, Model model) {
      	System.out.println(attendance);
     	Lecture retLec = new Lecture();
+    	Assignment retAss = new Assignment();
      	retLec.parseStringData(attendance.split("===="));
      	
      	Attendance checkDouble = attendanceRepository.findByLectureIdAndStudId(retLec.lectureId, glob_studId);
+     	Assignment posted = assignmentRepository.findByCourseCode(retAss.courseCode);
      	
      	if(checkDouble == null) {
     	if(retLec.openAttendance) {
@@ -214,4 +231,6 @@ public class StudentController {
     	 model.addAttribute("building", building.building);
     	 return "student/view_location";
      }
+     
+   
 }
