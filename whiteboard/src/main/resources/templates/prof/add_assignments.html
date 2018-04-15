@@ -22,7 +22,8 @@
 	</ul>
 	</div>
     <div class="container-fluid">
-    <h3>Add Assignment</h3>
+    <p th:text="''+${message}"/>
+    <h3 id="headingForm">Add Assignment</h3>
     <p th:text="''+${message}"/>
     <form id="myForm" action="#" th:action="@{/prof/add_assignments}" th:object="${assignments}" method="post">
 
