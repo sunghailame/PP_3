@@ -253,8 +253,7 @@ public class ProfController {
 
      @MessageMapping("/chat.addUser")
      @SendTo("/topic/public")
-     public Message addUser(@Payload Message chatMessage, 
-                                SimpMessageHeaderAccessor headerAccessor) {
+     public Message addUser(@Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
          // Add username in web socket session
          headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
          return chatMessage;
