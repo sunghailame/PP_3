@@ -14,12 +14,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -117,19 +120,19 @@ public class AdminController {
 			return "admin/create_course";
 		}
 	}
-//	@GetMapping("/admin/delete_student")
-//	public String delete_student_from_course(Person person, Model model) {
-//		adminRepository.deleteByNameIn(person.id);
-//		return "admin/delete_student";
-//	}
-//
-//	@DeleteMapping("/admin/delete_student")
-//	public ResponseEntity<?> deleteStudent(@PathVariable(value = "ID") int id) {
-//		Person person = adminRepository.deleteByNameIn(id);
-//		adminRepository.delete(person);
-//		
-//		return ResponseEntity.ok().build();
-//	}
+	@GetMapping("/admin/delete_student")
+	public String delete_student_from_course(Person person, Model model) {
+		
+		EnrollmentRepository.deleteById(person.id);
+		return "admin/delete_student";
+	}
+
+	@DeleteMapping("/admin/delete_student")
+	public ResponseEntity<?> deleteStudent(@PathVariable(value = "ID") int id) {
+		EnrollmentRepository.deleteById(id);
+		
+		return ResponseEntity.ok().build();
+	}
 	
 	/**
 	 * Gets the list of all possible courses and students and adds them to the wrapper class.

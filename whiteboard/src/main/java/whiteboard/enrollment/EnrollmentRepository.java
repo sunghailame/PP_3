@@ -13,6 +13,7 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 	 */
 	void save(Enrollment e);
 	
+	
 	/**
 	 * Returns all entries in the DB for Enrollment as an Array List of Enrollment objects.
 	 * @return ArrayList<Enrollment>
@@ -43,4 +44,11 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 	 * @return ArrayList<Enrollment>
 	 */
 	ArrayList<Enrollment> findByRole(String string);
+
+	static void deleteById(int id) {
+
+		
+	}
+
+
 }
