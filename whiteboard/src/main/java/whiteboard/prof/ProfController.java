@@ -52,6 +52,9 @@ import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
+import whiteboard.notification.Notification;
+import whiteboard.notification.NotificationGenerator;
+import whiteboard.notification.NotificationRepository;
 import whiteboard.Message.Message;
 import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
@@ -94,6 +97,9 @@ public class ProfController {
 	
 	@Autowired
 	private AssignmentRepository assignmentRepository;
+	
+	@Autowired
+	private NotificationRepository notificationRepository;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -270,7 +276,7 @@ public class ProfController {
      	 SeatingGenerator seating = new SeatingGenerator();
      	 ArrayList<Enrollment> students = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,"student");
      	 ArrayList<Person> lookup = this.personRepository.findAll();
-     	 seating.setView(students, lookup, 0);
+     	 seating.setView(students, lookup, 0);     	 
      	 model.addAttribute("seating", seating);
      	 model.addAttribute("lecture", new_lecture);
     	 model.addAttribute("message", "");
@@ -294,6 +300,17 @@ public class ProfController {
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
      	 this.lectureRepository.save(lecture);
      	 
+     	
+     	 ArrayList<Enrollment> receivers = new ArrayList<Enrollment>();
+     	 receivers = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
+     	 for (Enrollment e : receivers ) {
+     		Notification n = new Notification();
+     		NotificationGenerator ng = new NotificationGenerator(e.personId);
+     		n =  ng.createNotification_newLecture(lecture.courseCode, lecture.title);
+     		notificationRepository.save(n);
+     	 }
+     	 
+     	 
      	 Lecture findId = this.lectureRepository.findByTitleAndLecDateAndProfId(lecture.title, lecture.lecDate, lecture.profId);
      	 SeatingGenerator seating = new SeatingGenerator();
      	 
@@ -304,6 +321,7 @@ public class ProfController {
      		 this.seatingRepository.save(add);
      	 }
      	 
+     	
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";
      }
