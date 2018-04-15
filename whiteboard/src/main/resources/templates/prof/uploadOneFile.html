@@ -20,7 +20,6 @@
 	</ul>
 	</div>
 
-      <th:block th:include="/_menu"></th:block>
        
       <h1>Upload One File:</h1>
        
@@ -32,7 +31,7 @@
          <input th:field="*{description}" style="width:300px;"/>   
 		</p>              
 		<p id="Upload">
-			<input th:field="*{fileDatas}" type="file"/>
+			<input th:field="${fileBucket}" type="file"/>
 		</p>
         <p id="subBack">
             	<button id="submit" type="submit" class="btn btn-primary btn-lg" >Submit</button>
