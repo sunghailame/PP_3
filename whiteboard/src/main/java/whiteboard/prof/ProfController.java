@@ -14,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -235,6 +236,12 @@ public class ProfController {
      
      @GetMapping("prof/chat")
      public String chat_get(Model model) {
+    	 model.addAttribute("course",this.glob_courseCode);
+    	 //model.addAttribute("username", this.personRepository.findById(this.glob_profId).username);
+    	 String username = this.personRepository.findById(this.glob_profId).username;
+    	 //JSONObject usernameJson =usernameJson.fromObject(username);
+    	 //String usernameStringJson = usernameJson.toString();
+    	 model.addAttribute("username", username);  
     	 return "prof/chat";
      }
      

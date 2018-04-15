@@ -13,7 +13,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 public class WebSocketEventListener {
 
 
-    @Autowired
+   /* @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
     @EventListener
@@ -33,5 +33,5 @@ public class WebSocketEventListener {
 
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
-    }
+    }*/
 }
