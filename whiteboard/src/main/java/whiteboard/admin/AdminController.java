@@ -130,7 +130,7 @@ public class AdminController {
 	@DeleteMapping("/admin/delete_student")
 	public ResponseEntity<?> deleteStudent(@PathVariable(value = "ID") int id) {
 		EnrollmentRepository.deleteById(id);
-		
+		System.out.println(id);
 		return ResponseEntity.ok().build();
 	}
 	

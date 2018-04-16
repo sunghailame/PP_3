@@ -12,8 +12,7 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 	 * @param e
 	 */
 	void save(Enrollment e);
-	
-	
+
 	/**
 	 * Returns all entries in the DB for Enrollment as an Array List of Enrollment objects.
 	 * @return ArrayList<Enrollment>
