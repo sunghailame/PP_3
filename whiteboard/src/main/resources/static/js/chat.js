@@ -57,8 +57,7 @@ function sendMessage(event) {
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
-            content: messageInput.value,
-            type: 'CHAT'
+            content: messageInput.value
         };
         //Send the message to the course's topic
         stompClient.send("/app/chat.sendMessage/"+courseCode, {}, JSON.stringify(chatMessage));
@@ -73,13 +72,6 @@ function onMessageReceived(payload) {
 
     var messageElement = document.createElement('li');
 
-    if(message.type === 'JOIN') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
-    } else {
         messageElement.classList.add('chat-message');
 
         var avatarElement = document.createElement('i');
@@ -93,7 +85,6 @@ function onMessageReceived(payload) {
         var usernameText = document.createTextNode(message.sender);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
-    }
 
     var textElement = document.createElement('p');
     var messageText = document.createTextNode(message.content);
