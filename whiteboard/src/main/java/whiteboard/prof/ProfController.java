@@ -207,13 +207,14 @@ public class ProfController {
       */
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model) {
-    	
+    	int view = 0;
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
     		 retLec.parseStringData(view_lecture[x].split("===="));
     		 if(view_lecture[x].contains("====viewThisOne")) {
     			 this.glob_lecTitle = retLec.title;
             	 this.glob_lectureId = retLec.lectureId;
+            	 view = 1;
     		 }
         	 if(view_lecture[x].contains("attendance") || view_lecture[x].contains("close")) {
         		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
@@ -221,8 +222,11 @@ public class ProfController {
         		 lectureRepository.save(lec);
         	 } 
        }
-    	 
- 		return "redirect:/prof/view_lecture";
+    	if(view == 1) {
+    		return "redirect:/prof/view_lecture";
+    	} else {
+    		return "redirect:/prof/course_page";
+    	}
  	}
      /**
       * This function gets mapping from view location. It will find the course and locate the building assigned to it. 
