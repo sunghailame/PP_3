@@ -12,10 +12,17 @@ var stompClient = null;
 var username = null;
 var courseCode = null;
 
-var profColor = '#053E92';
-
+var profColor = '#AE5E81';
+//var profPic = 'https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_0/dpr_2.0/c_limit,w_740/fl_lossy,q_auto/v1515805265/180112-fisher-african-lions-tease_uaafsx';
 var colors = [
-    '#FFA64F', '#FFE34F', '#7653D8', '#DBFA4D', '#D542CE', '#46E359', '#FF584F'
+	//'http://www.catster.com/wp-content/uploads/2017/11/Angry-cat-growling-or-hissing-ears-back.jpg',
+	//'https://acm202.files.wordpress.com/2016/09/cats-politics-tn.jpg',
+	//'https://img.buzzfeed.com/buzzfeed-static/static/2015-03/3/16/enhanced/webdr09/enhanced-7711-1425417143-1.jpg?downsize=715:*&output-format=auto&output-quality=auto',
+	//'https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
+	//'http://honesttopaws.com/wp-content/uploads/sites/5/2017/05/banana-cat-1.png',
+	//'https://i.amz.mshcdn.com/zy65wibIKGJwrQ3LlrTIKPGfDoE=/1200x630/2017%2F11%2F12%2F85%2F0cb95ccbac6441e7a30fb7d1d01b094d.bc1ee.png'
+	
+    '#F4E8C1', '#A0C1B8', '#709FB0', '#726A95', '#351F39'
 ];
 
 function connect(event) {
@@ -25,7 +32,7 @@ function connect(event) {
     if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
-        document.getElementById('chatHeader').innerHTML = "Start chatting with "+courseCode;
+        document.getElementById('chatHeader').innerHTML = "Chat with "+courseCode;
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
 
@@ -72,26 +79,37 @@ function sendMessage(event) {
 function onMessageReceived(payload) {
 	 var message = JSON.parse(payload.body);
 
-	    var messageElement = document.createElement('li');
+	 var messageElement = document.createElement('li');
 
-	        messageElement.classList.add('chat-message');
-
-	        var avatarElement = document.createElement('i');
-	        var avatarText = document.createTextNode(message.role[0]);
-	        avatarElement.appendChild(avatarText);
-	        
-	        if(message.role == 'prof'){
-	        	avatarElement.style['background-color'] = profColor;
-	        } else {
-	        	avatarElement.style['background-color'] = getAvatarColor(message.sender);
-	        }
-	        
-	        messageElement.appendChild(avatarElement);
-
-	        var usernameElement = document.createElement('span');
-	        var usernameText = document.createTextNode(message.sender);
-	        usernameElement.appendChild(usernameText);
-	        messageElement.appendChild(usernameElement);
+	    messageElement.classList.add('chat-message');
+	
+	   var avatarElement = document.createElement('i');
+	    var avatarText = document.createTextNode(message.role[0]);
+	    avatarElement.appendChild(avatarText);
+	    
+	    if(message.role == 'prof'){
+	    	avatarElement.style['background-color'] = profColor;
+	    } else {
+	    	avatarElement.style['background-color'] = getAvatarColor(message.sender);
+	    }
+	    
+	    messageElement.appendChild(avatarElement);
+	    
+	   /* var avatarElement = document.createElement('img');
+	    if(message.role == 'prof'){
+	    	avatarElement.setAttribute('src', profPic);
+	    } else {
+	    	avatarElement.setAttribute('src', getAvatarColor(message.sender);
+	    }
+	    avatarElement.width = '20';
+	    avatarElement.height = '20';
+	    messageElement.appendChild(avatarElement);
+	    */
+	
+	    var usernameElement = document.createElement('span');
+	    var usernameText = document.createTextNode(message.sender);
+	    usernameElement.appendChild(usernameText);
+	    messageElement.appendChild(usernameElement);
 
 	    var textElement = document.createElement('p');
 	    var messageText = document.createTextNode(message.content);
