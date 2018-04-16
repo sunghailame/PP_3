@@ -445,13 +445,12 @@ public class ProfController {
     	 System.out.println(AssignmentName.courseCode);
     	 System.out.println(AssignmentName);
     	 this.assignmentRepository.save(AssignmentName);
-    	 } catch (Exception e) {
+    	 return "redirect:prof/course_page";
+    	 }  catch (Exception e) {
     		 model.addAttribute("message", "Error");
     		 return "redirect:prof/course_page";
     	 }
     	 
-    	 
-    	 return "redirect:prof/course_page";
      }
      /**
       * This function will let professor grade the assignments after the students submit them. 
