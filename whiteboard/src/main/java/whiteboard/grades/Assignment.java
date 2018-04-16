@@ -1,5 +1,7 @@
 package whiteboard.grades;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class Assignment {
 	public String assName;
 	@Column(name = "Percentage")
 	public int percentage;
+	private String percentageS = Integer.toString(percentage);
 	/**
 	 * Contains information about the assingment such as assignment id, course code, assignment name, and percentage of each assignment.
 	 * @param assId: unique assignment id
@@ -96,5 +99,13 @@ public class Assignment {
 	@Override
 	public String toString() {
 		return this.assId+"===="+this.assName+"===="+this.courseCode+"===="+this.percentage;
+	}
+	
+	public String parseStringData(String[] dataSplit) {
+		this.assName = dataSplit[0];
+		this.courseCode = dataSplit[1];
+		//String percentageS = Integer.toString(percentage);
+		this.percentageS = dataSplit[2];
+		return "";
 	}
 }

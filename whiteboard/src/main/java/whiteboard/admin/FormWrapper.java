@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import whiteboard.grades.Assignment;
 import whiteboard.lecture.Lecture;
 
 @SessionAttributes
@@ -16,6 +17,8 @@ public class FormWrapper{
 	public ArrayList<Lecture> lectures;
 	
 	public ArrayList<Lecture> lecture;
+	
+	public ArrayList<Assignment> assignment;
 	
 	public ArrayList<EnrollPerson> getUsers(){
 		return users;
@@ -49,4 +52,10 @@ public class FormWrapper{
 		this.lecture = lecture;
 	}
 	
+	public ArrayList<Assignment> getAssignment(){
+		return assignment;
+	}
+	public void setAssignment(ArrayList<Assignment> assignment) {
+		this.assignment = assignment;
+	}
 }

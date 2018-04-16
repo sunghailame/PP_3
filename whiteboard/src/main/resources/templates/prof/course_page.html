@@ -55,5 +55,27 @@
     	<a href="prof_home">Back</a>
     </p>
     </form>
+    <p th:text="''+${message}"/>
+	<h1>Assignments</h1>
+	<form action="#" th:action="@{/prof/course_page}" th:object="${lectures}" method="post">
+	<table align="center">
+	<tr>
+	<th></th>
+	<th>Assignment Name</th>
+	<th>Percentage</th>
+	<th>View</th>
+	</tr>
+	<tr th:each="assignment : ${assignments.assignments}">
+        <td th:text="${assignment?.assName}"></td>
+        <td th:text="${assignment?.percentage}"></td>
+       	 
+        <td><input type="radio" th:name="view_assignmnet" th:value="${assignment}+'====viewThisOne'" /></td>
+        </tr>
+	</table>
+	<p id="subBack">
+    	<button type="submit" class="btn btn-primary">Submit</button>
+    	<a href="prof_home">Back</a>
+    </p>
+    </form>
 </body>
 </html>

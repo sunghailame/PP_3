@@ -40,6 +40,7 @@ import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.grades.Assignment;
 import whiteboard.grades.AssignmentRepository;
 import whiteboard.grades.Grades;
+import whiteboard.grades.GradesRepository;
 import whiteboard.lecture.Lecture;
 import whiteboard.lecture.LectureRepository;
 import whiteboard.location.Location;
@@ -102,6 +103,9 @@ public class ProfController {
 	private NotificationRepository notificationRepository;
 	
 	@Autowired
+	private GradesRepository gradesRepository;
+	
+	@Autowired
 	MessageSource messageSource;
 	
 	@Autowired
@@ -125,6 +129,7 @@ public class ProfController {
 	private Date glob_Date;
 	private String glob_Details;
 	private String glob_Link;
+	private int glob_assId;
 	/**
 	 * This function gets mapping from professor home. It shows the courses that the professor is currently enrolled in. 
 	 * @param person: person object
@@ -185,6 +190,10 @@ public class ProfController {
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 ArrayList<Lecture> lectures = new ArrayList<>();
+     	 ArrayList<Assignment> assignments_temp = assignmentRepository.findAll();
+     	 Iterator<Assignment> assignment_cur = assignments_temp.iterator();
+     	 ArrayList<Assignment> assignments = new ArrayList<>();
+     	 
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
@@ -196,6 +205,16 @@ public class ProfController {
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
      	 
+     	 while(assignment_cur.hasNext()) {
+     		 Assignment assignment = (Assignment)assignment_cur.next();
+     		 if(this.glob_courseCode.equals(assignment.courseCode)) {
+     			 assignments.add(assignment);
+     		 }
+     	 }
+     	 FormWrapper assignmentList = new FormWrapper();
+     	 assignmentList.setAssignment(assignments);
+     	 model.addAttribute("assignments", assignmentList);
+     	 
      	 return "prof/course_page";
      }
      /**
@@ -206,7 +225,7 @@ public class ProfController {
       * @return prof/view_lecture
       */
      @PostMapping("/prof/course_page")
-     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model) {
+     public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model, @RequestParam("view_assignment") String[] view_assignment) {
     	
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
@@ -222,6 +241,14 @@ public class ProfController {
         	 } 
        }
     	 
+    	 for(int y = 0; y < view_assignment.length; y++) {
+    		 Assignment recAss = new Assignment();
+    		 recAss.parseStringData(view_assignment[y].split("===="));
+    		 if(view_lecture[y].contains("====viewThisOne")) {
+    			 this.glob_lecTitle = recAss.assName;
+            	 this.glob_lectureId = recAss.percentage;
+    		 }
+    	 }
  		return "redirect:/prof/view_lecture";
  	}
      /**
@@ -474,7 +501,29 @@ public class ProfController {
       * @return prof/grades
       */
      @GetMapping("/prof/add_grades")
-     public String add_grades(Model model) {
+     public String add_grades(@CookieValue("person") String person, Model model) {
+    	Person prof = new Person();
+  		prof.parseStringData(person.split("===="));
+  		this.glob_profId = prof.id;
+  		
+  		//Retrieve list of courses the prof is enrolled in
+  		ArrayList<Enrollment> courses = new ArrayList<>();
+  		ArrayList<Enrollment> enrolled = enrollmentRepository.findAll();
+  		Iterator<Enrollment> e_cur = enrolled.iterator();
+  		while(e_cur.hasNext()) {
+  			Enrollment temp_prof = e_cur.next();
+  			if(prof.id == temp_prof.personId) {
+  				courses.add(temp_prof);
+  			}
+  		}
+  		
+  		//Add objects to view
+  		model.addAttribute("message", prof.name);
+  		model.addAttribute("courses", courses);
+  		
+     	Grades grades = new Grades();
+     	 model.addAttribute("grades", grades);
+     	 model.addAttribute("message","");
     	 return "prof/grades";
      }
      /**
@@ -486,7 +535,11 @@ public class ProfController {
       */
      @PostMapping("/prof/add_grades")
      public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
+    	 grades.grade = (grades.grade / 100) * assignment.percentage;
+    	 grades.assId = glob_assId;
+    	 this.gradesRepository.save(grades);
     	 return "prof/grades";
+    	 
      }
      
      /**
