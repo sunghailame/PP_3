@@ -1,7 +1,10 @@
 package whiteboard.student;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,9 @@ import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
+import whiteboard.notification.Notification;
+import whiteboard.notification.NotificationGenerator;
+import whiteboard.notification.NotificationRepository;
 import whiteboard.prof.ViewLecture;
 /**
  * A controller for students. A student views lectures, they take attendance, view the seating chart and Submit assignment and view grades
@@ -65,7 +71,11 @@ public class StudentController {
 	private AssignmentRepository assignmentRepository;
 	
 	@Autowired
+	private NotificationRepository notificationRepository;
+
+	@Autowired
 	private PersonRepository personRepository;
+
 	
 	private int glob_profId;
 	private String glob_courseCode;
@@ -97,11 +107,31 @@ public class StudentController {
 				courses.add(temp_prof);
 			}
 		}
+		//Retrieve list of notifications
+		ArrayList<Notification> nlist = new ArrayList<Notification>();
+		ArrayList<Notification> notifications = new ArrayList<Notification>();
+		nlist = notificationRepository.findByPersonId(this.glob_studId);
+		java.util.Date getCur = new java.util.Date();
+    	 Date today_date = new java.sql.Date(getCur.getTime());
+		for (Notification n : nlist) {
+			if (n.getEndDate().before(today_date) ) {
+				notificationRepository.delete(n);
+			} else {
+				notifications.add(n);
+			}
+		}
+		ArrayList<String> notes = new ArrayList<String>();
+		for (Notification not: notifications) {
+			notes.add(new String(not.note));
+		}
+		
 		
 		//Add objects to view
 		model.addAttribute("message", "");
 		model.addAttribute("courses", courses);
 		model.addAttribute("person", person);
+		model.addAttribute("notifications", notes );
+		
 		
         return "student/student_home";
     }
@@ -247,6 +277,7 @@ public class StudentController {
     	 String username = this.personRepository.findById(this.glob_studId).username;
     	 model.addAttribute("username", username);  
     	 model.addAttribute("courseCode",this.glob_courseCode);
+    	 model.addAttribute("role", "student");
     	 return "student/chat";
      }
      

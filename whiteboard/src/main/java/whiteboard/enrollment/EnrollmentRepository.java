@@ -40,6 +40,7 @@ public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
 	 * @return ArrayList<Enrollment>
 	 */
 	ArrayList<Enrollment> findByRole(String string);
+<<<<<<< HEAD
 
 	static void deleteById(int id) {
 
@@ -47,4 +48,9 @@ public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
 	}
 
 
+=======
+	
+	
+	 
+>>>>>>> df20146fb3d8ab22fd8a9a61bfbbb529540b7a28
 }

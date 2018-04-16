@@ -6,7 +6,11 @@
       <link rel="stylesheet" href="../../css/chat.css" ></link>
   </head>
   <body>
-	 
+	 <script th:inline="javascript">
+		/*<![CDATA[*/
+    	var role = /*[[${role}]]*/ 'default';
+		/*]]>*/
+	</script>
  	<div id="username-page">
         <div class="username-page-container">
             <form id="usernameForm" name="usernameForm">

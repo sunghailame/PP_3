@@ -52,6 +52,9 @@ import whiteboard.SeatingChart.SeatingGenerator;
 import whiteboard.admin.EnrollCourse;
 import whiteboard.admin.FormWrapper;
 import whiteboard.login.PersonRepository;
+import whiteboard.notification.Notification;
+import whiteboard.notification.NotificationGenerator;
+import whiteboard.notification.NotificationRepository;
 import whiteboard.Message.Message;
 import whiteboard.student.Attendance;
 import whiteboard.student.AttendanceRepository;
@@ -94,6 +97,9 @@ public class ProfController {
 	
 	@Autowired
 	private AssignmentRepository assignmentRepository;
+	
+	@Autowired
+	private NotificationRepository notificationRepository;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -201,13 +207,14 @@ public class ProfController {
       */
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model) {
-    	
+    	int view = 0;
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
     		 retLec.parseStringData(view_lecture[x].split("===="));
     		 if(view_lecture[x].contains("====viewThisOne")) {
     			 this.glob_lecTitle = retLec.title;
             	 this.glob_lectureId = retLec.lectureId;
+            	 view = 1;
     		 }
         	 if(view_lecture[x].contains("attendance") || view_lecture[x].contains("close")) {
         		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
@@ -215,8 +222,11 @@ public class ProfController {
         		 lectureRepository.save(lec);
         	 } 
        }
-    	 
- 		return "redirect:/prof/view_lecture";
+    	if(view == 1) {
+    		return "redirect:/prof/view_lecture";
+    	} else {
+    		return "redirect:/prof/course_page";
+    	}
  	}
      /**
       * This function gets mapping from view location. It will find the course and locate the building assigned to it. 
@@ -240,6 +250,7 @@ public class ProfController {
     	 String username = this.personRepository.findById(this.glob_profId).username;
     	 model.addAttribute("username", username);  
     	 model.addAttribute("courseCode",this.glob_courseCode);
+    	 model.addAttribute("role", "prof");
     	 return "prof/chat";
      }
      
@@ -252,8 +263,8 @@ public class ProfController {
      @MessageMapping("/chat.addUser")
      @SendTo("/topic/public")
      public Message addUser(@Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-
          headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+         
          return chatMessage;
      }
      
@@ -268,7 +279,7 @@ public class ProfController {
      	 SeatingGenerator seating = new SeatingGenerator();
      	 ArrayList<Enrollment> students = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,"student");
      	 ArrayList<Person> lookup = this.personRepository.findAll();
-     	 seating.setView(students, lookup, 0);
+     	 seating.setView(students, lookup, 0);     	 
      	 model.addAttribute("seating", seating);
      	 model.addAttribute("lecture", new_lecture);
     	 model.addAttribute("message", "");
@@ -292,6 +303,17 @@ public class ProfController {
      	 lecture.lecDate = new java.sql.Date(getCur.getTime());
      	 this.lectureRepository.save(lecture);
      	 
+     	
+     	 ArrayList<Enrollment> receivers = new ArrayList<Enrollment>();
+     	 receivers = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
+     	 for (Enrollment e : receivers ) {
+     		Notification n = new Notification();
+     		NotificationGenerator ng = new NotificationGenerator(e.personId);
+     		n =  ng.createNotification_newLecture(lecture.courseCode, lecture.title);
+     		notificationRepository.save(n);
+     	 }
+     	 
+     	 
      	 Lecture findId = this.lectureRepository.findByTitleAndLecDateAndProfId(lecture.title, lecture.lecDate, lecture.profId);
      	 SeatingGenerator seating = new SeatingGenerator();
      	 
@@ -302,6 +324,7 @@ public class ProfController {
      		 this.seatingRepository.save(add);
      	 }
      	 
+     	
     	 model.addAttribute("message", "");
      	 return "redirect:/prof/course_page";
      }
@@ -443,13 +466,12 @@ public class ProfController {
     	 System.out.println(AssignmentName.courseCode);
     	 System.out.println(AssignmentName);
     	 this.assignmentRepository.save(AssignmentName);
-    	 } catch (Exception e) {
+    	 return "redirect:prof/course_page";
+    	 }  catch (Exception e) {
     		 model.addAttribute("message", "Error");
     		 return "redirect:prof/course_page";
     	 }
     	 
-    	 
-    	 return "redirect:prof/course_page";
      }
      /**
       * This function will let professor grade the assignments after the students submit them. 
