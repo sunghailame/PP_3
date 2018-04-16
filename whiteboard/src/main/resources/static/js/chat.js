@@ -10,6 +10,7 @@ var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
 var username = null;
+var courseCode = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -18,11 +19,12 @@ var colors = [
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
-
+    courseCode = document.querySelector('#course').value.trim();
+    
     if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
-
+        document.getElementById('chatHeader').innerHTML = "Start chatting with "+courseCode;
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
 
@@ -34,12 +36,10 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/public/'+courseCode, onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
-        {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+    stompClient.send("/app/chat.addUser/"+courseCode, {}, JSON.stringify({sender: username, type: 'JOIN'})
     )
 
     connectingElement.classList.add('hidden');
@@ -60,7 +60,7 @@ function sendMessage(event) {
             content: messageInput.value,
             type: 'CHAT'
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chat.sendMessage/"+courseCode, {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
