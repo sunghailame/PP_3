@@ -12,9 +12,10 @@ var stompClient = null;
 var username = null;
 var courseCode = null;
 
+var profColor = '#053E92';
+
 var colors = [
-    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
+    '#FFA64F', '#FFE34F', '#7653D8', '#DBFA4D', '#D542CE', '#46E359', '#FF584F'
 ];
 
 function connect(event) {
@@ -39,7 +40,7 @@ function onConnected() {
     stompClient.subscribe('/topic/public/'+courseCode, onMessageReceived);
 
     //Add user to the course's app instance
-    stompClient.send("/app/chat.addUser/"+courseCode, {}, JSON.stringify({sender: username, type: 'JOIN'})
+    stompClient.send("/app/chat.addUser/"+courseCode, {}, JSON.stringify({sender: username})
     )
 
     connectingElement.classList.add('hidden');
@@ -57,7 +58,8 @@ function sendMessage(event) {
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
-            content: messageInput.value
+            content: messageInput.value,
+            role : role
         };
         //Send the message to the course's topic
         stompClient.send("/app/chat.sendMessage/"+courseCode, {}, JSON.stringify(chatMessage));
@@ -68,32 +70,37 @@ function sendMessage(event) {
 
 
 function onMessageReceived(payload) {
-    var message = JSON.parse(payload.body);
+	 var message = JSON.parse(payload.body);
 
-    var messageElement = document.createElement('li');
+	    var messageElement = document.createElement('li');
 
-        messageElement.classList.add('chat-message');
+	        messageElement.classList.add('chat-message');
 
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+	        var avatarElement = document.createElement('i');
+	        var avatarText = document.createTextNode(message.role[0]);
+	        avatarElement.appendChild(avatarText);
+	        
+	        if(message.role == 'prof'){
+	        	avatarElement.style['background-color'] = profColor;
+	        } else {
+	        	avatarElement.style['background-color'] = getAvatarColor(message.sender);
+	        }
+	        
+	        messageElement.appendChild(avatarElement);
 
-        messageElement.appendChild(avatarElement);
+	        var usernameElement = document.createElement('span');
+	        var usernameText = document.createTextNode(message.sender);
+	        usernameElement.appendChild(usernameText);
+	        messageElement.appendChild(usernameElement);
 
-        var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
+	    var textElement = document.createElement('p');
+	    var messageText = document.createTextNode(message.content);
+	    textElement.appendChild(messageText);
 
-    var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
-    textElement.appendChild(messageText);
+	    messageElement.appendChild(textElement);
 
-    messageElement.appendChild(textElement);
-
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
+	    messageArea.appendChild(messageElement);
+	    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 

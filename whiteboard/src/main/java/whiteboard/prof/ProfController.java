@@ -250,6 +250,7 @@ public class ProfController {
     	 String username = this.personRepository.findById(this.glob_profId).username;
     	 model.addAttribute("username", username);  
     	 model.addAttribute("courseCode",this.glob_courseCode);
+    	 model.addAttribute("role", "prof");
     	 return "prof/chat";
      }
      
@@ -262,8 +263,8 @@ public class ProfController {
      @MessageMapping("/chat.addUser")
      @SendTo("/topic/public")
      public Message addUser(@Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-
          headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+         
          return chatMessage;
      }
      

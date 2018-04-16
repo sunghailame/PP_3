@@ -277,6 +277,7 @@ public class StudentController {
     	 String username = this.personRepository.findById(this.glob_studId).username;
     	 model.addAttribute("username", username);  
     	 model.addAttribute("courseCode",this.glob_courseCode);
+    	 model.addAttribute("role", "student");
     	 return "student/chat";
      }
      
