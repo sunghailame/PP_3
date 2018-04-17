@@ -130,6 +130,8 @@ public class ProfController {
 	private String glob_Details;
 	private String glob_Link;
 	private int glob_assId;
+	private String glob_assName;
+	private int glob_percentage;
 	/**
 	 * This function gets mapping from professor home. It shows the courses that the professor is currently enrolled in. 
 	 * @param person: person object
@@ -207,7 +209,7 @@ public class ProfController {
      	 
      	 while(assignment_cur.hasNext()) {
      		 Assignment assignment = (Assignment)assignment_cur.next();
-     		 if(this.glob_courseCode.equals(assignment.courseCode)) {
+     		 if(this.glob_assName == assignment.assName && this.glob_percentage == assignment.percentage && this.glob_courseCode.equals(assignment.courseCode)) {
      			 assignments.add(assignment);
      		 }
      	 }
@@ -252,8 +254,8 @@ public class ProfController {
     		 Assignment recAss = new Assignment();
     		 recAss.parseStringData(view_assignment[y].split("===="));
     		 if(view_assignment[y].contains("====viewThisOne")) {
-    			 this.glob_lecTitle = recAss.assName;
-            	 this.glob_lectureId = recAss.percentage;
+    			 this.glob_assName = recAss.assName;
+            	 this.glob_percentage = recAss.percentage;
             	 
     		 }
     	 }
