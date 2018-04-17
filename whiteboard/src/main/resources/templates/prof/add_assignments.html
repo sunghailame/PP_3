@@ -7,17 +7,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../../css/create_course.css"></link>
+<link rel="stylesheet" href="../../css/add_assignment.css"></link>
 <title>Add New Assignment</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<div id="sidebar">
 	<ul id="contents">
-		<li id="logo"><a href="admin_home">WhiteBoard</a></li>
-  		<li id="people"><a href="show_users">View People</a></li>
-  		<li id="addStudent"><a href="enroll_student">Add Student</a></li>
-  		<li id="addInstructor"><a href="enroll_prof">Add Instructor</a></li>
+		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
   		<li id="logout"><a href="../whiteboard">logout</a></li>
 	</ul>
 	</div>
@@ -32,6 +29,7 @@
             <p>Percentage: <input id="percentage" class="form-control" type="number" placeholder="Enter the weightage" th:field="*{percentage}" /></p>
         <p>
             <input id="sub" class="btn btn-primary" type="submit" value="Submit" />
+            <a href="course_page">Back</a>
         </p>
     </form>
     </div>

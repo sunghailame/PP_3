@@ -226,21 +226,28 @@ public class ProfController {
       */
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model, @RequestParam("view_assignment") String[] view_assignment) {
-    	
+    	int view = 0;
+
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
     		 retLec.parseStringData(view_lecture[x].split("===="));
     		 if(view_lecture[x].contains("====viewThisOne")) {
     			 this.glob_lecTitle = retLec.title;
             	 this.glob_lectureId = retLec.lectureId;
+            	 view = 1;
     		 }
         	 if(view_lecture[x].contains("attendance") || view_lecture[x].contains("close")) {
         		 Lecture lec = lectureRepository.findByLectureId(retLec.lectureId);
         		 lec.setAttendance(retLec.openAttendance);
         		 lectureRepository.save(lec);
         	 } 
+        	 if(view == 1) {
+         		return "redirect:/prof/view_lecture";
+         	} else {
+         		return "redirect:/prof/course_page";
+         	}
        }
-    	 
+    		
     	 for(int y = 0; y < view_assignment.length; y++) {
     		 Assignment recAss = new Assignment();
     		 recAss.parseStringData(view_assignment[y].split("===="));
@@ -251,6 +258,8 @@ public class ProfController {
     		 }
     	 }
  		return "redirect:/prof/view_lecture";
+
+    
  	}
      /**
       * This function gets mapping from view location. It will find the course and locate the building assigned to it. 
@@ -274,6 +283,7 @@ public class ProfController {
     	 String username = this.personRepository.findById(this.glob_profId).username;
     	 model.addAttribute("username", username);  
     	 model.addAttribute("courseCode",this.glob_courseCode);
+    	 model.addAttribute("role", "prof");
     	 return "prof/chat";
      }
      
@@ -286,8 +296,8 @@ public class ProfController {
      @MessageMapping("/chat.addUser")
      @SendTo("/topic/public")
      public Message addUser(@Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-
          headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+         
          return chatMessage;
      }
      

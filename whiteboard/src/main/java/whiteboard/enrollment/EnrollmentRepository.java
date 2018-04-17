@@ -3,16 +3,13 @@ package whiteboard.enrollment;
 
 import java.util.ArrayList;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 
-public interface EnrollmentRepository extends Repository<Enrollment, Long> {
+public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
 	
-	/**
-	 * Saves the enrollment object to the DB.
-	 * @param e
-	 */
-	void save(Enrollment e);
-	
+
+
 	/**
 	 * Returns all entries in the DB for Enrollment as an Array List of Enrollment objects.
 	 * @return ArrayList<Enrollment>
@@ -43,7 +40,15 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 	 * @return ArrayList<Enrollment>
 	 */
 	ArrayList<Enrollment> findByRole(String string);
+
+
+//	static void deleteById(int id) {
+
+		
+//	}
+
+
 	
 	
-	 
+
 }

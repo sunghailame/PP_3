@@ -1,22 +1,18 @@
 package whiteboard.Message;
 
 public class Message {
-    private MessageType type;
     private String content;
     private String sender;
+    private String role;
+  
 
-    public enum MessageType {
-        CHAT,
-        JOIN,
-        LEAVE
+    
+    public String getRole() {
+    	return this.role;
     }
-
-    public MessageType getType() {
-        return type;
-    }
-
-    public void setType(MessageType type) {
-        this.type = type;
+    
+    public void setRole(String role) {
+    	this.role = role;
     }
 
     public String getContent() {

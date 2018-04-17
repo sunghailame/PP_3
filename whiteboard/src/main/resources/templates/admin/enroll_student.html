@@ -45,11 +45,13 @@
 	<th>Username</th>
 	<th>ID</th>
 	<th>Add</th>
+	<th>Remove</th>
 	</tr>
 	<tr th:each="user : ${userList.users}">
         <td th:text="${user.username}"></td>
         <td th:text="${user.id}"></td>
         <td><input id="studentChecked" type="checkbox" onclick="radioFunction()" th:name="enrolled" th:value="${user}" /></td>
+        <td><input id="studentUnchecked" type="checkbox" onclick="radioFunction()" th:name="enrolled" th:value="${user}" /></td>
         </tr>
 	
 	</table>
