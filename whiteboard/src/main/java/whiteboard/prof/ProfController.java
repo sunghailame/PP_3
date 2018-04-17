@@ -244,9 +244,10 @@ public class ProfController {
     	 for(int y = 0; y < view_assignment.length; y++) {
     		 Assignment recAss = new Assignment();
     		 recAss.parseStringData(view_assignment[y].split("===="));
-    		 if(view_lecture[y].contains("====viewThisOne")) {
+    		 if(view_assignment[y].contains("====viewThisOne")) {
     			 this.glob_lecTitle = recAss.assName;
             	 this.glob_lectureId = recAss.percentage;
+            	 
     		 }
     	 }
  		return "redirect:/prof/view_lecture";
@@ -503,7 +504,7 @@ public class ProfController {
      @GetMapping("/prof/add_grades")
      public String add_grades(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
-  		prof.parseStringData(person.split("===="));
+    	prof.parseStringData(person.split("===="));
   		this.glob_profId = prof.id;
   		
   		//Retrieve list of courses the prof is enrolled in

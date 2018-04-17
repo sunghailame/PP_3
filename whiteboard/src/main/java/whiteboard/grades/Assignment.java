@@ -30,7 +30,7 @@ public class Assignment {
 	public String assName;
 	@Column(name = "Percentage")
 	public int percentage;
-	private String percentageS = Integer.toString(percentage);
+//	private String percentageS = Integer.toString(percentage);
 	/**
 	 * Contains information about the assingment such as assignment id, course code, assignment name, and percentage of each assignment.
 	 * @param assId: unique assignment id
@@ -105,7 +105,7 @@ public class Assignment {
 		this.assName = dataSplit[0];
 		this.courseCode = dataSplit[1];
 		//String percentageS = Integer.toString(percentage);
-		this.percentageS = dataSplit[2];
+		this.percentage = Integer.parseInt(dataSplit[2]);
 		return "";
 	}
 }

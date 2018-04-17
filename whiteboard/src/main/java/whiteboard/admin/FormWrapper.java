@@ -20,6 +20,8 @@ public class FormWrapper{
 	
 	public ArrayList<Assignment> assignment;
 	
+	public ArrayList<Assignment> assignments;
+	
 	public ArrayList<EnrollPerson> getUsers(){
 		return users;
 	}
@@ -57,5 +59,11 @@ public class FormWrapper{
 	}
 	public void setAssignment(ArrayList<Assignment> assignment) {
 		this.assignment = assignment;
+	}
+	public ArrayList<Assignment> getAssignments(){
+		return assignments;
+	}
+	public void setAssignments(ArrayList<Assignment> assignments) {
+		this.assignments = assignments;
 	}
 }
