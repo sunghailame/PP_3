@@ -130,6 +130,7 @@ public class AdminController {
 					Person user = u_cur.next();
 					EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
 					users.add(p);
+					System.out.println(users);
 				}
 				
 				//Get list of all courses, save to list of EnrollCourse object
@@ -140,6 +141,7 @@ public class AdminController {
 					Course course = c_cur.next();
 					EnrollCourse m = new EnrollCourse(course.courseCode, course.course_name, false, course.buildingId);
 					courses.add(m);
+					System.out.println(courses);
 				}
 				
 				//Create wrapper for sending to view with users and courses
