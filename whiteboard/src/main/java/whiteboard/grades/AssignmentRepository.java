@@ -14,8 +14,10 @@ import whiteboard.lecture.Lecture;
 public interface AssignmentRepository extends Repository<Assignment, Long>{
 
 	Assignment findByAssId(int glob_assId);
+	//ArrayList<Assignment> findByCourseCode(String courseCode);
 	Assignment findByCourseCode(String courseCode);
 	void save(Assignment assignment);
 	ArrayList<Assignment> findAll();
-
+	//ArrayList<Assignment> findByCourseCode(String glob_courseCode);
+	
 }

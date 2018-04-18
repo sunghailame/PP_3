@@ -192,27 +192,30 @@ public class ProfController {
     	 ArrayList<Lecture> lectures_temp = lectureRepository.findAll();
      	 Iterator<Lecture> lec_cur = lectures_temp.iterator();
      	 ArrayList<Lecture> lectures = new ArrayList<>();
-     	 ArrayList<Assignment> assignments_temp = assignmentRepository.findAll();
-     	 Iterator<Assignment> assignment_cur = assignments_temp.iterator();
+     	// ArrayList<Assignment> assignments = assignmentRepository.findByCourseCode(glob_courseCode);
+     	 ArrayList<Assignment> ass_temp = assignmentRepository.findAll();
+     	 Iterator<Assignment> ass_cur = ass_temp.iterator();
      	 ArrayList<Assignment> assignments = new ArrayList<>();
-     	 
+     	
      	 while(lec_cur.hasNext()) {
      		 Lecture lecture = (Lecture)lec_cur.next();
      		 if(this.glob_profId == lecture.profId && this.glob_courseCode.equals(lecture.courseCode)) {
      			 lectures.add(lecture);
      		 }
      	 }
+     	 
+     	while(ass_cur.hasNext()) {
+    		 Assignment assignment = (Assignment)ass_cur.next();
+    		 if(this.glob_assId == assignment.assId && this.glob_courseCode.equals(assignment.courseCode) && this.glob_assName.equals(assignment.assName) && this.glob_percentage == assignment.percentage) {
+    			 assignments.add(assignment);
+    		 }
+    	 }
      	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
      	 
-     	 while(assignment_cur.hasNext()) {
-     		 Assignment assignment = (Assignment)assignment_cur.next();
-     		 if(this.glob_assName == assignment.assName && this.glob_percentage == assignment.percentage && this.glob_courseCode.equals(assignment.courseCode)) {
-     			 assignments.add(assignment);
-     		 }
-     	 }
+     	 
      	 FormWrapper assignmentList = new FormWrapper();
      	 assignmentList.setAssignment(assignments);
      	 model.addAttribute("assignments", assignmentList);
@@ -501,10 +504,10 @@ public class ProfController {
     	 System.out.println(AssignmentName.courseCode);
     	 System.out.println(AssignmentName);
     	 this.assignmentRepository.save(AssignmentName);
-    	 return "redirect:prof/course_page";
+    	 return "redirect:/prof/course_page";
     	 }  catch (Exception e) {
     		 model.addAttribute("message", "Error");
-    		 return "redirect:prof/course_page";
+    		 return "redirect:/prof/course_page";
     	 }
     	 
      }
