@@ -204,20 +204,14 @@ public class ProfController {
      		 }
      	 }
      	 
-     	while(ass_cur.hasNext()) {
-    		 Assignment assignment = (Assignment)ass_cur.next();
-    		 if(this.glob_assId == assignment.assId && this.glob_courseCode.equals(assignment.courseCode) && this.glob_assName.equals(assignment.assName) && this.glob_percentage == assignment.percentage) {
-    			 assignments.add(assignment);
-    		 }
-    	 }
      	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
      	 
      	 
-     	 FormWrapper assignmentList = new FormWrapper();
-     	 assignmentList.setAssignment(assignments);
+     	 ArrayList<Assignment> assignmentList = this.assignmentRepository.findByCourseCode(this.glob_courseCode);
+     	 //assignmentList.setAssignment(this.assignmentRepository.findByCourseCode(this.glob_courseCode));
      	 model.addAttribute("assignments", assignmentList);
      	 
      	 return "prof/course_page";
