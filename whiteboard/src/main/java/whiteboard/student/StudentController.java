@@ -242,7 +242,7 @@ public class StudentController {
      	retLec.parseStringData(attendance.split("===="));
      	
      	Attendance checkDouble = attendanceRepository.findByLectureIdAndStudId(retLec.lectureId, glob_studId);
-     	Assignment posted = assignmentRepository.findByCourseCode(retAss.courseCode);
+     	ArrayList<Assignment> posted = this.assignmentRepository.findByCourseCode(retAss.courseCode);
      	
      	if(checkDouble == null) {
     	if(retLec.openAttendance) {

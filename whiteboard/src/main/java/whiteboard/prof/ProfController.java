@@ -204,20 +204,14 @@ public class ProfController {
      		 }
      	 }
      	 
-     	while(ass_cur.hasNext()) {
-    		 Assignment assignment = (Assignment)ass_cur.next();
-    		 if(this.glob_assId == assignment.assId && this.glob_courseCode.equals(assignment.courseCode) && this.glob_assName.equals(assignment.assName) && this.glob_percentage == assignment.percentage) {
-    			 assignments.add(assignment);
-    		 }
-    	 }
      	 //Attach the lectureList to the view
      	 FormWrapper lectureList = new FormWrapper();
      	 lectureList.setLectures(lectures);
      	 model.addAttribute("lectures", lectureList);
      	 
      	 
-     	 FormWrapper assignmentList = new FormWrapper();
-     	 assignmentList.setAssignment(assignments);
+     	 ArrayList<Assignment> assignmentList = this.assignmentRepository.findByCourseCode(this.glob_courseCode);
+     	 //assignmentList.setAssignment(this.assignmentRepository.findByCourseCode(this.glob_courseCode));
      	 model.addAttribute("assignments", assignmentList);
      	 
      	 return "prof/course_page";
@@ -232,6 +226,7 @@ public class ProfController {
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model, @RequestParam("view_assignment") String[] view_assignment) {
     	int view = 0;
+    	int grade = 0;
 
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
@@ -259,7 +254,15 @@ public class ProfController {
     		 if(view_assignment[y].contains("====viewThisOne")) {
     			 this.glob_assName = recAss.assName;
             	 this.glob_percentage = recAss.percentage;
+            	 System.out.println(glob_percentage);
+            	 System.out.println(glob_assName);
+            	 grade = 1;
             	 
+    		 }
+    		 if(grade == 1) {
+    			 return "redirect:/prof/view_grade";
+    		 } else {
+    			 return "redirect:/prof/course_page";
     		 }
     	 }
  		return "redirect:/prof/view_lecture";

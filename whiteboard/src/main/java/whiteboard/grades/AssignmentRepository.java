@@ -11,12 +11,12 @@ import whiteboard.lecture.Lecture;
  * @author Sung Yealim
  *
  */
-public interface AssignmentRepository extends Repository<Assignment, Long>{
+public interface AssignmentRepository extends CrudRepository<Assignment, Long>{
 
 	Assignment findByAssId(int glob_assId);
-	//ArrayList<Assignment> findByCourseCode(String courseCode);
-	Assignment findByCourseCode(String courseCode);
-	void save(Assignment assignment);
+	ArrayList<Assignment> findByCourseCode(String courseCode);
+	//Assignment findByCourseCode(String courseCode);
+	Assignment save(Assignment assignment);
 	ArrayList<Assignment> findAll();
 	//ArrayList<Assignment> findByCourseCode(String glob_courseCode);
 	

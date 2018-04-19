@@ -172,7 +172,7 @@ public class AdminController {
 			while(u_cur.hasNext()) {
 				
 				String[] splitUser = u_cur.next().split("====");
-				this.enrollmentRepository.delete(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
+//				this.enrollmentRepository.delete(enroll_users.id));
 			}
 			
 			model.addAttribute("message", "Deleted students from the course!");
