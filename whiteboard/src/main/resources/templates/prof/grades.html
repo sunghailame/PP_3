@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Lecture</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/new_lecture.css"></link>
+</head>
+<body>
+	
+	<div id="sidebar">
+	<ul id="contents">
+		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
+  		<li id="addFile"><a href="../prof/uploadOneFile">Upload File</a></li>
+	</ul>
+	</div>
+	
+	<div>
+	
+	<form id="myForm" action="#" th:action="@{/prof/grades}" th:object="${grades}" method="post">
+		<table id="studList">
+			<tr>
+				<th align="center">Students</th>
+			</tr>
+			<tr th:each="stud : ${seating.seatingList}">
+				<td th:text="${stud.studName}+' - '+${stud.studId}"></td>
+			</tr>
+		</table>
+		
+			
+			 <p id="subBack">
+            	<button id="submit" type="submit" class="btn btn-primary btn-lg" >Submit</button>
+            	<a href="prof_home">Back</a></p>
+		
+	</form>
+	</div>
+	
+	<script type="text/javascript" src="../js/new_lecture.js"></script>
+	
+</body>
+</html>
