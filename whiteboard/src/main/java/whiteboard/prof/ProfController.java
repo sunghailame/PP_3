@@ -232,6 +232,7 @@ public class ProfController {
      @PostMapping("/prof/course_page")
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String[] view_lecture, Model model, @RequestParam("view_assignment") String[] view_assignment) {
     	int view = 0;
+    	int grade = 0;
 
     	 for(int x=0; x < view_lecture.length; x++) {
     		 Lecture retLec = new Lecture();
@@ -259,7 +260,15 @@ public class ProfController {
     		 if(view_assignment[y].contains("====viewThisOne")) {
     			 this.glob_assName = recAss.assName;
             	 this.glob_percentage = recAss.percentage;
+            	 System.out.println(glob_percentage);
+            	 System.out.println(glob_assName);
+            	 grade = 1;
             	 
+    		 }
+    		 if(grade == 1) {
+    			 return "redirect:/prof/view_grade";
+    		 } else {
+    			 return "redirect:/prof/course_page";
     		 }
     	 }
  		return "redirect:/prof/view_lecture";
