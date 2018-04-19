@@ -519,7 +519,7 @@ public class ProfController {
       * @param model
       * @return prof/grades
       */
-     @GetMapping("/prof/add_grades")
+     @GetMapping("/prof/grades")
      public String add_grades(@CookieValue("person") String person, Model model) {
     	Person prof = new Person();
     	prof.parseStringData(person.split("===="));
@@ -552,7 +552,7 @@ public class ProfController {
       * @param person
       * @return prof/grades
       */
-     @PostMapping("/prof/add_grades")
+     @PostMapping("/prof/grades")
      public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
     	 grades.grade = (grades.grade / 100) * assignment.percentage;
     	 grades.assId = glob_assId;
