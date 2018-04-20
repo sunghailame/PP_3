@@ -66,7 +66,7 @@
 	<tr th:each="assignment : ${assignments}">
         <td th:text="${assignment.assName}"></td>
         <td th:text="${assignment.percentage}"></td>
-        <td><input type="radio" th:name="view_assignmnet" th:value="${assignment}+'====gradeThisOne'" /></td>
+        <td><input type="radio" th:name="view_lecture" th:value="${assignment}+'====gradeThisOne'" /></td>
         </tr>
 	</table>
 	<p id="subBack">
