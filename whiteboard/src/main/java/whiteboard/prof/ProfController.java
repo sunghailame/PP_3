@@ -135,6 +135,7 @@ public class ProfController {
 	private int glob_assId;
 	private String glob_assName;
 	private int glob_percentage;
+	private int glob_studId;
 
 	/**
 	 * This function gets mapping from professor home. It shows the courses that the
@@ -552,8 +553,11 @@ public class ProfController {
 	@GetMapping("/prof/grades")
 	public String add_grades(@CookieValue("person") String person, Model model) {
 		Person prof = new Person();
+		Person student = new Person();
 		prof.parseStringData(person.split("===="));
+		student.parseStringData(person.split("===="));
 		this.glob_profId = prof.id;
+		this.glob_studId = student.id;
 
 		// Retrieve list of courses the prof is enrolled in
 		ArrayList<Enrollment> courses = new ArrayList<>();
@@ -565,9 +569,13 @@ public class ProfController {
 				courses.add(temp_prof);
 			}
 		}
-
+		ArrayList<Enrollment> stud = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,
+				"student");
+		
 		// Add objects to view
 		model.addAttribute("message", prof.name);
+		model.addAttribute("studId", student.id);
+		model.addAttribute("stud", stud);
 		model.addAttribute("courses", courses);
 
 		Grades grades = new Grades();
@@ -586,8 +594,7 @@ public class ProfController {
 	 * @return prof/grades
 	 */
 	@PostMapping("/prof/grades")
-	public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment,
-			@ModelAttribute Person person) {
+	public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
 		grades.grade = (grades.grade / 100) * assignment.percentage;
 		grades.assId = glob_assId;
 		this.gradesRepository.save(grades);
