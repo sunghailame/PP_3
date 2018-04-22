@@ -587,45 +587,7 @@ public class ProfController {
 
 	}
 
-	/**
-	 * This function gets mapping from uploadOneFile. It will get the file that the
-	 * professor uploaded.
-	 * 
-	 * @param model
-	 * @return prof/uploadOneFile
-	 */
-	@GetMapping("/prof/uploadOneFile")
-	public String uploadOneFile_get(Model model) {
-		FileBucket fileModel = new FileBucket();
-		model.addAttribute("fileBucket", fileModel);
-
-		// List Documents here
-		return "prof/uploadOneFile";
-	}
-
-	/**
-	 * This function posts mapping from uploadOneFile. If the professor would like
-	 * to upload files for their lecture, it will be posted here.
-	 * 
-	 * @param model
-	 * @return prof/course_page
-	 */
-	@PostMapping("/prof/uploadOneFile")
-	public String uploadOneFile_post(@Valid FileBucket fileBucket, BindingResult result, Model model,
-			@PathVariable int lectureId) throws IOException {
-		if (result.hasErrors()) {
-			System.out.println("validation errors");
-			Lecture lec = lectureRepository.findByLectureId(lectureId);
-			model.addAttribute("lecture", lec);
-
-			// List Documents here
-			return "/prof/uploadOneFile";
-		} else {
-			System.out.println("Fetching file");
-			Lecture lec = lectureRepository.findByLectureId(lectureId);
-			saveDocument(fileBucket, lec);
-
-	}
+	
 
    
      @GetMapping("/prof/uploadOneFile")
