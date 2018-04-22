@@ -559,18 +559,19 @@ public class ProfController {
 		this.glob_profId = prof.id;
 		this.glob_studId = student.id;
 
-		// Retrieve list of courses the prof is enrolled in
+		// Retrieve list of courses the student is enrolled in
 		ArrayList<Enrollment> courses = new ArrayList<>();
+		ArrayList<Enrollment> stud = new ArrayList<>();
 		ArrayList<Enrollment> enrolled = enrollmentRepository.findAll();
 		Iterator<Enrollment> e_cur = enrolled.iterator();
 		while (e_cur.hasNext()) {
-			Enrollment temp_prof = e_cur.next();
-			if (prof.id == temp_prof.personId) {
-				courses.add(temp_prof);
+			Enrollment temp_stud = e_cur.next();
+			if (student.id == temp_stud.personId) {
+				stud.add(temp_stud);
 			}
 		}
-		ArrayList<Enrollment> stud = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,
-				"student");
+//		ArrayList<Enrollment> stud = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,
+//				"student");
 		
 		// Add objects to view
 		model.addAttribute("message", prof.name);
@@ -595,6 +596,7 @@ public class ProfController {
 	 */
 	@PostMapping("/prof/grades")
 	public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
+		glob_courseCode = assignment.courseCode;
 		grades.grade = (grades.grade / 100) * assignment.percentage;
 		grades.assId = glob_assId;
 		this.gradesRepository.save(grades);
