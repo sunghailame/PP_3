@@ -17,20 +17,19 @@
 		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
   		<li id="addFile"><a href="../prof/uploadOneFile">Upload File</a></li>
   		<li id="logout"><a href="../../whiteboard">logout</a></li>
-  		
-  		
 	</ul>
 	</div>
 	
 	<div>
 	
 	<form id="myForm" action="#" th:action="@{/prof/grades}" th:object="${grades}" method="post">
-		<table id="studList">
+		<table id="gradingList">
 			<tr>
 				<th align="center">Students</th>
 			</tr>
-			<tr th:each="stud : ${seating.seatingList}">
-				<td th:text="${stud.studName}+' - '+${stud.studId}"></td>
+			<tr th:each="stud : ${stud}>
+				<td th:text="${stud.studName}"></td>
+				<td ${stud}" th:text="${stud.studId}></td>
 			</tr>
 		</table>
 		
