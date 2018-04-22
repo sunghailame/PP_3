@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
 
-public interface EnrollmentRepository extends Repository<Enrollment, Long> {
+public interface EnrollmentRepository extends CrudRepository<Enrollment, Long> {
 	
 
 
@@ -41,12 +41,13 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 	 */
 	ArrayList<Enrollment> findByRole(String string);
 	
-	void delete(Enrollment enrollment);
+//	void delete(Enrollment enrollment);
 	
 	Enrollment findById(int id);
 
-	void save(Enrollment enrollment);
+//	void save(Enrollment enrollment);
 
+	Enrollment deleteByPersonId(int id);
 
 //	static void deleteById(int id) {
 

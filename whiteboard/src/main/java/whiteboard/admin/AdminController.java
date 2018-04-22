@@ -123,71 +123,66 @@ public class AdminController {
 			return "admin/create_course";
 		}
 	}
-//	@GetMapping("/admin/delete_student")
-//	public String delete_student_from_course(Person person, Model model, Enrollment enrollment) {
-//		//Get list of all students, save to EnrollPerson object
-//				ArrayList<Person> prof_users = this.personRepository.findByRole("student");
-//				ArrayList<EnrollPerson> users = new ArrayList<>();
-//				Iterator<Person> u_cur = prof_users.iterator();
-//				while(u_cur.hasNext()) {
-//					Person user = u_cur.next();
-//					EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
-//					users.add(p);
-//					if(user.id == enrollment.personId) {
-//						enrollmentRepository.delete(enrollment.personId);
-//					}
-//					System.out.println(users);
-//				}
-//				
-//				//Get list of all courses, save to list of EnrollCourse object
-//				Iterable<Course> course_temp = courseRepository.findAll();
-//				ArrayList<EnrollCourse> courses = new ArrayList<>();
-//				Iterator<Course> c_cur = course_temp.iterator();
-//				while(c_cur.hasNext()) {
-//					Course course = c_cur.next();
-//					EnrollCourse m = new EnrollCourse(course.courseCode, course.course_name, false, course.buildingId);
-//					courses.add(m);
-//					System.out.println(courses);
-//				}
-//				
-//				//Create wrapper for sending to view with users and courses
-//				FormWrapper userList = new FormWrapper();
-//				userList.setUsers(users);
-//				userList.setCourses(courses);
-//				
-//				//Add the list to the view
-//				model.addAttribute("userList", userList);
-//				model.addAttribute("message","");
-//		
-//				return "admin/delete_student";
-//	}
-//
-//	@DeleteMapping("/admin/delete_student")
-//	public String deleteStudent(Model model, @PathVariable(value = "ID") int id, @RequestParam("c_enrolled") String enroll_course, @RequestParam("enrolled") List<String> enroll_users) {
-////		EnrollmentRepository.delete(id);
-////		System.out.println(id);
-////		return ResponseEntity.ok().build();
-//		String courseCode;
-//		try {
-//			//Parse the string data send back from the view
-//			//One course and students to enroll
-//			String[] splitCourse = enroll_course.split("====");
-//			courseCode = splitCourse[0];
-//			
-//			Iterator<String> u_cur = enroll_users.iterator();
-//			while(u_cur.hasNext()) {
-//				
-//				String[] splitUser = u_cur.next().split("====");
-//				Enrollment e = enrollmentRepository.findById(Integer.parseInt(splitUser[0]));
-//				enrollmentRepository.delete(e);
-//			}
-//			
-//			model.addAttribute("message", "Deleted students from the course!");
-//		} catch (Exception E) {
-//			model.addAttribute("message", "Error deleting. Try again.");
-//		}
-//		return "/admin/admin_home";
-//	}
+	@GetMapping("/admin/withdraw_student")
+	public String delete_student_from_course(Person person, Model model, Enrollment enrollment) {
+		//Get list of all students, save to EnrollPerson object
+				ArrayList<Person> prof_users = this.personRepository.findByRole("student");
+				ArrayList<EnrollPerson> users = new ArrayList<>();
+				Iterator<Person> u_cur = prof_users.iterator();
+				while(u_cur.hasNext()) {
+					Person user = u_cur.next();
+					EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
+					users.add(p);
+					
+					System.out.println(users);
+				}
+				
+				//Get list of all courses, save to list of EnrollCourse object
+				Iterable<Course> course_temp = courseRepository.findAll();
+				ArrayList<EnrollCourse> courses = new ArrayList<>();
+				Iterator<Course> c_cur = course_temp.iterator();
+				while(c_cur.hasNext()) {
+					Course course = c_cur.next();
+					EnrollCourse m = new EnrollCourse(course.courseCode, course.course_name, false, course.buildingId);
+					courses.add(m);
+					System.out.println(courses);
+				}
+				
+				//Create wrapper for sending to view with users and courses
+				FormWrapper userList = new FormWrapper();
+				userList.setUsers(users);
+				userList.setCourses(courses);
+				
+				//Add the list to the view
+				model.addAttribute("userList", userList);
+				model.addAttribute("message","");
+		
+				return "admin/withdraw_student";
+	}
+
+	@PostMapping("/admin/withdraw_student")
+	public String deleteStudent(Model model, @PathVariable(value = "ID") int id, @RequestParam("c_enrolled") String enroll_course, @RequestParam("enrolled") List<String> enroll_users) {
+		String courseCode;
+		try {
+			//Parse the string data send back from the view
+			//One course and students to enroll
+			String[] splitCourse = enroll_course.split("====");
+			courseCode = splitCourse[0];
+			
+			Iterator<String> u_cur = enroll_users.iterator();
+			while(u_cur.hasNext()) {
+				
+				String[] splitUser = u_cur.next().split("====");
+				Enrollment e = enrollmentRepository.findByCourseCodeAndPersonIdAndRole(splitUser[1],Integer.parseInt(splitUser[0]),splitUser[3]);
+				this.enrollmentRepository.delete(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
+
+}
+			model.addAttribute("message", "Deleted students from the course!");
+		} catch (Exception E) {
+			model.addAttribute("message", "Error deleting. Try again.");
+		}
+		return "/admin/admin_home";
+	}
 	
 	/**
 	 * Gets the list of all possible courses and students and adds them to the wrapper class.
@@ -204,9 +199,6 @@ public class AdminController {
 		while(u_cur.hasNext()) {
 			Person user = u_cur.next();
 			EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
-			if(p.isEnrolled()) {
-//				enrollmentRepository.delete(p.getId());
-			}
 			users.add(p);
 		}
 		
@@ -217,6 +209,9 @@ public class AdminController {
 		while(c_cur.hasNext()) {
 			Course course = c_cur.next();
 			EnrollCourse m = new EnrollCourse(course.courseCode, course.course_name, false, course.buildingId);
+//			if(m.isEnrolled()) {
+//				break;
+//			}
 			courses.add(m);
 		}
 		
@@ -251,20 +246,15 @@ public class AdminController {
 			while(u_cur.hasNext()) {
 				
 				String[] splitUser = u_cur.next().split("====");
-				System.out.println(splitUser[0]);
 				Enrollment e = enrollmentRepository.findByCourseCodeAndPersonIdAndRole(splitUser[1],Integer.parseInt(splitUser[0]),splitUser[3]);
-				System.out.println(e.toString());
-//				Enrollment en = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
-				if (splitUser == u_cur.next().split("====deleteStudent")) {
-					this.enrollmentRepository.delete(e);
-				}
-				else {
+				Enrollment en = new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]);
+//				if (splitUser[4].contains("deleteStudent")) {
+//					this.enrollmentRepository.delete(en);
+//				}
+//				else if(splitUser.length == 4){
 				this.enrollmentRepository.save(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
-				}
-//				else 
-//				System.out.println(e.id);
-//					enrollmentRepository.delete(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
-			}
+//				}
+}
 			
 			model.addAttribute("message", "Enrolled Students!");
 		} catch (Exception E) {

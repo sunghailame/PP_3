@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import whiteboard.document.Document;
+
 /**
  * This class stores the data for lecture entity. Each and every lectures that the professor posted will be stored in the according Mysql database.
  * @author Sung Yealim

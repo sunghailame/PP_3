@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="../css/upload_form.css"></link>
+	<link rel="stylesheet" href="../../css/upload_form.css"></link>
 </head>
    
    <body>
@@ -20,23 +20,48 @@
 	</ul>
 	</div>
 
+<<<<<<< HEAD
+	<div th:if="${message}">
+		<h2 th:text="${message}"/>
+	</div>
+
+	<div>
+		<form id="myForm" method="POST" enctype="multipart/form-data" action="/">
+			<h1>Upload File</h1>
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input id="uploadButton" type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+	</div>
+
+	
+	<div id="uploadedFiles">
+		<h1>List of Uploaded Files</h1>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}" />
+			</li>
+	</div>
+	<div>
+		<h3 th:text="${totalFiles}"/>
+	</div>
+        <p id="subBack">
+            	<button id="submit" type="submit" class="btn btn-primary" >Submit</button>
+            	<a href="prof_home">Back</a></p>
+=======
        
       <h1>Upload One File:</h1>
        
       <!-- MyUploadForm -->
        
-      <form id="myForm" th:object="${fileBucket}" method="POST" action="" enctype="multipart/form-data">
-		<p>
-			Description:
-         <input th:field="*{description}" style="width:300px;"/>   
-		</p>              
-		<p id="Upload">
-			<input th:field="${fileBucket}" type="file"/>
-		</p>
-        <p id="subBack">
-            	<button id="submit" type="submit" class="btn btn-primary btn-lg" >Submit</button>
-            	<a href="../course_page">Back</a></p>
+
+
+      <form id="myForm" method="POST" action="/prof/uploadOneFile" enctype="multipart/form-data">
+		<input type="file" name="file" /><br />
+		<br /> <input type="submit" value="Submit" />       
+		
       </form>
+>>>>>>> bbe59c9e6464f7020fdc7c6c761e19d61d6e9f11
        
    </body>
 </html>
