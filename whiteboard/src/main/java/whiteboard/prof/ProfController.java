@@ -586,8 +586,7 @@ public class ProfController {
 	 * @return prof/grades
 	 */
 	@PostMapping("/prof/grades")
-	public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment,
-			@ModelAttribute Person person) {
+	public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
 		grades.grade = (grades.grade / 100) * assignment.percentage;
 		grades.assId = glob_assId;
 		this.gradesRepository.save(grades);
