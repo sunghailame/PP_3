@@ -27,7 +27,7 @@ public class Grades {
 	public int studentId;
 	@Column(name = "Grade")
 	public int grade;
-	@Column(name = "ID")
+	@Column(name = "AssId")
 	public int assId;
 	/**
 	 * Grade information includes grade id, student id, grade, and assignment id
@@ -99,5 +99,13 @@ public class Grades {
 	@Override
 	public String toString() {
 		return this.gradeId+"===="+this.studentId+"===="+this.grade+"===="+this.assId;
+	}
+	
+	public void parseString(String stuff) {
+		String[] parse = stuff.split("====");
+		this.gradeId = Integer.parseInt(parse[0]);
+		this.studentId = Integer.parseInt(parse[1]);
+		this.grade = Integer.parseInt(parse[2]);
+		this.assId = Integer.parseInt(parse[3]);
 	}
 }

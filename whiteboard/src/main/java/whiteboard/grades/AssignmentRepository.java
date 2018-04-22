@@ -19,6 +19,6 @@ public interface AssignmentRepository extends CrudRepository<Assignment, Long>{
 	Assignment save(Assignment assignment);
 	ArrayList<Assignment> findAll();
 	//ArrayList<Assignment> findByCourseCode(String glob_courseCode);
-	Assignment findByAssName(Assignment assignmentName);
+	Assignment findByAssName(String glob_assName);
 	
 }

@@ -29,12 +29,11 @@
 				<th>Grade</th>
 			</tr>
 			<tr th:each="stud : ${grades}">
-				<td th:text="${stud.studentId}"></td>
-				<td> <input id="gradeInput" type="number" th:name="grade_students" th:value="${stud.grade}" />
+				<td th:text="${stud.studentId}" id="stud_data" th:value="${stud.toString()}"></td>
+				<td> <input id="gradeInput" type="number" th:name="grade_students" th:value="${stud.grade}"/>
 				</td>
 			</tr>
 		</table>
-		
 			
 			 <p id="subBack">
             	<button id="submit" type="submit" class="btn btn-primary btn-lg" >Submit</button>
@@ -42,7 +41,7 @@
 		
 	</form>
 	</div>
-
-	
+		
+	<!--  <script type="text/javascript" src="../js/grades.js"></script>-->
 </body>
 </html>
