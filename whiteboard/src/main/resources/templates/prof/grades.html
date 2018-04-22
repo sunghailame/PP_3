@@ -22,14 +22,16 @@
 	
 	<div>
 	
-	<form id="myForm" action="#" th:action="@{/prof/grades}" th:object="${grades}" method="post">
+	<form id="myForm" action="#" th:action="@{/prof/grades}" th:object="${grades}" th:object="${stud}" method="post">
 		<table id="gradingList">
 			<tr>
 				<th align="center">Students</th>
 			</tr>
-			<tr th:each="stud : ${stud}>
-				<td th:text="${stud.studName}"></td>
-				<td ${stud}" th:text="${stud.studId}></td>
+			<tr th:each="stud : ${stud}">
+				<td th:text="${stud.studId}"></td>
+				<td>
+				<input id="gradeInput" type="number" th:field="*{grades}" />
+				</td>
 			</tr>
 		</table>
 		
