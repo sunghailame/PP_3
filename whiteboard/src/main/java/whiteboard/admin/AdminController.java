@@ -253,8 +253,12 @@ public class AdminController {
 				System.out.println(splitUser[0]);
 				Enrollment e = enrollmentRepository.findByCourseCodeAndPersonIdAndRole(splitUser[1],Integer.parseInt(splitUser[0]),splitUser[3]);
 				System.out.println(e.toString());
-//				if (e==null) 
+				if (splitUser == u_cur.next().split("====deleteStudent")) {
+					this.enrollmentRepository.delete(e);
+				}
+				else {
 				this.enrollmentRepository.save(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
+				}
 //				else 
 //				System.out.println(e.id);
 //					enrollmentRepository.delete(new Enrollment(0,Integer.parseInt(splitUser[0]), courseCode, "1",splitUser[3]));
