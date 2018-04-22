@@ -1,12 +1,20 @@
 #myForm{
-	margin-right:40%;
+	margin-left:30%;
 	color: #4682B4;
-	text-align: right;
-}
+	text-align: left;
+    padding-top: 1%;
 
+}
+#uploadButton{
+    margin-left: 43%;
+}
 #subBack {
-	margin-left:35%;
+	margin-left:43%;
 	padding-top:1%
+}
+.floating-box
+{
+    display: inline-block;
 }
 input[type=text] {
     width: 80%;
@@ -14,9 +22,22 @@ input[type=text] {
     margin: 8px 0;
     box-sizing: border-box;
 }
+th, td{
+    padding-bottom: 5%;
+    text-align:left;
+}
 h1 {
-	margin-left:25%;
-	padding-bottom:2%;
+	margin-left:1%;
+	padding-bottom:4%;
+}
+
+h2 {
+    margin-left:1%;
+    padding-bottom:4%;
+}
+h3 {
+    margin-left:1%;
+    padding-bottom:4%;
 }
 p{
 	margin-left:34%;
@@ -40,6 +61,12 @@ ul {
     position: fixed; 
     overflow: auto; 
     border: 1px solid #555;
+}
+#uploadedFiles {
+    margin-left:30%;
+    color: #4682B4;
+    text-align: left;
+    padding-top: 1%;
 }
 #logout {
     display: block;

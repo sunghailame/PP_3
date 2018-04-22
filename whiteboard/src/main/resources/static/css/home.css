@@ -8,28 +8,21 @@
 
 #classes{
 	display:inline-block;
-	align:right;
+	align:left;
 	margin-left:25%;
 	border: 1px;
 	color:#4682B4;
 }
 
-#notificationBar{
-	display:inline-block;
-	width:50%;
-	align:right;
-	margin-right:5%;
-	border: 1px;
-	color:#4682B4;
-}
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
     padding: 5px;
-    margin-left:80%;
+    margin-left:1%;
     text-align: left;
     color:#4682B4;
     width:90%;
+    
 }
 
 h1 {
@@ -80,8 +73,64 @@ ul {
     font-size:25px;
 }
 
+#openDash {
+    display: block;
+    color: black;
+    background-color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #555;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+
+
+}
+
 li a:hover {
     
     color: blue;
     text-decoration: none;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #FFFFE0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #4682B4;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #4682B4;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
