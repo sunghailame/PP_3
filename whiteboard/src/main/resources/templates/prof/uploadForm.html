@@ -1,19 +1,19 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-
+ <body>
 	<div th:if="${message}">
 		<h2 th:text="${message}"/>
 	</div>
-
-	<div>
-		<form method="POST" enctype="multipart/form-data" action="/">
+ <div>
+		<form method="POST" enctype="multipart/form-data" action="/prof/uploadForm">
 			<table>
 				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
 				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
 			</table>
 		</form>
 	</div>
-
+	
+	<h2>List All Uploaded Files</h2>
 	<div>
 		<ul>
 			<li th:each="file : ${files}">
@@ -21,6 +21,9 @@
 			</li>
 		</ul>
 	</div>
-
-</body>
+	<div>
+		<h3 th:text="${totalFiles}"/>
+	</div>
+ </body>
 </html>
+
