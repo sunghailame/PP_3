@@ -553,12 +553,9 @@ public class ProfController {
 	@GetMapping("/prof/grades")
 	public String add_grades(@CookieValue("person") String person, Model model) {
 		Person prof = new Person();
-		Person student = new Person();
 		prof.parseStringData(person.split("===="));
-		student.parseStringData(person.split("===="));
 		this.glob_profId = prof.id;
-		this.glob_studId = student.id;
-
+		
 		// Retrieve list of courses the student is enrolled in
 		ArrayList<Enrollment> courses = new ArrayList<>();
 		ArrayList<Enrollment> stud = new ArrayList<>();
@@ -566,8 +563,9 @@ public class ProfController {
 		Iterator<Enrollment> e_cur = enrolled.iterator();
 		while (e_cur.hasNext()) {
 			Enrollment temp_stud = e_cur.next();
-			if (student.id == temp_stud.personId) {
+			if (prof.id == temp_stud.personId) {
 				stud.add(temp_stud);
+				System.out.println(stud);
 			}
 		}
 //		ArrayList<Enrollment> stud = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,
@@ -575,7 +573,7 @@ public class ProfController {
 		
 		// Add objects to view
 		model.addAttribute("message", prof.name);
-		model.addAttribute("studId", student.id);
+//		model.addAttribute("studId", student.id);
 		model.addAttribute("stud", stud);
 		model.addAttribute("courses", courses);
 

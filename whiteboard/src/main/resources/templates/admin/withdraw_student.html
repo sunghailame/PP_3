@@ -9,7 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../../css/enroll.css"></link>
       
-<title>Enroll Student</title>
+<title>Withdraw Student</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -29,7 +29,7 @@
 	<tr>
 	<th>Course Name</th>
 	<th>Course Code</th>
-	<th>Add</th>
+	<th>Select</th>
 	</tr>
 	<tr th:each="course : ${userList.courses}">
         <td th:text="${course.courseName}"></td>
@@ -44,13 +44,13 @@
 	<tr>
 	<th>Username</th>
 	<th>ID</th>
-	<th>Add</th>
+	<th>Remove</th>
 	</tr>
 	<tr th:each="user : ${userList.users}">
         <td th:text="${user.username}"></td>
         <td th:text="${user.id}"></td>
-        <td><input id="studentChecked" type="checkbox" onclick="radioFunction()" th:name="enrolled" th:value="${user}" /></td>
-
+        
+        <td><input id="studentUnchecked" type="checkbox" onclick="radioFunction()" th:name="enrolled" th:value="${user}+'====deleteStudent'" /></td>
         </tr>
 	
 	</table>
