@@ -1,8 +1,10 @@
 package whiteboard.prof;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import whiteboard.student.ViewAttendance;
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +32,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import whiteboard.course.Course;
 import whiteboard.course.CourseRepository;
-import whiteboard.document.Document;
-import whiteboard.document.DocumentRepository;
-import whiteboard.document.FileBucket;
-import whiteboard.document.FileValidator;
 import whiteboard.enrollment.Enrollment;
 import whiteboard.enrollment.EnrollmentRepository;
 import whiteboard.grades.Assignment;
@@ -66,6 +63,20 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 
+
+import java.util.stream.Collectors;
+
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+import whiteboard.storage.StorageService;
+
 /**
  * A controller for professors. Professor normally has control over
  * upload/viewing lecture, take/viewing attendance, view the courses that he is
@@ -76,6 +87,8 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
  */
 @Controller
 public class ProfController {
+
+	private final StorageService storageService;
 
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
@@ -96,8 +109,6 @@ public class ProfController {
 	@Autowired
 	private CourseRepository courseRepository;
 
-	@Autowired
-	private DocumentRepository documentRepository;
 
 	@Autowired
 	private AssignmentRepository assignmentRepository;
@@ -108,21 +119,10 @@ public class ProfController {
 	@Autowired
 	private GradesRepository gradesRepository;
 
-	@Autowired
-	MessageSource messageSource;
-
-	@Autowired
-	FileValidator fileValidator;
-
-	/**
-	 * Function that binds the web data created.
-	 * 
-	 * @param binder
-	 */
-	@InitBinder("fileBucket")
-	protected void initBinder(WebDataBinder binder) {
-		binder.setValidator(fileValidator);
-	}
+	
+	List<String> files = new ArrayList<String>();
+	private final Path rootLocation = Paths.get("upload-dir");
+	
 
 	private int glob_profId;
 	private int glob_lectureId;
@@ -132,10 +132,18 @@ public class ProfController {
 	private Date glob_Date;
 	private String glob_Details;
 	private String glob_Link;
+
 	private int glob_assId;
 	private String glob_assName;
 	private int glob_percentage;
 	private int glob_studId;
+
+
+	
+	 @Autowired
+	 public ProfController(StorageService storageService) {
+		 this.storageService = storageService;
+	 }
 
 	/**
 	 * This function gets mapping from professor home. It shows the courses that the
@@ -196,7 +204,8 @@ public class ProfController {
 		this.glob_courseCode = course.courseCode;
 		return "redirect:/prof/course_page";
 	}
-
+	
+	
 	/**
 	 * This function gets mapping from course page. It gets the list of lectures by
 	 * using the professor id and the course code that he/she is enrolled in. Then
@@ -235,6 +244,9 @@ public class ProfController {
 
 		return "prof/course_page";
 	}
+	
+
+   
 
 	/**
 	 * This function posts mapping from course page. If the professor clicks on one
@@ -278,7 +290,8 @@ public class ProfController {
 		}
 
 	}
-
+	
+	
 	/**
 	 * This function gets mapping from view location. It will find the course and
 	 * locate the building assigned to it.
@@ -437,14 +450,6 @@ public class ProfController {
 		model.addAttribute("seatingChart", formatSeats);
 		model.addAttribute("attendance", attendees);
 
-		// List<Document> documents =
-		// documentRepository.findAllByLectureId(lecture.lectureId);
-		// for (Document d : documents) {
-		// System.out.println(d.getName());
-		//
-		// }
-		// model.addAttribute("documents", documents);
-		// model.addAttribute("message","");
 		return "prof/view_lecture";
 	}
 
@@ -460,23 +465,8 @@ public class ProfController {
 	 * @throws IOException
 	 */
 	@PostMapping("/prof/view_lecture")
-	public String view_lecture_post(@Valid FileBucket fileBucket, BindingResult result, @PathVariable Lecture lecture,
-			@ModelAttribute Person person, Model model) throws IOException {
-		if (result.hasErrors()) {
-			System.out.println("validation errors");
-			List<Document> documents = documentRepository.findAllByLectureId(lecture.lectureId);
-			model.addAttribute("documents", documents);
-
-		} else {
-			System.out.println("Fetching file");
-
-			lecture = lectureRepository.findByLectureId(lecture.lectureId);
-			model.addAttribute("lecture", lecture);
-			saveDocument(fileBucket, lecture);
-		}
-
-		model.addAttribute("message", "");
-
+	public String view_lecture_post(Model model) throws IOException {
+		
 		return "prof/prof_home";
 	}
 
@@ -535,12 +525,13 @@ public class ProfController {
 			System.out.println(AssignmentName.courseCode);
 			System.out.println(AssignmentName);
 			this.assignmentRepository.save(AssignmentName);
+			Assignment holdOn = this.assignmentRepository.findByAssName(AssignmentName);
+			this.glob_assId = holdOn.assId;
 			return "redirect:/prof/course_page";
 		} catch (Exception e) {
 			model.addAttribute("message", "Error");
 			return "redirect:/prof/course_page";
 		}
-
 	}
 
 	/**
@@ -553,33 +544,21 @@ public class ProfController {
 	@GetMapping("/prof/grades")
 	public String add_grades(@CookieValue("person") String person, Model model) {
 		Person prof = new Person();
-		Person student = new Person();
 		prof.parseStringData(person.split("===="));
-		student.parseStringData(person.split("===="));
 		this.glob_profId = prof.id;
-		this.glob_studId = student.id;
-
+		
 		// Retrieve list of courses the student is enrolled in
-		ArrayList<Enrollment> courses = new ArrayList<>();
+		ArrayList<Grades> grades = new ArrayList<>();
 		ArrayList<Enrollment> stud = new ArrayList<>();
-		ArrayList<Enrollment> enrolled = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
+		ArrayList<Enrollment> enrolled = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
 		Iterator<Enrollment> e_cur = enrolled.iterator();
 		while (e_cur.hasNext()) {
 			Enrollment temp_stud = e_cur.next();
-			if (student.id == temp_stud.personId) {
-				stud.add(temp_stud);
-			}
+			
+			grades.add(new Grades(0, temp_stud.personId, 1, this.glob_assId));
 		}
-//		ArrayList<Enrollment> stud = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,
-//				"student");
-		
-		// Add objects to view
-		model.addAttribute("message", prof.name);
-		model.addAttribute("studId", student.id);
-		model.addAttribute("stud", stud);
-		model.addAttribute("courses", courses);
 
-		Grades grades = new Grades();
+		//Grades grades = new Grades();
 		model.addAttribute("grades", grades);
 		model.addAttribute("message", "");
 		return "prof/grades";
@@ -595,76 +574,66 @@ public class ProfController {
 	 * @return prof/grades
 	 */
 	@PostMapping("/prof/grades")
-	public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person) {
+	public String post_grades(@ModelAttribute Grades grades, @ModelAttribute Assignment assignment, @ModelAttribute Person person, Model model) {
+		try {
 		glob_courseCode = assignment.courseCode;
 		grades.grade = (grades.grade / 100) * assignment.percentage;
 		grades.assId = glob_assId;
 		this.gradesRepository.save(grades);
 		return "prof/grades";
-
-	}
-
-	/**
-	 * This function gets mapping from uploadOneFile. It will get the file that the
-	 * professor uploaded.
-	 * 
-	 * @param model
-	 * @return prof/uploadOneFile
-	 */
-	@GetMapping("/prof/uploadOneFile")
-	public String uploadOneFile_get(Model model) {
-		FileBucket fileModel = new FileBucket();
-		model.addAttribute("fileBucket", fileModel);
-
-		// List Documents here
-		return "prof/uploadOneFile";
-	}
-
-	/**
-	 * This function posts mapping from uploadOneFile. If the professor would like
-	 * to upload files for their lecture, it will be posted here.
-	 * 
-	 * @param model
-	 * @return prof/course_page
-	 */
-	@PostMapping("/prof/uploadOneFile")
-	public String uploadOneFile_post(@Valid FileBucket fileBucket, BindingResult result, Model model,
-			@PathVariable int lectureId) throws IOException {
-		if (result.hasErrors()) {
-			System.out.println("validation errors");
-			Lecture lec = lectureRepository.findByLectureId(lectureId);
-			model.addAttribute("lecture", lec);
-
-			// List Documents here
-			return "/prof/uploadOneFile";
-		} else {
-			System.out.println("Fetching file");
-			Lecture lec = lectureRepository.findByLectureId(lectureId);
-			saveDocument(fileBucket, lec);
+		}catch(Exception e) {
+			model.addAttribute("message", "Error");
+			return "redirect:/prof/course_page";
 		}
-		return "redirect:/prof/course_page";
+
 	}
 
-	/**
-	 * This function is used to save the documents that was uploaded by the
-	 * professor.
-	 * 
-	 * @param fileBucket
-	 * @param lecture
-	 * @throws IOException
-	 */
-	private void saveDocument(FileBucket fileBucket, Lecture lecture) throws IOException {
+   
+     @GetMapping("/prof/uploadForm")
+     public String listUploadedFiles(Model model) throws IOException {
+    	 String fileName = glob_courseCode+"_";
+    	 
+    	 File folder = new File(this.rootLocation.toString());
+    	 File[] listOfFiles = folder.listFiles();
 
-		Document document = new Document();
+    	     for (int i = 0; i < listOfFiles.length; i++) {
+    	       if (listOfFiles[i].isFile()) {
+    	    	   files.add(listOfFiles[i].getName());
+    	         System.out.println("File " + listOfFiles[i].getName());
+    	       } else if (listOfFiles[i].isDirectory()) {
+    	         System.out.println("Directory " + listOfFiles[i].getName());
+    	       }
+    	     }
+    	     
+    	 model.addAttribute("files", files);
+    	     
+ 		model.addAttribute("totalFiles", "TotalFiles: " + files.size());
 
-		MultipartFile multipartFile = fileBucket.getFile();
+         return "prof/uploadForm";
+     }
+     
+    @GetMapping("/prof/{filename:.+}")
+ 	@ResponseBody
+ 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+    	 System.out.println(filename);
+ 		Resource file = storageService.loadFile(filename);
+ 		return ResponseEntity.ok()
+ 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+ 				.body(file);
+ 	}
+     
 
-		document.setName(multipartFile.getOriginalFilename());
-		document.setDescription(fileBucket.getDescription());
-		document.setType(multipartFile.getContentType());
-		document.setContent(multipartFile.getBytes());
-		document.setLectureId(lecture.lectureId);
-		documentRepository.save(document);
-	}
+     @PostMapping("/prof/uploadForm")
+     public String handleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
+    	 try {
+    		storageService.store(file);
+ 			model.addAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
+ 			System.out.println("uploaded");
+ 			//files.add(file.getOriginalFilename());
+ 		} catch (Exception e) {
+ 			model.addAttribute("message", "FAIL to upload " + file.getOriginalFilename() + "!");
+ 		}
+         return "redirect:/prof/course_page";
+     }
 
 }

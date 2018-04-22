@@ -99,6 +99,17 @@ CREATE TABLE IF NOT EXISTS Grades (
   )
   ;
 
+CREATE TABLE IF NOT EXISTS Notification (
+  `NoteId` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `PersonId` BIGINT NOT NULL, 
+  `CourseCode` VARCHAR(45) NOT NULL,
+  `Note` longblob NOT NULL,
+  `StartDate` date NOT NULL,
+  `EndDate` date NOT NULL,
+  FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
+  FOREIGN KEY (PersonId) REFERENCES person(ID)
+  )
+  ;
   
 
   

@@ -114,11 +114,11 @@ public class StudentController {
 		java.util.Date getCur = new java.util.Date();
     	 Date today_date = new java.sql.Date(getCur.getTime());
 		for (Notification n : nlist) {
-			if (n.getEndDate().before(today_date) ) {
+			//if (n.getEndDate().before(today_date) ) {
 				notificationRepository.delete(n);
-			} else {
-				notifications.add(n);
-			}
+		//	} else {
+		//		notifications.add(n);
+		//	}
 		}
 		ArrayList<String> notes = new ArrayList<String>();
 		for (Notification not: notifications) {

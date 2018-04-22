@@ -24,7 +24,7 @@ public class Grades {
 	public int gradeId;
 	
 	@Column(name = "StudentId")
-	public String studentId;
+	public int studentId;
 	@Column(name = "Grade")
 	public int grade;
 	@Column(name = "ID")
@@ -36,7 +36,7 @@ public class Grades {
 	 * @param grade: grade of the assignment
 	 * @param assId: assignment id to be graded
 	 */
-	public Grades(int gradeId, String studentId, int grade, int assId) {
+	public Grades(int gradeId, int studentId, int grade, int assId) {
 
 		super();
 		this.gradeId = gradeId;
@@ -51,12 +51,21 @@ public class Grades {
 		
 	}
 	
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
 	/**
 	 * Fetches student's id who's assignment will be graded
 	 * @return studentId
 	 */
-	public String getStudentId() {
+	public int getStudentId() {
 		return studentId;
+	}
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
 	}
 	/**
 	 * Fetches grade id
@@ -76,16 +85,7 @@ public class Grades {
 	 * Sets grade for the according assignmnet
 	 * @param grade
 	 */
-	public void setGrade(int grade) {
-		this.grade = grade;
-	}
-	/**
-	 * Fetches the grade of the according assignment
-	 * @return grade
-	 */
-	public int getGrade() {
-		return grade;
-	}
+
 	/**
 	 * Fetches assignment id
 	 * @return assId
@@ -98,6 +98,6 @@ public class Grades {
 	 */
 	@Override
 	public String toString() {
-		return this.studentId+"===="+this.grade+"===="+this.assId;
+		return this.gradeId+"===="+this.studentId+"===="+this.grade+"===="+this.assId;
 	}
 }
