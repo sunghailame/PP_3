@@ -562,7 +562,7 @@ public class ProfController {
 		// Retrieve list of courses the student is enrolled in
 		ArrayList<Enrollment> courses = new ArrayList<>();
 		ArrayList<Enrollment> stud = new ArrayList<>();
-		ArrayList<Enrollment> enrolled = enrollmentRepository.findAll();
+		ArrayList<Enrollment> enrolled = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
 		Iterator<Enrollment> e_cur = enrolled.iterator();
 		while (e_cur.hasNext()) {
 			Enrollment temp_stud = e_cur.next();

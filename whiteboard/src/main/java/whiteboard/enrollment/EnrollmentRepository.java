@@ -41,7 +41,6 @@ public interface EnrollmentRepository extends Repository<Enrollment, Long> {
 	 */
 	ArrayList<Enrollment> findByRole(String string);
 	
-//	Enrollment findByCourseCodeandRole(String course_code, String role);
 	void delete(Enrollment enrollment);
 	
 	Enrollment findById(int id);
