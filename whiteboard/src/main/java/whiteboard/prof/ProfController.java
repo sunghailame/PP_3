@@ -535,12 +535,13 @@ public class ProfController {
 			System.out.println(AssignmentName.courseCode);
 			System.out.println(AssignmentName);
 			this.assignmentRepository.save(AssignmentName);
+			Assignment holdOn = this.assignmentRepository.findByAssName(AssignmentName);
+			this.glob_assId = holdOn.assId;
 			return "redirect:/prof/course_page";
 		} catch (Exception e) {
 			model.addAttribute("message", "Error");
 			return "redirect:/prof/course_page";
 		}
-
 	}
 
 	/**
@@ -557,27 +558,17 @@ public class ProfController {
 		this.glob_profId = prof.id;
 		
 		// Retrieve list of courses the student is enrolled in
-		ArrayList<Enrollment> courses = new ArrayList<>();
+		ArrayList<Grades> grades = new ArrayList<>();
 		ArrayList<Enrollment> stud = new ArrayList<>();
-		ArrayList<Enrollment> enrolled = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
+		ArrayList<Enrollment> enrolled = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
 		Iterator<Enrollment> e_cur = enrolled.iterator();
 		while (e_cur.hasNext()) {
 			Enrollment temp_stud = e_cur.next();
-			if (prof.id == temp_stud.personId) {
-				stud.add(temp_stud);
-				System.out.println(stud);
-			}
-		}
-//		ArrayList<Enrollment> stud = this.enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode,
-//				"student");
 		
-		// Add objects to view
-		model.addAttribute("message", prof.name);
-//		model.addAttribute("studId", student.id);
-		model.addAttribute("stud", stud);
-		model.addAttribute("courses", courses);
+			grades.add(new Grades(0, temp_stud.personId, 1, this.glob_assId));
+		}
 
-		Grades grades = new Grades();
+		//Grades grades = new Grades();
 		model.addAttribute("grades", grades);
 		model.addAttribute("message", "");
 		return "prof/grades";
