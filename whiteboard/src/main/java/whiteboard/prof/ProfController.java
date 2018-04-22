@@ -589,7 +589,7 @@ public class ProfController {
 	}
 
    
-     @GetMapping("/prof/uploadForm")
+     @GetMapping("/prof/uploadOneFile")
      public String listUploadedFiles(Model model) throws IOException {
     	 String fileName = glob_courseCode+"_";
     	 
@@ -609,7 +609,7 @@ public class ProfController {
     	     
  		model.addAttribute("totalFiles", "TotalFiles: " + files.size());
 
-         return "prof/uploadForm";
+         return "prof/uploadOneFile";
      }
      
     @GetMapping("/prof/{filename:.+}")
@@ -623,7 +623,7 @@ public class ProfController {
  	}
      
 
-     @PostMapping("/prof/uploadForm")
+     @PostMapping("/prof/uploadOneFile")
      public String handleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
     	 try {
     		storageService.store(file);
