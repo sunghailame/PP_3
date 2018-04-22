@@ -133,6 +133,9 @@ public class AdminController {
 					Person user = u_cur.next();
 					EnrollPerson p = new EnrollPerson(user.id, false, user.username, user.role);
 					users.add(p);
+					if(p.isEnrolled()) {
+						enrollmentRepository.delete(new Enrollment(enrollment.id, p.getId(), glob_courseCode, enrollment.sectionNo, p.getRole()));
+					}
 					
 					System.out.println(users);
 				}

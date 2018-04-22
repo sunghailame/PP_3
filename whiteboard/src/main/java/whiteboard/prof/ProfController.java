@@ -626,7 +626,7 @@ public class ProfController {
 			saveDocument(fileBucket, lec);
 
 	}
-
+	}
    
      @GetMapping("/prof/uploadOneFile")
      public String listUploadedFiles(Model model) throws IOException {
