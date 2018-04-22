@@ -35,9 +35,9 @@
 	</table>
 	<button id="subBack" type="submit" class="btn btn-primary btn-lg" >Submit</button>
     </form>
-    
+    <div id="notificationBar">
     <form action="#" th:action="@{/student/student_home}" th:object="${notifications}" method="post">
-   		 <div id="notificationBar">
+   		 
    		 	<table>
    		 		<tr>
    		 		<th> Notifications </th>
@@ -46,7 +46,7 @@
    		 			<td th:text="${notification}"></td>
    		 		</tr>
    		 	</table>
-   		 </div>
     </form>
+     </div>
 </body>
 </html>
