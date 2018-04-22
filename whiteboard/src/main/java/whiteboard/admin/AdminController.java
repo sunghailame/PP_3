@@ -43,6 +43,7 @@ public class AdminController {
 	private PersonRepository personRepository;
 	
 	private int glob_EnrollId;
+	private String glob_courseCode;
 	
 	/**
 	 * Homepage for the administrator; routed from LoginController, contigent on user's role = admin
@@ -253,6 +254,7 @@ public class AdminController {
 				System.out.println(splitUser[0]);
 				Enrollment e = enrollmentRepository.findByCourseCodeAndPersonIdAndRole(splitUser[1],Integer.parseInt(splitUser[0]),splitUser[3]);
 				System.out.println(e.toString());
+//				Enrollment en = enrollmentRepository.findByCourseCodeandRole(this.glob_courseCode, "student");
 				if (splitUser == u_cur.next().split("====deleteStudent")) {
 					this.enrollmentRepository.delete(e);
 				}

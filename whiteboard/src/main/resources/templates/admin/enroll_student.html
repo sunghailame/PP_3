@@ -51,6 +51,7 @@
         <td th:text="${user.username}"></td>
         <td th:text="${user.id}"></td>
         <td><input id="studentChecked" type="checkbox" onclick="radioFunction()" th:name="enrolled" th:value="${user}" /></td>
+
         <td><input id="studentUnchecked" type="checkbox" onclick="radioFunction()" th:name="enrolled" th:value="${user}+'====deleteStudent'" /></td>
         </tr>
 	
