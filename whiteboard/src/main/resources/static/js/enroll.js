@@ -8,6 +8,7 @@ function enroll() {
 		document.getElementById("sub").addEventListener("click", function(){
 		
 			if(document.getElementById("courseSelected").selected != true){
+				document.getElementById("courseSelected").value == 
 		        alert("Please select course");
 			}
 			if(document.getElementById("studentChecked").selected != true){	
