@@ -24,6 +24,13 @@ public class NotificationGenerator {
 		return this.notification;
 	}
 	
+
+	public Notification createNotification_newAssignment(String courseCode, String name) {
+		this.notification.courseCode = courseCode;
+		String note = courseCode+"\nNew Assignment Created: \nName of Assignment - "+name; 
+		this.notification.note = note.getBytes();
+		return this.notification;
+	}
 	
 	
 }
