@@ -246,7 +246,7 @@ public class StudentController {
     	 int assId;
     	 
     	 assignment = this.assignmentRepository.findByAssId(this.glob_assId);
-    	 
+    	 files = new ArrayList<String>();
     	 //Student can view files uploaded
     	 File folder = new File(this.rootLocation.toString());
     	 File[] listOfFiles = folder.listFiles();
