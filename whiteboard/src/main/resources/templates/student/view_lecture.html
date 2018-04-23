@@ -16,7 +16,6 @@
 	<div id="sidebar">
 	<ul id="contents">
 		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
-  		<li id="addFile"><a href="../prof/uploadOneFile">Upload File</a></li>
   		<li id="logout"><a href="../../whiteboard">logout</a></li>
 	</ul>
 	</div>
@@ -94,13 +93,13 @@
 </form>
 	<script type="text/javascript" src="../js/attendance.js"></script>
 	<div id="uploadedFiles">
-		<h1>List of Uploaded Files</h1>
+		<h3>List of Uploaded Files</h3>
 			<li th:each="file : ${files}">
 				<a th:href="${file}" th:text="${file}" />
 			</li>
 	</div>
 	<div>
-		<h3 th:text="${totalFiles}"/>
+		<h3 th:text="${totalFiles}"></h3>
 	</div>
 
 </body>
