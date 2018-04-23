@@ -1,13 +1,20 @@
 package whiteboard.student;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -18,8 +25,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import whiteboard.course.Course;
 import whiteboard.course.CourseRepository;
@@ -43,6 +52,7 @@ import whiteboard.notification.Notification;
 import whiteboard.notification.NotificationGenerator;
 import whiteboard.notification.NotificationRepository;
 import whiteboard.prof.ViewLecture;
+import whiteboard.storage.StorageService;
 /**
  * A controller for students. A student views lectures, they take attendance, view the seating chart and Submit assignment and view grades
  * @author Mireille Mwiza Iradukunda
@@ -76,6 +86,10 @@ public class StudentController {
 	@Autowired
 	private PersonRepository personRepository;
 
+	private final StorageService storageService;
+	
+	List<String> files = new ArrayList<String>();
+	private final Path rootLocation = Paths.get("upload-dir");
 	
 	private int glob_profId;
 	private String glob_courseCode;
@@ -84,6 +98,11 @@ public class StudentController {
 	private int glob_studId;
 	private int glob_assId;
 	
+	
+	@Autowired
+	public StudentController(StorageService storageService) {
+		this.storageService = storageService;
+	}
 	/**
 	 * This function gets mapping from student home. It shows the courses that the student is currently enrolled in. 
 	 * @param person: person object
@@ -114,11 +133,11 @@ public class StudentController {
 		java.util.Date getCur = new java.util.Date();
     	 Date today_date = new java.sql.Date(getCur.getTime());
 		for (Notification n : nlist) {
-			//if (n.getEndDate().before(today_date) ) {
+			if (n.getEndDate().before(today_date) ) {
 				notificationRepository.delete(n);
-		//	} else {
-		//		notifications.add(n);
-		//	}
+			} else {
+				notifications.add(n);
+			}
 		}
 		ArrayList<String> notes = new ArrayList<String>();
 		for (Notification not: notifications) {
@@ -203,11 +222,8 @@ public class StudentController {
      @GetMapping("/student/view_lecture")
      public String view_lecture_get(Model model) {
     	 Lecture lecture = new Lecture();
-    	 int lecId;
-    	 
+    	 int lecId; 
     	 lecture = this.lectureRepository.findByLectureId(this.glob_lecId);
-    	
-    	 
     	 SeatingGenerator formatSeats = new SeatingGenerator();
     	 formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lecId);
     	 formatSeats.displaySeats();
@@ -221,12 +237,40 @@ public class StudentController {
     	 
     	 assignment = this.assignmentRepository.findByAssId(this.glob_assId);
     	 
+    	 //Student can view files uploaded
+    	 File folder = new File(this.rootLocation.toString());
+    	 File[] listOfFiles = folder.listFiles();
+    	     for (int i = 0; i < listOfFiles.length; i++) {
+    	       if (listOfFiles[i].isFile()) {
+    	    	   files.add(listOfFiles[i].getName());
+    	         System.out.println("File " + listOfFiles[i].getName());
+    	       } else if (listOfFiles[i].isDirectory()) {
+    	         System.out.println("Directory " + listOfFiles[i].getName());
+    	       }
+    	     }
+    	    
+    	     
+    	 model.addAttribute("files", files);
+    	     
+ 		model.addAttribute("totalFiles", "TotalFiles: " + files.size());
+
+    	 
     	 model.addAttribute("assignment", assignment);
     	 model.addAttribute("message", "");
     	 
      	 return "student/view_lecture";
 
      }
+     
+     @GetMapping("/student/{filename:.+}")
+  	@ResponseBody
+  	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+     	 System.out.println(filename);
+  		Resource file = storageService.loadFile(filename);
+  		return ResponseEntity.ok()
+  				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+  				.body(file);
+  	}
      /**
       * This function posts mapping from student view lecture page. If the student clicks on one of the course code that he/she would like to view, it will prompt him/her to the lecture page where they can view seating chart, take attendance, and the grades.
       * @param person

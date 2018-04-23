@@ -13,12 +13,7 @@
 </head>
 <body>
 
-	<div id="sidebar">
-	<ul id="contents">
-		<li id="logo"><a href="student_home">WhiteBoard</a></li>
-  		<li id="logout"><a href="../../whiteboard">logout</a></li>
-	</ul>
-	</div>
+	
 	
 	<h1>Lecture details</h1>
 	
@@ -92,5 +87,15 @@
 
 </form>
 	<script type="text/javascript" src="../js/attendance.js"></script>
+	<div id="uploadedFiles">
+		<h1>List of Uploaded Files</h1>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}" />
+			</li>
+	</div>
+	<div>
+		<h3 th:text="${totalFiles}"/>
+	</div>
+
 </body>
 </html>
