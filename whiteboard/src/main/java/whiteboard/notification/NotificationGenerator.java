@@ -32,5 +32,11 @@ public class NotificationGenerator {
 		return this.notification;
 	}
 	
+	public Notification createNotification_AssignmentGraded(String courseCode, String name) {
+		this.notification.courseCode = courseCode;
+		String note = courseCode+"\nAssignment Graded"; 
+		this.notification.note = note.getBytes();
+		return this.notification;
+	}
 	
 }
