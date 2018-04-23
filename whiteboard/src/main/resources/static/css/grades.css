@@ -15,6 +15,12 @@ input[type=text] {
     box-sizing: border-box;
 }
 
+th, td, tr {
+	margin-left:50%;
+	color: #4682B4;
+	text-align: left;
+}
+
 #seatingChart {
 	margin-left:45%;
 	color: #4682B4;
