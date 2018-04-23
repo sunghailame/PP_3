@@ -586,10 +586,7 @@ public class ProfController {
 		return "redirect:/prof/course_page";
 
 	}
-
-	
-
-   
+ 
      @GetMapping("/prof/uploadOneFile")
      public String listUploadedFiles(Model model) throws IOException {
     	 String fileName = glob_courseCode+"_";
