@@ -243,7 +243,7 @@ public class AdminController {
 	 * @return admin_home.html
 	 */
 	@PostMapping("/admin/enroll_student")
-	public String enroll_student_post(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) {
+	public String enroll_student_post(@RequestParam("enrolled") List<String> enroll_users, @RequestParam("c_enrolled") String enroll_course, Model model) throws Exception {
 		String courseCode;
 		try {
 			//Parse the string data send back from the view
