@@ -35,10 +35,23 @@
         <td><input type="radio" th:name="view_lecture" th:value="${lecture}+'====na'" /></td>
         </tr>
 	</table>
+	
    <p id="subBack">
     	<button type="submit" class="btn btn-primary">Submit</button>
     	<a href="student_home">Back</a>
     </p>
     </form>
+    <h1>Grades</h1>
+	<table align="center" th:object="${grades}">
+	<tr>
+	<th>Assignment ID</th>
+	<th>Grades</th>
+	</tr>
+	<tr th:each="grade : ${grades}">
+        <td th:text="${grade?.assId}"></td>
+        <td th:text="${grade?.grade}"></td>
+        </tr>
+	</table>
+   
 </body>
 </html>
