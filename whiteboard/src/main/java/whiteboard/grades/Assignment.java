@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 /**
  * This class contains information of assignment entity created by professor for each course.
  * @author Sung Yealim
@@ -24,10 +26,13 @@ public class Assignment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int assId;
 	
+	@NotEmpty
 	@Column(name = "CourseCode")
 	public String courseCode;
+	@NotEmpty
 	@Column(name = "AssignmentName")
 	public String assName;
+	@NotEmpty
 	@Column(name = "Percentage")
 	public int percentage;
 //	private String percentageS = Integer.toString(percentage);
