@@ -234,14 +234,10 @@ public class StudentController {
  	 * @return student/view_lecture
  	 */
      @GetMapping("/student/view_lecture")
-     public String view_lecture_get(Model model) {
+     public String view_lecture_get(Model model) throws Exception {
     	 Lecture lecture = new Lecture();
     	 int lecId; 
     	 lecture = this.lectureRepository.findByLectureId(this.glob_lecId);
-    	 SeatingGenerator formatSeats = new SeatingGenerator();
-    	 formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lecId);
-    	 formatSeats.displaySeats();
-    	 model.addAttribute("seatingChart", formatSeats);
     	 
     	 model.addAttribute("lecture", lecture);
     	 model.addAttribute("message","");
@@ -272,7 +268,39 @@ public class StudentController {
     	 model.addAttribute("assignment", assignment);
     	 model.addAttribute("message", "");
     	 
-     	 return "student/view_lecture";
+    	 
+    	 try {
+ 			SeatingGenerator formatSeats = new SeatingGenerator();
+ 			formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lecId);
+ 			if(formatSeats.seatingList.isEmpty()) {
+ 				List<String> seatNulls = new ArrayList<>();
+ 				for(int x = 1; x < 6; x++) {
+ 					for(int y = 0; y < 5; y++) {
+ 						seatNulls.add(x+","+y+"Select student");
+ 					}
+ 				}
+ 				formatSeats.assignNulls(seatNulls, this.glob_lecId);
+ 				formatSeats.displaySeats();
+ 				model.addAttribute("seatingChart", formatSeats);
+ 			} else {
+ 				formatSeats.displaySeats();
+ 				model.addAttribute("seatingChart", formatSeats);
+ 			}
+ 			
+ 			return "student/view_lecture";
+ 		} catch (Exception e) {
+ 			SeatingGenerator formatSeats = new SeatingGenerator();
+ 			List<String> seatNulls = new ArrayList<>();
+ 			for(int x = 1; x < 6; x++) {
+ 				for(int y = 0; y < 5; y++) {
+ 					seatNulls.add(x+","+y+"Select student");
+ 				}
+ 			}
+ 			formatSeats.assignNulls(seatNulls, this.glob_lecId);
+ 			formatSeats.displaySeats();
+ 			model.addAttribute("seatingChart", formatSeats);
+ 			return "student/view_lecture";
+ 		}
 
      }
      

@@ -58,6 +58,16 @@ public class SeatingGenerator{
 			}
 		}
 	}
+	public void assignNulls(List<String> stringList, int lectureId) {
+		Iterator<String> cur = stringList.iterator();
+		while(cur.hasNext()) {
+			String val = cur.next();
+				int row = Integer.parseInt(val.substring(0,1));
+				int column = Integer.parseInt(val.substring(2,3));
+				SeatingChart stud = new SeatingChart(0, lectureId, 3000028, "Empty Seat", row, column);
+				seatingList.add(stud);
+			}
+		}
 	
 	public void displaySeats() {
 		Iterator<SeatingChart> cur = this.seatingList.iterator();
