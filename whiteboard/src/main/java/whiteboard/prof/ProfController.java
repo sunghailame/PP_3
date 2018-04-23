@@ -589,8 +589,6 @@ public class ProfController {
  
      @GetMapping("/prof/uploadOneFile")
      public String listUploadedFiles(Model model) throws IOException {
-    	 String fileName = glob_courseCode+"_";
-    	 
     	 File folder = new File(this.rootLocation.toString());
     	 File[] listOfFiles = folder.listFiles();
 
