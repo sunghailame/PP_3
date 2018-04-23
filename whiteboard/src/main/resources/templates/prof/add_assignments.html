@@ -24,7 +24,7 @@
     <p th:text="''+${message}"/>
     <form id="myForm" action="#" th:action="@{/prof/add_assignments}" th:object="${assignments}" method="post">
 
-           <p>Assignment Name: <input id="AssignmentName" class="form-control" type="text" placeholder="Enter the weightage" th:field="*{assName}" /></p>
+           <p>Assignment Name: <input id="AssignmentName" class="form-control" type="text" placeholder="Enter assignment name" th:field="*{assName}" /></p>
 
             <p>Percentage: <input id="percentage" class="form-control" type="number" placeholder="Enter the weightage" th:field="*{percentage}" /></p>
         <p>
