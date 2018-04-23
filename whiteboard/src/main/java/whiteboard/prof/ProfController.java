@@ -144,6 +144,7 @@ public class ProfController {
 	 @Autowired
 	 public ProfController(StorageService storageService) {
 		 this.storageService = storageService;
+		 files = new ArrayList<String>();
 	 }
 
 	/**
@@ -233,7 +234,7 @@ public class ProfController {
 				lectures.add(lecture);
 			}
 		}
-
+		
 		// Attach the lectureList to the view
 		FormWrapper lectureList = new FormWrapper();
 		lectureList.setLectures(lectures);
@@ -619,6 +620,14 @@ public class ProfController {
 			nextGrade.grade = Integer.parseInt(students[x]);
 			this.gradesRepository.save(nextGrade);
 			x++;
+		}
+		ArrayList<Enrollment> receivers = new ArrayList<Enrollment>();
+		receivers = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
+		for (Enrollment e : receivers) {
+			Notification n = new Notification();
+			NotificationGenerator ng = new NotificationGenerator(e.personId);
+			n = ng.createNotification_AssignmentGraded(glob_courseCode, glob_assName);
+			notificationRepository.save(n);
 		}
 		return "redirect:/prof/course_page";
 

@@ -107,6 +107,7 @@ public class StudentController {
 	@Autowired
 	public StudentController(StorageService storageService) {
 		this.storageService = storageService;
+		files = new ArrayList<String>();
 	}
 	/**
 	 * This function gets mapping from student home. It shows the courses that the student is currently enrolled in. 

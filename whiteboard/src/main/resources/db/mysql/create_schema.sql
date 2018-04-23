@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS Lecture (
   FOREIGN KEY (ProfID) REFERENCES person(ID),
   FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
   CONSTRAINT UC_Lecture UNIQUE (ProfID, lecDate, Title, CourseCode)
-  
 )
 ;
 
@@ -54,17 +53,6 @@ CREATE TABLE IF NOT EXISTS Attendance (
   `StuId` BIGINT,
   FOREIGN KEY (LectureID) REFERENCES Lecture(LectureID),
   FOREIGN KEY (StuId) REFERENCES Enrollment(PersonID)
-  )
-  ;
-  
-CREATE TABLE IF NOT EXISTS Document (
-  `ID` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  `LectureID` BIGINT NOT NULL, 
-  `name` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(255),
-  `type` VARCHAR(100) NOT NULL,
-  `content` longblob NOT NULL,
-  FOREIGN KEY (LectureId) REFERENCES Lecture(LectureID)
   )
   ;
   
@@ -108,6 +96,14 @@ CREATE TABLE IF NOT EXISTS Notification (
   `EndDate` date NOT NULL,
   FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
   FOREIGN KEY (PersonId) REFERENCES person(ID)
+  )
+  ;
+  
+CREATE TABLE IF NOT EXISTS Location (
+  `LocationId` BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `Building` VARCHAR(45) NOT NULL,
+  `Latitude` VARCHAR(45) NOT NULL,
+  `Longitude` VARCHAR(45) NOT NULL
   )
   ;
   
