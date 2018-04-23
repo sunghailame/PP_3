@@ -413,7 +413,8 @@ public class ProfController {
 	 * @return prof/view_lecture
 	 */
 	@GetMapping("/prof/view_lecture")
-	public String view_lecture_get(Model model) {
+	public String view_lecture_get(Model model) throws Exception {
+		
 		Lecture lecture = new Lecture();
 		ArrayList<Lecture> temp_lecture = lectureRepository.findAll();
 		Iterator<Lecture> l_cur = temp_lecture.iterator();
@@ -446,14 +447,41 @@ public class ProfController {
 			attendees.add(new ViewAttendance(temp_attend.studId, findName.username));
 
 		}
-
-		SeatingGenerator formatSeats = new SeatingGenerator();
-		formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lectureId);
-		formatSeats.displaySeats();
-		model.addAttribute("seatingChart", formatSeats);
-		model.addAttribute("attendance", attendees);
-
-		return "prof/view_lecture";
+		int r = 1;
+		try {
+			SeatingGenerator formatSeats = new SeatingGenerator();
+			formatSeats.seatingList = this.seatingRepository.findByLectureIdOrderByColumn(this.glob_lectureId);
+			if(formatSeats.seatingList.isEmpty()) {
+				List<String> seatNulls = new ArrayList<>();
+				for(int x = 1; x < 6; x++) {
+					for(int y = 0; y < 5; y++) {
+						seatNulls.add(x+","+y+"Select student");
+					}
+				}
+				formatSeats.assignNulls(seatNulls, this.glob_lectureId);
+				formatSeats.displaySeats();
+				model.addAttribute("seatingChart", formatSeats);
+			} else {
+				formatSeats.displaySeats();
+				model.addAttribute("seatingChart", formatSeats);
+				model.addAttribute("attendance", attendees);
+			}
+			
+			return "prof/view_lecture";
+		} catch (Exception e) {
+			SeatingGenerator formatSeats = new SeatingGenerator();
+			List<String> seatNulls = new ArrayList<>();
+			for(int x = 1; x < 6; x++) {
+				for(int y = 0; y < 5; y++) {
+					seatNulls.add(x+","+y+"Select student");
+				}
+			}
+			formatSeats.assignNulls(seatNulls, this.glob_lectureId);
+			formatSeats.displaySeats();
+			model.addAttribute("seatingChart", formatSeats);
+			model.addAttribute("attendance", attendees);
+			return "prof/view_lecture";
+		}
 	}
 
 	/**
