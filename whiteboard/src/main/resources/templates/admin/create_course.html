@@ -30,7 +30,7 @@
 			<p>Enter Course Name: <input id="course_name" type="text" th:field="*{course_name}" /></p>
 
 			<div id="location" th:object="${locations}">
-			<select th:name="location_select">
+			<select id="location" th:name="location_select">
 			<option value="default">Choose location</option>
 				<option th:each="location : ${locations}" th:value="${location.toStringData()}" th:text="${location}"></option>
 			</select>
