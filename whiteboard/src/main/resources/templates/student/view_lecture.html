@@ -15,8 +15,8 @@
 
 	<div id="sidebar">
 	<ul id="contents">
-		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
-  		<li id="logout"><a href="../../whiteboard">logout</a></li>
+		<li id="logo"><a href="student_home">WhiteBoard</a></li>
+  		<li id="logout"><a href="../whiteboard">logout</a></li>
 	</ul>
 	</div>
 	
@@ -37,16 +37,10 @@
     	<td th:text="${lecture.details}"/>
     	<td th:text="${lecture.link}"/>
 	</tr>
-	</table>	
-	<div id="lecT" th:if="${lecture.attendance} == true">
-		<p> Attendance: <input type="radio" th:name="attendance" th:value="${lecture}+'====attendance'" /></p>
-
-	</div>
-	<div id="lecF" th:unless="${lecture.attendance} == false">
-		<p></p>
-	</div>
+	</table>
 	
-	<h3>Seating Chart</h3>
+	
+	<h1>Seating Chart</h1>
     <table id="chart" align="center" class="fixed" th:object="${seatingChart}">
     	<tr>
     		<th>1</th>
@@ -84,7 +78,13 @@
     		<td th:text="${seatingChart.row_four[4].studName}"></td>    		
     	</tr>
     </table>
-	
+	<div id="lecT" th:if="${lecture.attendance} == true">
+		<label>Attendance: <input type="radio" th:name="attendance" th:value="${lecture}+'====attendance'" /></label>
+
+	</div>
+	<div id="lecF" th:unless="${lecture.attendance} == false">
+		<p></p>
+	</div>
     <p id="subBack">
     	<button type="submit" class="btn btn-primary">Submit</button>
     	<a href="student_home">Back</a>
