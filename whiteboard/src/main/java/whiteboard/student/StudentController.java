@@ -217,7 +217,6 @@ public class StudentController {
       * @return student/view_lecture
       */
      @PostMapping("/student/course_page")
-
      public String course_page_post(@ModelAttribute Person person, @RequestParam("view_lecture") String view_lecture, Model model) {
     	 Lecture retLec = new Lecture();
     	 retLec.parseStringData(view_lecture.split("===="));
@@ -261,10 +260,7 @@ public class StudentController {
     	    
     	     
     	 model.addAttribute("files", files);
-    	     
  		model.addAttribute("totalFiles", "TotalFiles: " + files.size());
-
-    	 
     	 model.addAttribute("assignment", assignment);
     	 model.addAttribute("message", "");
     	 
@@ -304,7 +300,7 @@ public class StudentController {
 
      }
      
-     @GetMapping("/student/{filename:.+}")
+    @GetMapping("/student/{filename:.+}")
   	@ResponseBody
   	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
      	 System.out.println(filename);
