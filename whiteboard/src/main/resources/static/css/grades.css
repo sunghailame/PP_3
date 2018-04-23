@@ -1,11 +1,16 @@
 #gradingList{
 	margin-left:50%;
 	color: #4682B4;
-	text-align: left;
+	text-align:left;
 }
-
+#myForm{
+	margin-right:43%;
+	text-align:right;
+	padding-top:6%;
+	padding-bottom:3%;
+}
 #subBack {
-	margin-left:35%;
+	margin-left:10%;
 	padding-top:4%
 }
 input[type=text] {
