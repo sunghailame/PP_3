@@ -13,12 +13,6 @@
 </head>
    
    <body>
-	<div id="sidebar">
-	<ul id="contents">
-		<li id="logo"><a href="prof_home">WhiteBoard</a></li>
-  		<li id="logout"><a href="../../whiteboard">logout</a></li>
-	</ul>
-	</div>
 
 	<div th:if="${message}">
 		<h2 th:text="${message}"/>
@@ -42,11 +36,9 @@
 			</li>
 	</div>
 	<div>
-		<h3 th:text="${totalFiles}"/>
+		<h3 th:text="${totalFiles}"></h3>
 	</div>
-        <p id="subBack">
-            	<button id="submit" type="submit" class="btn btn-primary" >Submit</button>
-            	<a href="prof_home">Back</a></p>
+        
        
    </body>
 </html>
