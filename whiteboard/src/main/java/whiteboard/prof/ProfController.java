@@ -528,6 +528,15 @@ public class ProfController {
 			System.out.println(AssignmentName);
 			this.assignmentRepository.save(AssignmentName);
 			this.glob_assName = AssignmentName.assName;
+			
+			ArrayList<Enrollment> receivers = new ArrayList<Enrollment>();
+			receivers = enrollmentRepository.findByCourseCodeAndRole(this.glob_courseCode, "student");
+			for (Enrollment e : receivers) {
+				Notification n = new Notification();
+				NotificationGenerator ng = new NotificationGenerator(e.personId);
+				n = ng.createNotification_newAssignment(glob_courseCode, AssignmentName.assName);
+				notificationRepository.save(n);
+			}
 			return "redirect:/prof/course_page";
 		} catch (Exception e) {
 			model.addAttribute("message", "Error");

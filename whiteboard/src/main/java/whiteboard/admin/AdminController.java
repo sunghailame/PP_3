@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -163,7 +165,7 @@ public class AdminController {
 				return "admin/withdraw_student";
 	}
 
-	@PostMapping("/admin/withdraw_student")
+	@DeleteMapping("/admin/withdraw_student")
 	public String deleteStudent(Model model, @PathVariable(value = "ID") int id, @RequestParam("c_enrolled") String enroll_course, @RequestParam("enrolled") List<String> enroll_users) {
 		String courseCode;
 		try {
@@ -187,6 +189,10 @@ public class AdminController {
 		return "/admin/admin_home";
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void delete() {
+		
+	}
 	/**
 	 * Gets the list of all possible courses and students and adds them to the wrapper class.
 	 * Adds this object to the model for viewing.
