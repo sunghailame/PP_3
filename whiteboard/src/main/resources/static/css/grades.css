@@ -1,68 +1,62 @@
-table, th{
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
-    margin-right:20%;
-    text-align: left;
-    color:#4682B4;
-    width:60%;
-}
-td, th{
-  	width:100%;
-  	height:100%;
-}
-
-td {
-	border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
-    margin-right:20%;
-    text-align: left;
-    color:#4682B4;
-    table-layout: fixed;
-    width:100px;
-}
-
-.map {
-	float:middle;
-}
-
-.chart {
-	empty-cells: show;
-	table-layout: fixed;
-	width: 500px;
-	border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
-    margin-right:20%;
-    text-align: left;
-    color:#4682B4;
+#gradingList{
+	margin-left:50%;
+	color: #4682B4;
+	text-align: left;
 }
 
 #subBack {
-	padding-top:1%;
-	margin-left:70%;
+	margin-left:35%;
+	padding-top:4%
+}
+input[type=text] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
 
-h1 {
-	margin-left:18%;
+#seatingChart {
+	margin-left:45%;
 	color: #4682B4;
+    width: 100%;
+	text-align: center;
+	height:100%;
+	padding-top:2%;
+	border-collapse:separate;
+	border-spacing:10px;
+}
+
+#studList{
+	margin-left:45%;
+	color: #4682B4;
+    width: 100%;
+	text-align: center;
+	height:100%;
+	padding-top:2%;
+	border-collapse:separate;
+
+}
+table{
+	border: 1px solid black;
+	border-collapse:separate;
+    padding-bottom:2%;
+}
+th{
+	text-align:center;
+}
+td {
+    height: 50px;
+}
+h1 {
+	margin-left:25%;
 	padding-bottom:2%;
 }
-#lecT, #lecF {
-    position:fixed;
-    top: 25%;
-    left: 20%;
-    width:30px;
-    height:18px;
+p{
+	margin-left:34%;
+	width:70%;
+	color:#4682B4;
+	padding-bottom:1%
 }
-
-h3 {
-	margin-left:20%;
-	color: #4682B4;
-	padding-bottom:1%;
-}
-
 ul {
     list-style-type: none;
     margin: 0;
@@ -77,29 +71,24 @@ ul {
 #logout {
     display: block;
     color: black;
+    padding-bottom:2%;
     background-color: white;
     padding: 8px 16px;
     text-decoration: none;
     border-bottom: 1px solid #555;
     font-family: "Comic Sans MS", cursive, sans-serif;
-
-
 }
-#fileUpload{
+#addFile {
     display: block;
     color: black;
+    padding-bottom:2%;
     background-color: white;
     padding: 8px 16px;
     text-decoration: none;
     border-bottom: 1px solid #555;
     font-family: "Comic Sans MS", cursive, sans-serif;
-
-
 }
-h3 {
-    margin-left:1%;
-    padding-bottom:4%;
-}
+
 #logo {
     display: block;
     color: black;
